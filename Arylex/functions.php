@@ -17,6 +17,8 @@ if ( !is_nav_menu('Header')) {
 //Añadir Excerpt para post y pages 
 add_post_type_support('page', 'excerpt');
 
+add_theme_support( 'post-thumbnails' );
+
 remove_filter( 'the_content', 'wpautop' );
 remove_filter( 'the_excerpt', 'wpautop' );
 
