@@ -16,7 +16,8 @@
     	<p><?php the_content();?></p>
         <!--Info del player-->
         <?php
-        	
+        	$title_vid=types_render_field("title-video",array("output"=>"html"));
+			$url_vid=types_render_field("url-video",array("output"=>"html"));
 		?>
     </div>
 	<div class="box-main">
@@ -30,7 +31,7 @@
     </div>
     <div class="box-main">
     	<div class="left_box">
-         	<img src="<?php echo types_render_field("image-bottom-home-box",array("output"=>"normal","alt"=>__('Texto alternativo','arylex')));?>">   
+         	<?php echo types_render_field("image-bottom-home-box",array("output"=>"normal","alt"=>__('Texto alternativo','arylex')));?>  
         </div>
         <div class="right_box">
         	<h3><?php echo types_render_field("title-bottom-home-box", array("output"=>"html"));?></h3>
