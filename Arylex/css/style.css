@@ -72,11 +72,15 @@ a:active, a:focus, a:visited {
 /*****************************
 PROPIEDADES GENERALES
 ******************************/
-.contenedor{max-width:960px;width:100%;margin:0 auto;padding-top:50px;padding-bottom:50px;}
+.contenedor{max-width:960px;width:100%;margin:0 auto;padding-bottom:50px;}
 #cabecera{background:red;}
 #pie{background:green;}
 #logo_top{width:400px;height:100px;overflow:hidden;}
 #logo_top a{display:block;width:400px;height:100px;background-image:url(../img/logo_sprite.png);background-repeat:no-repeat;background-position:0px 0px;text-indent:-99999px;}
+.box-main{overflow:hidden;}
+.box-main .left_box{float:left;width:50%;}
+.box-main .right_box{float:left;width:50%;}
+#cover_top{background-repeat:no-repeat;background-size:cover;background-position:center center;height:350px;}
 
 /*****************************
 PROPIEDADES ESPECIALES
