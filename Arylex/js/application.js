@@ -9,7 +9,7 @@ Cliente: Dow Arylex
 /**********************
 VARIABLES
 **********************/
-
+ var alm_is_animating = false;
 
 //Eventos para dispositivos móviles
 var ua = navigator.userAgent,
@@ -27,7 +27,9 @@ jQuery(window).load(function(){
 });
 
 jQuery(document).ready(function(){
-	//Abrir el modal de registro 
+	
+	
+	//Opciones de Key Benefits de la Home 
 	jQuery(document).on("click",".box_KB ul li a", function(e) {
 		e.preventDefault();
 		
@@ -36,10 +38,34 @@ jQuery(document).ready(function(){
 		jQuery(this).addClass('active');
 		
 		jQuery(".content-KB").removeClass('active');
-		jQuery('#'+opc).addClass('active');
-		
+		jQuery('#'+opc).addClass('active');	
 	});
 	
+	//Cambiar categorias en FAQs
+	jQuery(document).on("click","ul.menu-faqs li a", function(e) {
+		e.preventDefault();
+		
+		var opc=jQuery(this).attr('rel');
+		console.log(opc);
+		var cambio;
+		cambio = {taxonomyTerms:opc};  
+    
+      	alm_is_animating = true;   
+		
+        var data = cambio, // Get data values from selected menu item
+             transition = 'fade', // 'slide' | 'fade' | null
+             speed = '300'; //in milliseconds
+             
+        jQuery.fn.almFilter(transition, speed, data);
+	});
+	
+	jQuery.fn.almFilterComplete = function(){      
+      alm_is_animating = false; // clear alm_isanimating flag
+    };
+	
+	/*jQuery.fn.almEmpty = function(alm){
+	 jQuery('.alm-listing').html('<h2 class="error_search">No existen materiales para estas opciones de búsqueda</h2>');
+	};*/
 	
 });
 

@@ -33,10 +33,8 @@
                     	<?php get_search_form(); ?>	
                     </div>
                 </div>
-                <!--Texto cabecera-->
-                <p></p>
-                <!--Enlace video cabecera-->
-                
+                <!--Enlace de login-->
+                <a href="#"><?php _e('Login','arylex' )?></a>
             </div>
         </div>
         <!--Fin Cabecera-->
