@@ -81,6 +81,13 @@ PROPIEDADES GENERALES
 .box-main .left_box{float:left;width:50%;}
 .box-main .right_box{float:left;width:50%;}
 #cover_top{background-repeat:no-repeat;background-size:cover;background-position:center center;height:350px;}
+#poducts_banner{background:yellow;margin-top:30px;margin-bottom:30px;}
+.box_KB{overflow:hidden;}
+.box_KB .left_box{float:left;width:30%;}
+.box_KB .right_box{float:left;width:70%;}
+.content-KB{display:none;}
+.content-KB.active{display:block;}
+.box_KB ul a.active{text-decoration:underline;}
 
 /*****************************
 PROPIEDADES ESPECIALES

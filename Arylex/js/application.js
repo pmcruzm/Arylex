@@ -27,6 +27,19 @@ jQuery(window).load(function(){
 });
 
 jQuery(document).ready(function(){
+	//Abrir el modal de registro 
+	jQuery(document).on("click",".box_KB ul li a", function(e) {
+		e.preventDefault();
+		
+		var opc=jQuery(this).attr('rel');
+		jQuery(".box_KB ul li a").removeClass('active');
+		jQuery(this).addClass('active');
+		
+		jQuery(".content-KB").removeClass('active');
+		jQuery('#'+opc).addClass('active');
+		
+	});
+	
 	
 });
 

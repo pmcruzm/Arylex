@@ -16,8 +16,12 @@
     	<p><?php the_content();?></p>
         <!--Info del player-->
         <?php
-        	$title_vid=types_render_field("title-video",array("output"=>"html"));
-			$url_vid=types_render_field("url-video",array("output"=>"html"));
+        	$title_vid=types_render_field("title-video",array("output"=>"raw"));
+			$url_vid=types_render_field("url-video",array("output"=>"raw"));
+			if($title_vid!="" && $url_vid!="" ){
+				echo '<p>'.$title_vid.'</p>';
+				echo '<a href="'.$url_vid.'" target="_blank">Play Video</a>';
+			}
 		?>
     </div>
 	<div class="box-main">
@@ -39,7 +43,7 @@
         </div>
     </div>
     <!--Banner Products-->
-    <div id="poducts_banner clear">
+    <div id="poducts_banner" class="clear">
     	<h3></h3>
         <p></p>
         <a href="#"><?php _e('VIEW PRODUCTS','arylex' )?></a>
@@ -49,9 +53,35 @@
     	<div class="left_box">
         	<!--Menús Key Benefits-->
             <h3><?php _e('KEY BENEFITS','arylex' )?></h3>
+            <ul>
+            	<?php
+					global $post;
+					$cont=1;
+					$args = array('post_type' => 'key-benefit');
+					$new = new WP_Query($args);
+					while ($new->have_posts()) : $new->the_post();
+				?>
+                  <li><a href="#" <?php if($cont==1){echo 'class="active"';}?> rel="<?php echo $post->post_name;?>"><?php echo get_the_title();?></a></li>      
+                <?php	
+					$cont++;
+					endwhile;
+				?>       
+            </ul>
         </div>
         <div class="right_box">
-        	
+        	<?php
+					$args = array('post_type' => 'key-benefit');
+					$new = new WP_Query($args);
+					$cont=1;
+					while ($new->have_posts()) : $new->the_post();
+				?>
+                  <div id="<?php echo $post->post_name;?>" class="content-KB <?php if($cont==1){echo 'active';}?>">
+                  <?php the_content();?>
+                  </div>      
+                <?php	
+					$cont++;
+					endwhile;
+				?>  
         </div>
     </div>
     <?php
