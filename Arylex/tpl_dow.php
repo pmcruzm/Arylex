@@ -1,6 +1,6 @@
 <?php
 /**
- * @template name: Home
+ * @template name: Dow
  * @package WordPress
  * @subpackage Arylex_theme
  * @since Arylex Theme 1.0
@@ -57,42 +57,6 @@
        <h3><?php echo  $title_prod;?></h3>
        <p><?php echo  $exc_prod;?></p>
        <a href="<?php echo  $link_prod;?>"><?php _e('VIEW PRODUCTS','arylex' )?></a>
-    </div>
-    <!--Key Benefits-->
-    <div class="box_KB">
-    	<div class="left_box">
-        	<!--Menús Key Benefits-->
-            <h3><?php _e('KEY BENEFITS','arylex' )?></h3>
-            <ul>
-            	<?php
-					global $post;
-					$cont=1;
-					$args = array('post_type' => 'key-benefit');
-					$new = new WP_Query($args);
-					while ($new->have_posts()) : $new->the_post();
-				?>
-                  <li><a href="#" <?php if($cont==1){echo 'class="active"';}?> rel="<?php echo $post->post_name;?>"><?php echo get_the_title();?></a></li>      
-                <?php	
-					$cont++;
-					endwhile;
-				?>       
-            </ul>
-        </div>
-        <div class="right_box">
-        	<?php
-					$args = array('post_type' => 'key-benefit');
-					$new = new WP_Query($args);
-					$cont=1;
-					while ($new->have_posts()) : $new->the_post();
-				?>
-                  <div id="<?php echo $post->post_name;?>" class="content-KB <?php if($cont==1){echo 'active';}?>">
-                  <?php the_content();?>
-                  </div>      
-                <?php	
-					$cont++;
-					endwhile;
-				?>  
-        </div>
     </div>
     <?php
        endwhile; endif;wp_reset_query();
