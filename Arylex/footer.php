@@ -13,7 +13,7 @@
                 <div class="left_bottom_box">
                 	<div class="box_bulletin">
                     	<p><?php _e('Bulletin','arylex' )?></p>	
-                        <form id="form-bulletin" class="formee" action="subscribe.php" method="post">
+                        <form id="form-bulletin">
                             <label for="email">Email Address *</label> <input name="email" id="email" type="text" />
                             <input type="hidden" name="language" id="language" value="de">
                             <input class="right inputnew" type="submit" title="Send" value="Send" />

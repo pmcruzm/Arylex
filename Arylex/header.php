@@ -34,7 +34,29 @@
                     </div>
                 </div>
                 <!--Enlace de login-->
-                <a href="#"><?php _e('Login','arylex' )?></a>
+                <div class="head_login">
+                <?php if (!is_user_logged_in()) { ?>
+                <?php
+					//Obtenemos datos de productos 
+					$args = array('post_type' => 'page','pagename' =>'login');
+					query_posts($args);
+					if ( have_posts() ) : while ( have_posts() ) : the_post();
+				?>
+					<a href="<?php echo get_the_permalink();?>"><?php _e('Login','arylex' )?></a>
+				<?php	
+                    endwhile; endif;wp_reset_query();
+				?> 
+                <?php
+					}else{
+						global $current_user;
+                        get_currentuserinfo();
+				?>
+                	<p>Wellcome <?php echo $current_user->user_firstname.' '.$current_user->user_lastname.'!';?></p>
+                    <p><a href="<?php echo wp_logout_url(home_url());?>"><?php _e('Close Session','arylex' )?></a></p>		
+                <?php		
+					}	
+				?>
+                </div>    
             </div>
         </div>
         <!--Fin Cabecera-->

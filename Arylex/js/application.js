@@ -89,6 +89,35 @@ jQuery(document).ready(function(){
 					}
 				});
 	});
+	
+	// Realizar login vía AJAX
+    jQuery(document).on('submit', '#form-login', function(e) {
+		e.preventDefault();
+        
+        jQuery.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: ajaxurl,
+            data: { 
+                'action': 'ajax_login', //calls wp_ajax_nopriv_ajaxlogin
+                'username': jQuery('#form-login #username').val(), 
+                'password': jQuery('#form-login #password').val(), 
+                'security': jQuery('#form-login #security').val() },
+            success: function(data){
+				console.log(data);
+               if (data.loggedin == true){
+					jQuery('#form-login #username').val('');	
+					jQuery('#form-login #password').val('')	
+					alert(data.message);
+				    window.location = data.url;
+                }else{
+					jQuery('#form-login #username').val('');	
+					jQuery('#form-login #password').val('')	
+					alert(data.message);
+				}
+            }
+        });
+    });
 	 
 	
 });
