@@ -85,7 +85,7 @@ jQuery(document).ready(function(){
 						'lang' : language
 						},
 					success: function(data){
-						console.log(data);
+						alert(data);
 					}
 				});
 	});
