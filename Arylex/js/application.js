@@ -9,7 +9,8 @@ Cliente: Dow Arylex
 /**********************
 VARIABLES
 **********************/
- var alm_is_animating = false;
+var alm_is_animating = false;
+var ajaxurl;
 
 //Eventos para dispositivos móviles
 var ua = navigator.userAgent,
@@ -66,6 +67,29 @@ jQuery(document).ready(function(){
 	/*jQuery.fn.almEmpty = function(alm){
 	 jQuery('.alm-listing').html('<h2 class="error_search">No existen materiales para estas opciones de búsqueda</h2>');
 	};*/
+	
+	//Cuando enviamos email a Mailchim 
+	jQuery(document).on("submit","#form-bulletin", function(e) {
+		e.preventDefault();
+		//Obtenemos datos del form
+		var email= jQuery('#form-bulletin #email').val();
+		var language= jQuery('#form-bulletin #language').val();
+		
+		jQuery.ajax({
+					type: 'POST',
+					dataType: 'html',
+					url: ajaxurl,
+					data: { 
+						'action': 'send_mailchimp', 
+						'email': email,
+						'lang' : language
+						},
+					success: function(data){
+						console.log(data);
+					}
+				});
+	});
+	 
 	
 });
 

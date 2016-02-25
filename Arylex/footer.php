@@ -12,7 +12,12 @@
                 </div>
                 <div class="left_bottom_box">
                 	<div class="box_bulletin">
-                    	
+                    	<p><?php _e('Bulletin','arylex' )?></p>	
+                        <form id="form-bulletin" class="formee" action="subscribe.php" method="post">
+                            <label for="email">Email Address *</label> <input name="email" id="email" type="text" />
+                            <input type="hidden" name="language" id="language" value="en">
+                            <input class="right inputnew" type="submit" title="Send" value="Send" />
+                        </form>
                     </div>
                     <div class="box_rrss">
                     	<p><?php _e('Follow us','arylex' )?></p>	
@@ -27,6 +32,9 @@
                 <p><?php _e('Copyright 2016','arylex' )?></p>
             </div>   
         </div>
+        <script type="text/javascript"> 
+		ajaxurl = '<?php $aux=admin_url( 'admin-ajax.php');echo $aux; ?>';
+    	</script> 
 	</div><!--Fin wrapper-->   
     <?php wp_footer(); ?> 
 </body>

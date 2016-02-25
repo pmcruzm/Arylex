@@ -1,4 +1,7 @@
 <?php
+//Library Mailchimp
+require_once 'inc/MCAPI.class.php';
+
 // Add default posts and comments RSS feed links to head
 add_theme_support('automatic-feed-links'); 
 
@@ -62,5 +65,33 @@ function register_css() {
 }
 
 add_action( 'wp_enqueue_scripts', 'register_css' );
+
+/***
+* Enviar petición a Mailchimp 
+***/
+
+// para peticiones de usuarios que no están logueados
+add_action('wp_ajax_nopriv_send_mailchimp', 'send_mailchimp');
+// probablemente también vas a querer que los usuarios logueados puedan hacer lo mismo
+add_action('wp_ajax_send_mailchimp', 'send_mailchimp');
+
+function send_mailchimp(){
+	
+	//echo $_POST['email'].'--'.$_POST['lang'];
+	
+		$api = new MCAPI('143754790e3a7210e0b817b06491194b-us8');
+		$merge_vars = array('MC_LANGUAGE'=>$_POST["lang"]);
+		 
+		// Submit subscriber data to MailChimp
+		// For parameters doc, refer to: http://apidocs.mailchimp.com/api/1.3/listsubscribe.func.php
+		$retval = $api->listSubscribe( '178e1a7379', $_POST["email"], $merge_vars, 'html', false, true );
+		 
+		if ($api->errorCode){
+			echo "Please try again.";
+		} else {
+			echo "Thank you, you have been added to our mailing list.";
+		}
+	exit;
+}
 
 ?>
