@@ -3,7 +3,10 @@
 require_once 'inc/MCAPI.class.php';
 
 // Add default posts and comments RSS feed links to head
-add_theme_support('automatic-feed-links'); 
+add_theme_support('automatic-feed-links');
+
+//Asignar traducciones del theme 
+load_theme_textdomain( 'arylex', get_template_directory().'/languages' ); 
 
 /*** Top navigation ***/
 

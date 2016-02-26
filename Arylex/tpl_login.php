@@ -17,6 +17,18 @@
            </form>
            <a href="<?php echo wp_lostpassword_url(); ?>" class="new_password"><?php _e('Reset Password','arylex' )?></a>
         </div>
+        <?php
+        /*$args = array(
+			//'redirect' => admin_url(), 
+			'form_id' => 'loginform-custom',
+			'label_username' => __( 'Username custom text' ),
+			'label_password' => __( 'Password custom text' ),
+			'label_remember' => __( 'Remember Me custom text' ),
+			'label_log_in' => __( 'Log In custom text' ),
+			'remember' => true
+		);
+		wp_login_form( $args );*/
+		?>
     <?php
 	}else{
 	?>

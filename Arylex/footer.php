@@ -15,7 +15,7 @@
                     	<p><?php _e('Bulletin','arylex' )?></p>	
                         <form id="form-bulletin">
                             <label for="email">Email Address *</label> <input name="email" id="email" type="text" />
-                            <input type="hidden" name="language" id="language" value="de">
+                            <input type="hidden" name="language" id="language" value="<?php echo ICL_LANGUAGE_CODE;?>">
                             <input class="right inputnew" type="submit" title="Send" value="Send" />
                         </form>
                     </div>

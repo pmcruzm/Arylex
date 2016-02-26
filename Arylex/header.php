@@ -56,7 +56,9 @@
                 <?php		
 					}	
 				?>
-                </div>    
+                </div> 
+                <!--Selector de idioma-->
+                <?php do_action('wpml_add_language_selector'); ?>   
             </div>
         </div>
         <!--Fin Cabecera-->
