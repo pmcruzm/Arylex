@@ -11,7 +11,7 @@ load_theme_textdomain( 'arylex', get_template_directory().'/languages' );
 /*** Top navigation ***/
 
 function register_menu() {
-    register_nav_menu('Header', __('Header'));
+    register_nav_menu('Main_Menu', __('Main_Menu'));
 }
 add_action( 'init', 'register_menu' );
 
