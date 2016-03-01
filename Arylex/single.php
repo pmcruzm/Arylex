@@ -6,6 +6,21 @@
 	?>
 	<div id="cover_top" style="background-image:url(<?php echo $cover_top;?>)">
     	<p><?php the_title();?></p>
+        <!--Experto-->	
+        <?php
+			$parent_id = wpcf_pr_post_get_belongs(get_the_ID(), 'expert');
+			if (!empty($parent_id)) {
+				$parent = get_post($parent_id);
+				$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($parent->ID), 'thumbnail_size' );
+				$expert_img = $thumb['0'];	
+				echo '<div class="box-expert">';
+				echo '<img src="'.$expert_img.'"/>';
+				echo '<h3>'.$parent->post_title.'</h3>';
+				echo '<p>'.$parent->post_content.'</p>';
+				echo '</div>';
+				//print_r($parent);
+			}
+		?>
     </div>
     <div class="body-news">
     	<div class="right-news">
@@ -47,6 +62,9 @@
             <div id="single_rrss">
                <a href="http://facebook.com/share.php?u=<?php the_permalink() ?>&amp;t=<?php echo urlencode(the_title('','', false)) ?>" target="_blank"><?php _e('Facebook','arylex' )?></a>
                <a href="http://twitter.com/home?status=<?php the_title(); ?> <?php echo get_permalink($post->ID); ?>" target="_blank" ><?php _e('Twitter','arylex' )?></a>
+               <?php
+               //if(function_exists('email_link')) { email_link(); }
+			   ?>
              </div>
             <hr/>
             <!--Related Articles-->
