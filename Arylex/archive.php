@@ -1,64 +1,50 @@
-<?php
-/**
- * The template for displaying archive pages
- *
- * Used to display archive-type pages if nothing more specific matches a query.
- * For example, puts together date-based pages if no date.php file exists.
- *
- * If you'd like to further customize these archive views, you may create a
- * new template file for each one. For example, tag.php (Tag archives),
- * category.php (Category archives), author.php (Author archives), etc.
- *
- * @link https://codex.wordpress.org/Template_Hierarchy
- *
- * @package WordPress
- * @subpackage Twenty_Fifteen
- * @since Twenty Fifteen 1.0
- */
+<?php get_header(); ?>
 
-get_header(); ?>
-
-	<section id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
-
+	<div class="archive-post">
 		<?php if ( have_posts() ) : ?>
-
-			<header class="page-header">
+			<div class="page-header">
 				<?php
 					the_archive_title( '<h1 class="page-title">', '</h1>' );
 					the_archive_description( '<div class="taxonomy-description">', '</div>' );
+					$this_category = get_category($cat);
+					//print_r($this_category);
 				?>
-			</header><!-- .page-header -->
+			</div><!-- .page-header -->
 
 			<?php
-			// Start the Loop.
-			while ( have_posts() ) : the_post();
-
-				/*
-				 * Include the Post-Format-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-				 */
-				get_template_part( 'content', get_post_format() );
-
-			// End the loop.
-			endwhile;
-
-			// Previous/next page navigation.
-			the_posts_pagination( array(
-				'prev_text'          => __( 'Previous page', 'twentyfifteen' ),
-				'next_text'          => __( 'Next page', 'twentyfifteen' ),
-				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyfifteen' ) . ' </span>',
-			) );
-
+				echo do_shortcode('[ajax_load_more post_type="post" repeater="news" posts_per_page="6" category="'.$this_category->slug.'" transition="fade" button_label="SHOW MORE"]');
+			
 		// If no content, include the "No posts found" template.
 		else :
-			get_template_part( 'content', 'none' );
-
+		?>
+			<section class="no-results not-found">
+				<header class="page-header">
+					<h1 class="page-title"><?php _e( 'Nothing Found', 'arylex' ); ?></h1>
+				</header><!-- .page-header -->
+			
+				<div class="page-content">
+			
+					<?php if ( is_home() && current_user_can( 'publish_posts' ) ) : ?>
+			
+						<p><?php printf( __( 'Ready to publish your first post? <a href="%1$s">Get started here</a>.', 'arylex' ), esc_url( admin_url( 'post-new.php' ) ) ); ?></p>
+			
+					<?php elseif ( is_search() ) : ?>
+			
+						<p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'arylex' ); ?></p>
+						<?php get_search_form(); ?>
+			
+					<?php else : ?>
+			
+						<p><?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'arylex' ); ?></p>
+						<?php get_search_form(); ?>
+			
+					<?php endif; ?>
+			
+				</div><!-- .page-content -->
+			</section><!-- .no-results -->
+        <?php    
 		endif;
 		?>
-
-		</main><!-- .site-main -->
-	</section><!-- .content-area -->
+	</div>
 
 <?php get_footer(); ?>
