@@ -15,7 +15,7 @@
 	<?php endif; ?>
 	<?php wp_head(); ?>
 </head>
-  <body>
+  <body data-lang="<?php echo ICL_LANGUAGE_CODE;?>">
   	<div id="wrapper">
     	<!--Cabecera-->
     	<div id="cabecera">
