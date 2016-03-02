@@ -103,7 +103,7 @@ body[data-lang=de] #logo_top a{background-position:0px -200px;}
 .related-img{width:50%;float:left;}
 .box-expert img{width:50px;}
 .docu-whitepapers{overflow:hidden;padding-top:20px;padding-bottom:20px;}
-.box-whitepaper{float:left;width:33.33%;}
+.box-whitepaper{float:left;width:33.33%;min-height:150px;}
 
 /*****************************
 PROPIEDADES ESPECIALES
