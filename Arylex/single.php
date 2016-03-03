@@ -6,6 +6,13 @@
 	?>
 	<div id="cover_top" style="background-image:url(<?php echo $cover_top;?>)">
     	<p><?php the_title();?></p>
+        <?php
+			$webinar=types_render_field("include-webinar",array("output"=>"raw"));
+			if($webinar==1){
+				echo types_render_field("url-webinar",array("output"=>"raw"));	
+			}
+		?>
+        
         <!--Experto-->	
         <?php
 			$parent_id = wpcf_pr_post_get_belongs(get_the_ID(), 'expert');
@@ -62,6 +69,7 @@
             <div id="single_rrss">
                <a href="http://facebook.com/share.php?u=<?php the_permalink() ?>&amp;t=<?php echo urlencode(the_title('','', false)) ?>" target="_blank"><?php _e('Facebook','arylex' )?></a>
                <a href="http://twitter.com/home?status=<?php the_title(); ?> <?php echo get_permalink($post->ID); ?>" target="_blank" ><?php _e('Twitter','arylex' )?></a>
+               <a href="mailto:?subject=<?php the_title(); ?>&amp;body=<?php echo get_permalink($post->ID); ?>" target="_blank" ><?php _e('Enviar por email','arylex' )?></a>
                <?php
                //if(function_exists('email_link')) { email_link(); }
 			   ?>
