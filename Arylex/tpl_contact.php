@@ -27,9 +27,15 @@
             <div><label for="subjet"><?php _e('Subject *','arylex' )?></label>
             <select id="subjet" class="validation-rule-select" name="subjet" data-error-msg="<?php _e('Debe seleccionar un asunto.','arylex' )?>">
             	<option value="-1">Choose one of this options</option>
-            	<option value="option 1" data-mail="pmcruzm@gmail.com">Option 1</option>
-                <option value="option 2" data-mail="a_tis_tirma@hotmail.com">Option 2</option>
-                <option value="option 3" data-mail="pmcruzm@gmail.com">Option 3</option>
+                <?php
+					$args = array('post_type' => 'contact-subject');
+					$new = new WP_Query($args);
+					while ($new->have_posts()) : $new->the_post();
+				?>
+                 	<option value="<?php the_title();?>" data-mail="<?php echo types_render_field("destination-email",array("output"=>"raw"));?>"><?php the_title();?></option>     
+                <?php	
+					endwhile;
+				?> 
             </select></div>
             <div><label for="question"><?php _e('Question *','arylex' )?></label>
             <textarea id="question" name="question" class="validation-rule-empty"></textarea></div>
