@@ -148,8 +148,26 @@ jQuery(document).ready(function(){
 			if(result==1){
 				send_form=0;
 			}else{
-				//Si no hay errores enviar todos los campos por mail
-				//Recogemos datos y enviamos vía AJAX
+				send_form=0;
+				//Enviamos datos para email vía AJAX
+				jQuery.ajax({
+					type: 'POST',
+					dataType: 'html',
+					url: ajaxurl,
+					data: { 
+						'action': 'ajax_contact', //calls wp_ajax_nopriv_ajaxlogin
+						'name': jQuery('#form-contact #name').val(), 
+						'email': jQuery('#form-contact #email').val(), 
+						'telephone': jQuery('#form-contact #telephone').val(),
+						'subject': jQuery('#form-contact #subjet').val(),
+						'question': jQuery('#form-contact #question').val(),
+						'destinatario': jQuery('#form-contact #subjet option:selected').attr('data-mail'),},
+					success: function(data){
+						//console.log(data);
+						clean_contacto();	
+					}
+				});
+				
 			}
 		}
 	});
@@ -162,17 +180,16 @@ jQuery(document).ready(function(){
 FUNCIONES JAVASCRIPT
 **************************/
 
-//FunciÃ³n para alinear top los cuadros
-function align_top_box(id){
+function clean_contacto(){
 
-		//Listado cajas
-		var heights = jQuery(id).map(function ()
-		{
-			return jQuery(this).outerHeight();
-		}).get(),
-		//Obtenemos tamaÃ±o max de los cuadros
-		maxHeight = Math.max.apply(null, heights);
-		jQuery(id).css('height',maxHeight);
+jQuery('#form-contact #name').val('');
+jQuery('#form-contact #email').val('');
+jQuery('#form-contact #rep_email').val('');
+jQuery('#form-contact #telephone').val('');
+jQuery('#form-contact #subjet').val('-1');
+jQuery('#form-contact #question').val('');
+jQuery('#form-contact #bbll').prop( "checked", false );
+
 }
 
 function validateEmail(email) {
@@ -184,17 +201,7 @@ function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-function meetsMinimumAge(birthDate, minAge) {
-    var tempDate = new Date(birthDate.getFullYear() + minAge, birthDate.getMonth(), birthDate.getDate());
-    return (tempDate <= new Date());
-}
-
-function randomIntFromInterval(min,max)
-{
-    return Math.floor(Math.random()*(max-min+1)+min);
-}
-
-//Funcion para validar genÃ©ricamnete un formulario
+//Funcion para validar genéricamente un formulario
 function validate_form(id){
 
 		//Busca todos los campos requeridos de texto
@@ -226,30 +233,45 @@ function validate_form(id){
 
 				});
 			}
+			
+			//Busca todos los campos requeridos de telefono
+			if(jQuery(id).find('.validation-rule-phone').length > 0){
+				var error_phone=0;
+				jQuery(id).find('.validation-rule-phone').each(function() {
+					if(jQuery(this).is(":visible")){
+						var res_campo=jQuery(this).val();
+						if((res_campo=="") || (res_campo!="" && isNumber(res_campo)==false) ){
+							error_phone=1;
+							jQuery(this).addClass('error').val('');
+						}
+					}
+
+				});
+			}
 
 
 			//Busca todos los campos requeridos de codigo postal{cambiar para email}
-			if(jQuery(id).find('.validation-rule-email').length > 0){
-				var error_password=0;
+			if(jQuery(id).find('.validation-rule-email-rep').length > 0){
+				var error_emails=0;
 				//Comprobamos que uno de los 2 no está vacío
-				if(jQuery('.init_password').val()!="" && jQuery('.repeat_password').val()!=""){
-					var txt_ini=jQuery('.init_password').val();
-					var txt_rept=jQuery('.repeat_password').val();
-					if(txt_ini!=txt_rept){
-						error_password=1;
-						jQuery('.init_password').addClass('error').val('');
-						jQuery('.repeat_password').addClass('error').val('');
+				if(jQuery('#email').val()!="" && jQuery('#rep_email').val()!=""){
+					var email_ini=jQuery('#email').val();
+					var email_rept=jQuery('#rep_email').val();
+					if(email_ini!=email_rept){
+						error_emails=1;
+						jQuery('#email').addClass('error').val('');
+						jQuery('#rep_email').addClass('error').val('');
 					}else{
-						if(txt_ini.length < 8){
-							error_password=1;
-							jQuery('.init_password').addClass('error').val('');
-							jQuery('.repeat_password').addClass('error').val('');
+						if(validateEmail(email_ini)==false || validateEmail(email_rept)==false){
+							error_emails=1;
+							jQuery('#email').addClass('error').val('');
+							jQuery('#rep_email').addClass('error').val('');
 						}
 					}
 				}else{
-					error_password=1;
-					jQuery('.init_password').addClass('error').val('');
-					jQuery('.repeat_password').addClass('error').val('');
+					error_emails=1;
+					jQuery('#email').addClass('error').val('');
+					jQuery('#rep_email').addClass('error').val('');
 				}
 			}
 
@@ -264,8 +286,18 @@ function validate_form(id){
 
 				});
 			}
+			
+			//Validación de subject
+			if(jQuery(id).find('.validation-rule-select').length > 0){
+				var error_select=0;
+				jQuery(id).find('.validation-rule-select').each(function() {
+					if(jQuery(this).val()==-1){
+						error_select=1;
+						jQuery(this).addClass('error');
+					}
+				});
+			}
 
-			//Error general campos vacíos
 			if(error_empty==1){
 				var message=jQuery(id).attr('data-error-msg');
 				jQuery('.errores').append('<p>'+message+'</p>');
@@ -275,11 +307,14 @@ function validate_form(id){
 				var message=jQuery(id).find('.validation-rule-checkbox').attr('data-error-msg');
 				jQuery('.errores').append('<p>'+message+'</p>');
 			}
+			
+			if(error_select==1){
+				var message=jQuery(id).find('.validation-rule-select').attr('data-error-msg');
+				jQuery('.errores').append('<p>'+message+'</p>');
+			}
 
-
-			//Errores password
-			if(error_password==1){
-				var message=jQuery(id).find('.validation-rule-password').attr('data-error-msg');
+			if(error_emails==1){
+				var message=jQuery(id).find('.validation-rule-email-rep').attr('data-error-msg');
 				jQuery('.errores').append('<p>'+message+'</p>');
 			}
 
@@ -287,9 +322,14 @@ function validate_form(id){
 				var message=jQuery(id).find('.validation-rule-mail').attr('data-error-msg');
 				jQuery('.errores').append('<p>'+message+'</p>');
 			}
+			
+			if(error_phone==1){
+				var message=jQuery(id).find('.validation-rule-phone').attr('data-error-msg');
+				jQuery('.errores').append('<p>'+message+'</p>');
+			}
 
 			//Salida
-			if(error_empty==1 || error_checkbox==1 || error_mail==1){
+			if(error_empty==1 || error_checkbox==1 || error_mail==1 || error_select==1 || error_phone==1 || error_emails==1){
 				return 1;
 			}else{
 				return 0;
