@@ -164,8 +164,12 @@ jQuery(document).ready(function(){
 						'destinatario': jQuery('#form-contact #subjet option:selected').attr('data-mail'),},
 					success: function(data){
 						//console.log(data);
-						alert(data);
-						clean_contacto();	
+						if(data=='OK'){
+							clean_contacto();
+							alert('Formulario enviado correctamente');
+						}else{
+							alert('Error al enviar el formulario');
+						}	
 					}
 				});
 				
