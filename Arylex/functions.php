@@ -165,7 +165,7 @@ function ajax_contact(){
 		$mail->Username   = "citizen@pedroxmujica.com"; // SMTP account username
 		$mail->Password   = "pedrom8";        // SMTP account password
 		$mail->AddReplyTo('citizen@pedroxmujica.com', 'Mensaje contacto Arylex');//Dirección de replica del mensaje
-		$mail->AddAddress('pmcruzm@gmail.com');//Dirección del mensaje
+		$mail->AddAddress($_POST['destinatario']);//Dirección del mensaje
 		$mail->SetFrom('citizen@pedroxmujica.com', 'Mensaje contacto Arylex');
 		// $mail->AddReplyTo('name@yourdomain.com', 'First Last');
 		$mail->Subject = 'Mensaje contacto Arylex';
