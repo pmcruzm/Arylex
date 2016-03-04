@@ -10,30 +10,44 @@
 
 			<?php
 			// Start the loop.
-			while ( have_posts() ) : the_post(); ?>
-
-				<?php
-				/*
-				 * Run the loop for the search to output the results.
-				 * If you want to overload this in a child theme then include a file
-				 * called content-search.php and that will be used instead.
-				 */
-				get_template_part( 'content', 'search' );
-
-			// End the loop.
+			while ( have_posts() ) : the_post(); 
+				$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
+				$img_post = $thumb['0'];
+			?>
+				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                	<img src="<?php echo $img_post;?>" width="50" height="50"/>
+                    <header class="entry-header">
+                        <?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+                    </header><!-- .entry-header -->
+                
+                    <div class="entry-summary">
+                        <?php the_excerpt(); ?>
+                    </div>
+                </article>
+            <?php    
 			endwhile;
-
-			// Previous/next page navigation.
-			the_posts_pagination( array(
-				'prev_text'          => __( 'Previous page', 'arylex' ),
-				'next_text'          => __( 'Next page', 'arylex' ),
-				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'arylex' ) . ' </span>',
-			) );
-
-		// If no content, include the "No posts found" template.
 		else :
-			get_template_part( 'content', 'none' );
-
+		?>
+        	<section class="no-results not-found">
+                <header class="page-header">
+                    <h1 class="page-title"><?php _e( 'Nothing Found', 'arylex' ); ?></h1>
+                </header><!-- .page-header -->
+            
+                <div class="page-content">
+            
+                    <?php if ( is_search() ) : ?>
+                        <p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'arylex' ); ?></p>
+                        <?php get_search_form(); ?>
+                    <?php else : ?>
+            
+                        <p><?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'arylex' ); ?></p>
+                        <?php get_search_form(); ?>
+            
+                    <?php endif; ?>
+            
+                </div><!-- .page-content -->
+            </section><!-- .no-results -->    
+		<?php
 		endif;
 		?>
 
