@@ -164,6 +164,7 @@ jQuery(document).ready(function(){
 						'destinatario': jQuery('#form-contact #subjet option:selected').attr('data-mail'),},
 					success: function(data){
 						//console.log(data);
+						alert(data);
 						clean_contacto();	
 					}
 				});

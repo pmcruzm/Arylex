@@ -1,6 +1,8 @@
 <?php
 //Library Mailchimp
 require_once 'inc/MCAPI.class.php';
+//Libreria PHPMailer
+require 'include/PHPMailerAutoload.php';
 
 // Add default posts and comments RSS feed links to head
 add_theme_support('automatic-feed-links');
@@ -143,7 +145,39 @@ function ajax_contact(){
     
 	$mensaje='Name: '.$_POST['name'].'<br/>Email: '.$_POST['email'].'<br/>Telephone: '.$_POST['telephone'].'<br/>Subject: '.$_POST['subject'].'<br/>Question: '.$_POST['question'].'<br/>Destinatario: '.$_POST['destinatario'];
 	
-	wp_mail($_POST['destinatario'], $_POST['subject'],$mensaje);
+	//Enviamos el mail al usuario
+	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
+	$mail->IsSMTP(); // telling the class to use SMTP
+				
+	/*$message = file_get_contents('http://citizenzchallenge.cambridge.es/inicio/mailing/mailing_contacto.php'); 
+	$message = str_replace('%nombre%', $_POST['nombre'], $message); 
+	$message = str_replace('%email%', $_POST['email'], $message); 
+	$message = str_replace('%provincia%', $_POST['provincia'], $message); 
+	$message = str_replace('%centro%', $_POST['centro'], $message); 
+	$message = str_replace('%asunto%', $_POST['asunto'], $message); */
+				
+							
+	try {
+		$mail->Host       = "localhost"; // SMTP server
+		$mail->SMTPAuth   = true;                  // enable SMTP authentication
+		$mail->CharSet = 'UTF-8';
+		$mail->Host       = "localhost"; // sets the SMTP server
+		$mail->Username   = "citizen@pedroxmujica.com"; // SMTP account username
+		$mail->Password   = "pedrom8";        // SMTP account password
+		$mail->AddReplyTo('citizen@pedroxmujica.com', 'Mensaje contacto Arylex');//Dirección de replica del mensaje
+		$mail->AddAddress('pmcruzm@gmail.com');//Dirección del mensaje
+		$mail->SetFrom('citizen@pedroxmujica.com', 'Mensaje contacto Arylex');
+		// $mail->AddReplyTo('name@yourdomain.com', 'First Last');
+		$mail->Subject = 'Mensaje contacto Arylex';
+		//$mail->AltBody = $mensaje; // optional - MsgHTML will create an alternate automatically
+		$mail->MsgHTML($mensaje);
+		$mail->Send();
+		} catch (phpmailerException $e) {
+			echo "KO";
+		} catch (Exception $e) {
+			echo "KO";
+		}
+			echo 'OK';
 	
     die();
 }
