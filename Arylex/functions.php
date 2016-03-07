@@ -231,7 +231,7 @@ function ajax_registration(){
 	
 	if($_POST['password']==$_POST['rep_password']){
 		//Obtener el id de usuario
-		$info_user=get_user_by( 'email',$_POST['mail']);
+		$info_user=get_user_by( 'login',$_POST['user']);
 		print_r($info_user);
 		//$user_id=$_POST['hash'];//Pasar a string 
 		//wp_set_password($_POST['password'], $user_id );
@@ -255,13 +255,9 @@ function send_user_data( $user_id ) {
     //    update_user_meta($user_id, 'first_name', $_POST['first_name']);
    
    //Obtener variable language 
-   $language_user = esc_attr(get_the_author_meta('language_user',$user_id));
+   /*$language_user = esc_attr(get_the_author_meta('language_user',$user_id));
    
    $mensaje='Hola '.$_POST['first_name'].',<br/> Recuerda que tu usuario es -'.$_POST['user_login'].'- y para poder activar tu cuenta debes introducir tu password a través del siguiente enlace <a href="http://pedroxmujica.com/Arylex/user-registration/?user='.$_POST['user_login'].'">Pincha aquí</a>.<br/>Idioma del usuario: '.$language_user;
-	send_mail_user($mensaje,$language_user);			
-}
-
-function send_mail_user($mensaje,$language_user){
 	
 	//Enviamos el mail al usuario
 	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
@@ -286,7 +282,9 @@ function send_mail_user($mensaje,$language_user){
 			echo $e;
 		} catch (Exception $e) {
 			echo $e;
-		}
+		}*/
+			
 }
+
 
 ?>
