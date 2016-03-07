@@ -261,7 +261,7 @@ function send_user_data( $user_id ) {
 	send_mail_user($mensaje,$language_user);			
 }
 
-function send_mail_user($text,$language_user){
+function send_mail_user($mensaje,$language_user){
 	
 	//Enviamos el mail al usuario
 	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
