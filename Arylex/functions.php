@@ -288,8 +288,6 @@ function send_user_data( $user_id ) {
 		} catch (Exception $e) {
 			echo $e;
 		}
-		
-	die();
 }
 
 ?>
