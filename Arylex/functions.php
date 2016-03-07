@@ -264,7 +264,7 @@ function send_user_data( $user_id ) {
    $mensaje='Hola '.$_POST['first_name'].',<br/> Recuerda que tu usuario es -'.$_POST['user_login'].'- y para poder activar tu cuenta debes introducir tu password a través del siguiente enlace <a href="http://pedroxmujica.com/Arylex/user-registration/?mail='.$_POST['user_email'].'">Pincha aquí</a>.<br/>Idioma del usuario: '.$language_user;
 	
 	//Enviamos el mail al usuario
-	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
+	/*$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
 	$mail->IsSMTP(); // telling the class to use SMTP
 				
 							
@@ -287,9 +287,9 @@ function send_user_data( $user_id ) {
 			echo $e;
 		} catch (Exception $e) {
 			echo $e;
-		}
+		}*/
 		
-		echo 'Mensaje enviado';
+		echo $mensaje;
 		
 		die();
 
