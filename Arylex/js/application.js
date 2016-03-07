@@ -176,6 +176,25 @@ jQuery(document).ready(function(){
 			}
 		}
 	});
+	
+	// Registration user vía AJAX
+    jQuery(document).on('submit', '#form-registration', function(e) {
+		e.preventDefault();
+        
+        jQuery.ajax({
+            type: 'POST',
+            dataType: 'html',
+            url: ajaxurl,
+            data: { 
+                'action': 'ajax_registration', //calls wp_ajax_nopriv_ajaxlogin
+                'password': jQuery('#form-registration #password').val(), 
+                'rep_password': jQuery('#form-registration #rep_password').val(), 
+                'hash': jQuery('#form-registration #hash').val() },
+            success: function(data){
+				console.log(data);
+            }
+        });
+    });
 	 
 	
 });
