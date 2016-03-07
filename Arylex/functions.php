@@ -248,14 +248,43 @@ function ajax_registration(){
 * Enviar formulario después de alta de usuario  
 ***/
 
-add_action( 'user_register', 'send_user_data', 10, 1 );
+if ( !function_exists('wp_new_user_notification') ) {
+    function wp_new_user_notification( $user_id, $plaintext_pass = '' ) {
+        $user = new WP_User($user_id);
+
+        $user_login = stripslashes($user->user_login);
+        $user_email = stripslashes($user->user_email);
+
+        $message  = sprintf(__('New user registration on your blog %s:'), get_option('blogname')) . "\r\n\r\n";
+        $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
+        $message .= sprintf(__('E-mail: %s'), $user_email) . "\r\n";
+
+        @wp_mail(get_option('admin_email'), sprintf(__('[%s] New User Registration'), get_option('blogname')), $message);
+
+        if ( empty($plaintext_pass) )
+            return;
+
+        $message  = __('Hi there,') . "\r\n\r\n";
+        $message .= sprintf(__("Welcome to %s! Here's how to log in:"), get_option('blogname')) . "\r\n\r\n";
+        $message .= wp_login_url() . "\r\n";
+        $message .= sprintf(__('Username: %s'), $user_login) . "\r\n";
+        $message .= sprintf(__('Password: %s'), $plaintext_pass) . "\r\n\r\n";
+        $message .= sprintf(__('If you have any problems, please contact me at %s.'), get_option('admin_email')) . "\r\n\r\n";
+        $message .= __('Adios!');
+
+        wp_mail($user_email, sprintf(__('[%s] Your username and password'), get_option('blogname')), $message);
+
+    }
+}
+
+/*add_action( 'user_register', 'send_user_data', 10, 1 );
 function send_user_data( $user_id ) {
 
    // if ( isset( $_POST['first_name'] ) )
     //    update_user_meta($user_id, 'first_name', $_POST['first_name']);
    
    //Obtener variable language 
-   /*$language_user = esc_attr(get_the_author_meta('language_user',$user_id));
+   $language_user = esc_attr(get_the_author_meta('language_user',$user_id));
    
    $mensaje='Hola '.$_POST['first_name'].',<br/> Recuerda que tu usuario es -'.$_POST['user_login'].'- y para poder activar tu cuenta debes introducir tu password a través del siguiente enlace <a href="http://pedroxmujica.com/Arylex/user-registration/?user='.$_POST['user_login'].'">Pincha aquí</a>.<br/>Idioma del usuario: '.$language_user;
 	
@@ -282,9 +311,9 @@ function send_user_data( $user_id ) {
 			echo $e;
 		} catch (Exception $e) {
 			echo $e;
-		}*/
+		}
 			
-}
+}*/
 
 
 ?>
