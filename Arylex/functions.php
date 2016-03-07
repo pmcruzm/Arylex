@@ -1,6 +1,7 @@
 <?php
 //Library Mailchimp
 require_once 'inc/MCAPI.class.php';
+
 //Libreria PHPMailer
 require 'include/PHPMailerAutoload.php';
 
@@ -144,10 +145,6 @@ add_action('wp_ajax_ajax_contact', 'ajax_contact');
 function ajax_contact(){
     
 	$mensaje='Name: '.$_POST['name'].'<br/>Email: '.$_POST['email'].'<br/>Telephone: '.$_POST['telephone'].'<br/>Subject: '.$_POST['subject'].'<br/>Question: '.$_POST['question'].'<br/>Destinatario: '.$_POST['destinatario'];
-	
-	//Enviamos el mail al usuario
-	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
-	$mail->IsSMTP(); // telling the class to use SMTP
 				
 	/*$message = file_get_contents('http://citizenzchallenge.cambridge.es/inicio/mailing/mailing_contacto.php'); 
 	$message = str_replace('%nombre%', $_POST['nombre'], $message); 
@@ -252,22 +249,24 @@ function ajax_registration(){
 ***/
 
 add_action( 'user_register', 'send_user_data', 10, 1 );
-
 function send_user_data( $user_id ) {
 
    // if ( isset( $_POST['first_name'] ) )
-   //     update_user_meta($user_id, 'first_name', $_POST['first_name']);
+    //    update_user_meta($user_id, 'first_name', $_POST['first_name']);
    
    //Obtener variable language 
    $language_user = esc_attr(get_the_author_meta('language_user',$user_id));
    
-   $mensaje='Hola '.$_POST['first_name'].',<br/> Recuerda que tu usuario es -'.$_POST['user_login'].'- y para poder activar tu cuenta debes introducir tu password a través del siguiente enlace <a href="http://pedroxmujica.com/Arylex/user-registration/?mail='.$_POST['email'].'">Pincha aquí</a>.<br/>Idioma del usuario: '.$language_user;
+   $mensaje='Hola '.$_POST['first_name'].',<br/> Recuerda que tu usuario es -'.$_POST['user_login'].'- y para poder activar tu cuenta debes introducir tu password a través del siguiente enlace <a href="http://pedroxmujica.com/Arylex/user-registration/?user='.$_POST['user_login'].'">Pincha aquí</a>.<br/>Idioma del usuario: '.$language_user;
+	send_mail_user($mensaje,$language_user);			
+}
+
+function send_mail_user($text,$language_user){
 	
 	//Enviamos el mail al usuario
 	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
-	$mail->IsSMTP(); // telling the class to use SMTP
-				
-							
+	$mail->IsSMTP(); // telling the class to use SMTP	
+	
 	try {
 			$mail->Host       = "localhost"; // SMTP server
 			$mail->SMTPAuth   = true;                  // enable SMTP authentication
@@ -276,7 +275,7 @@ function send_user_data( $user_id ) {
 			$mail->Username   = "citizen@pedroxmujica.com"; // SMTP account username
 			$mail->Password   = "pedrom8";        // SMTP account password
 			$mail->AddReplyTo('citizen@pedroxmujica.com', 'Usuario nuevo Arylex');//Dirección de replica del mensaje
-			$mail->AddAddress($_POST['email']);//Dirección del mensaje
+			$mail->AddAddress('pmcruzm@gmail.com');//Dirección del mensaje
 			$mail->SetFrom('citizen@pedroxmujica.com', 'Usuario nuevo Arylex');
 			// $mail->AddReplyTo('name@yourdomain.com', 'First Last');
 			$mail->Subject = 'Usuario nuevo Arylex';
