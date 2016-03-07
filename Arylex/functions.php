@@ -234,7 +234,7 @@ function ajax_registration(){
 	
 	if($_POST['password']==$_POST['rep_password']){
 		//Obtener el id de usuario
-		$info_user=get_user_by( 'email',$_POST['password']);
+		$info_user=get_user_by( 'email',$_POST['mail']);
 		print_r($info_user);
 		//$user_id=$_POST['hash'];//Pasar a string 
 		//wp_set_password($_POST['password'], $user_id );
@@ -261,38 +261,35 @@ function send_user_data( $user_id ) {
    //Obtener variable language 
    $language_user = esc_attr(get_the_author_meta('language_user',$user_id));
    
-   $mensaje='Hola '.$_POST['first_name'].',<br/> Recuerda que tu usuario es -'.$_POST['user_login'].'- y para poder activar tu cuenta debes introducir tu password a través del siguiente enlace <a href="http://pedroxmujica.com/Arylex/user-registration/?mail='.$_POST['user_email'].'">Pincha aquí</a>.<br/>Idioma del usuario: '.$language_user;
+   $mensaje='Hola '.$_POST['first_name'].',<br/> Recuerda que tu usuario es -'.$_POST['user_login'].'- y para poder activar tu cuenta debes introducir tu password a través del siguiente enlace <a href="http://pedroxmujica.com/Arylex/user-registration/?mail='.$_POST['email'].'">Pincha aquí</a>.<br/>Idioma del usuario: '.$language_user;
 	
 	//Enviamos el mail al usuario
-	/*$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
+	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
 	$mail->IsSMTP(); // telling the class to use SMTP
 				
 							
 	try {
-		$mail->Host       = "localhost"; // SMTP server
-		$mail->SMTPAuth   = true;                  // enable SMTP authentication
-		$mail->CharSet = 'UTF-8';
-		$mail->Host       = "localhost"; // sets the SMTP server
-		$mail->Username   = "citizen@pedroxmujica.com"; // SMTP account username
-		$mail->Password   = "pedrom8";        // SMTP account password
-		$mail->AddReplyTo('citizen@pedroxmujica.com', 'Usuario nuevo Arylex');//Dirección de replica del mensaje
-		$mail->AddAddress($_POST['user_email']);//Dirección del mensaje
-		$mail->SetFrom('citizen@pedroxmujica.com', 'Usuario nuevo Arylex');
-		// $mail->AddReplyTo('name@yourdomain.com', 'First Last');
-		$mail->Subject = 'Usuario nuevo Arylex';
-		//$mail->AltBody = $mensaje; // optional - MsgHTML will create an alternate automatically
-		$mail->MsgHTML($mensaje);
-		$mail->Send();
+			$mail->Host       = "localhost"; // SMTP server
+			$mail->SMTPAuth   = true;                  // enable SMTP authentication
+			$mail->CharSet = 'UTF-8';
+			$mail->Host       = "localhost"; // sets the SMTP server
+			$mail->Username   = "citizen@pedroxmujica.com"; // SMTP account username
+			$mail->Password   = "pedrom8";        // SMTP account password
+			$mail->AddReplyTo('citizen@pedroxmujica.com', 'Usuario nuevo Arylex');//Dirección de replica del mensaje
+			$mail->AddAddress($_POST['email']);//Dirección del mensaje
+			$mail->SetFrom('citizen@pedroxmujica.com', 'Usuario nuevo Arylex');
+			// $mail->AddReplyTo('name@yourdomain.com', 'First Last');
+			$mail->Subject = 'Usuario nuevo Arylex';
+			//$mail->AltBody = $mensaje; // optional - MsgHTML will create an alternate automatically
+			$mail->MsgHTML($mensaje);
+			$mail->Send();
 		} catch (phpmailerException $e) {
 			echo $e;
 		} catch (Exception $e) {
 			echo $e;
-		}*/
+		}
 		
-		echo $mensaje;
-		
-		die();
-
+	die();
 }
 
 ?>
