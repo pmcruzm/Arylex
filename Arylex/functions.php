@@ -257,6 +257,7 @@ function ajax_registration(){
 			//Actualizamos password y cambiamos estado de role del usuario 
 			wp_set_password($_POST['password'], $info_user->ID);
 			$user_id = wp_update_user( array( 'ID' => $info_user->ID, 'role' =>'new_user_active' ) );
+			//Falta incribirlo en MailChimp
 			if ( is_wp_error( $user_id ) ) {
 				echo 'Ha ocurrido un error al actualizar usuario';
 			} else {

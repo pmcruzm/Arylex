@@ -189,7 +189,7 @@ jQuery(document).ready(function(){
                 'action': 'ajax_registration', //calls wp_ajax_nopriv_ajaxlogin
                 'password': jQuery('#form-registration #password').val(), 
                 'rep_password': jQuery('#form-registration #rep_password').val(), 
-                'hash': jQuery('#form-registration #hash').val() },
+                'user': jQuery('#form-registration #user').val() },
             success: function(data){
 				alert(data);
             }
