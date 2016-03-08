@@ -19,7 +19,7 @@
             <form id="form-registration">
                <div><label for="password">Password</label> <input name="password" id="password" type="password" /></div>
                <div><label for="rep_password">Repeat Password</label> <input name="rep_password" id="rep_password" type="password" /></div>
-               <input type="hidden" name="user" id="user" value="<?php $_GET['user'];?>">
+               <input type="hidden" name="user" id="user" value="<?php echo $_GET['user'];?>">
                <input class="right inputnew" type="submit" title="Send" value="Send" />
            </form>
         </div>
