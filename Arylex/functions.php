@@ -258,24 +258,28 @@ function ajax_registration(){
 			//Actualizamos password 
 			wp_set_password($_POST['password'], $info_user->ID);
 			//Actualizamos el rol del usuario
-			wp_update_user( array( 'ID' => $info_user->ID, 'role' =>'new_user_active' ) );
-			//Inscribimos en lista de mailchimp MailChimp
-			$api = new MCAPI('143754790e3a7210e0b817b06491194b-us8');
-			$merge_vars = array('MC_LANGUAGE'=>$language_user);
-			
-			$retval = $api->listSubscribe( '178e1a7379', $info_user->user_email, $merge_vars, 'html', false, true );
-			 
-			if ($api->errorCode){
-				echo "Please try again.";
-			} else {
-				echo "Thank you, you have been added to our mailing list.";
+			$user_id=wp_update_user( array( 'ID' => $info_user->ID, 'role' =>'new_user_active' ) );
+			if ( is_wp_error( $user_id ) ) {
+				echo json_encode(array('register'=>false, 'message'=>__('Error al actualizar el rol.'),'url'=>''));
+			}else{	
+				//Inscribimos en lista de mailchimp MailChimp
+				$api = new MCAPI('143754790e3a7210e0b817b06491194b-us8');
+				$merge_vars = array('MC_LANGUAGE'=>$language_user);
+				
+				$retval = $api->listSubscribe( '178e1a7379', $info_user->user_email, $merge_vars, 'html', false, true );
+				 
+				if ($api->errorCode){
+					 echo json_encode(array('register'=>false, 'message'=>__('Error al añadir a mailchimp.'),'url'=>''));
+				} else {
+					 echo json_encode(array('register'=>true, 'message'=>__('Registro completado, redirigiendo...'),'url'=>get_home_url()));
+				}
 			}
 				
 		}else{
-			echo 'No es posible cambiar password por el rol de usuario';
+			echo json_encode(array('register'=>false, 'message'=>__('No es posible actualizar password, pongase en contacto con el administrador'),'url'=>''));
 		}
 	}else{
-		echo 'Password no coincide';
+		echo json_encode(array('register'=>false, 'message'=>__('Password y repetición no coinciden.'),'url'=>''));
 	}
 	
     die();

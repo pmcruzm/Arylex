@@ -183,7 +183,7 @@ jQuery(document).ready(function(){
         
         jQuery.ajax({
             type: 'POST',
-            dataType: 'html',
+            dataType: 'json',
             url: ajaxurl,
             data: { 
                 'action': 'ajax_registration', //calls wp_ajax_nopriv_ajaxlogin
@@ -191,7 +191,17 @@ jQuery(document).ready(function(){
                 'rep_password': jQuery('#form-registration #rep_password').val(), 
                 'user': jQuery('#form-registration #user').val() },
             success: function(data){
-				alert(data);
+				console.log(data);
+				if (data.register == true){
+					jQuery('#form-login #password').val('');	
+					jQuery('#form-login #rep_password').val('')	
+					alert(data.message);
+				    window.location = data.url;
+                }else{
+					jQuery('#form-login #password').val('');	
+					jQuery('#form-login #rep_password').val('')	
+					alert(data.message);
+				}
             }
         });
     });
