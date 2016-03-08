@@ -215,9 +215,9 @@ function custom_user_profile_fields($user){
             <th><label for="language_user">User language</label></th>
             <td>
             	<select id="language_user" name="language_user">
-                    <option value="en" <?php if ($language_user=='EN'){ echo 'selected="selected"';}?>>en</option>
-                    <option value="fr" <?php if ($language_user=='FR'){ echo 'selected="selected"';}?>>fr</option>
-                    <option value="de" <?php if ($language_user=='DE'){ echo 'selected="selected"';}?>>de</option>		
+                    <option value="en" <?php if ($language_user=='en'){ echo 'selected="selected"';}?>>en</option>
+                    <option value="fr" <?php if ($language_user=='fr'){ echo 'selected="selected"';}?>>fr</option>
+                    <option value="de" <?php if ($language_user=='de'){ echo 'selected="selected"';}?>>de</option>		
                 </select>
             </td>
         </tr>
