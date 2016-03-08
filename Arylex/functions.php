@@ -253,71 +253,33 @@ function ajax_registration(){
 	if($_POST['password']==$_POST['rep_password']){
 		//Obtener el id de usuario
 		$info_user=get_user_by( 'login',$_POST['user']);
+		$language_user = esc_attr(get_the_author_meta('language_user',$info_user->ID));
 		if(!empty( $info_user->roles) && $info_user->roles[0]=='new_user_init'){
-			//Actualizamos password y cambiamos estado de role del usuario 
+			//Actualizamos password 
 			wp_set_password($_POST['password'], $info_user->ID);
-			$user_id = wp_update_user( array( 'ID' => $info_user->ID, 'role' =>'new_user_active' ) );
-			//Falta incribirlo en MailChimp
-			if ( is_wp_error( $user_id ) ) {
-				echo 'Ha ocurrido un error al actualizar usuario';
+			//Actualizamos el rol del usuario
+			wp_update_user( array( 'ID' => $info_user->ID, 'role' =>'new_user_active' ) );
+			//Inscribimos en lista de mailchimp MailChimp
+			$api = new MCAPI('143754790e3a7210e0b817b06491194b-us8');
+			$merge_vars = array('MC_LANGUAGE'=>$language_user);
+			
+			$retval = $api->listSubscribe( '178e1a7379', $info_user->user_email, $merge_vars, 'html', false, true );
+			 
+			if ($api->errorCode){
+				echo "Please try again.";
 			} else {
-				echo 'Usuario registrado';
-			}	
+				echo "Thank you, you have been added to our mailing list.";
+			}
+				
 		}else{
-			echo 'No es posible cambiar el password';
+			echo 'No es posible cambiar password por el rol de usuario';
 		}
-		//$user_id=$_POST['hash'];//Pasar a string 
-		//wp_set_password($_POST['password'], $user_id );
-		//echo 'OK';
 	}else{
 		echo 'Password no coincide';
 	}
 	
     die();
 }
-
-
-/***
-* Enviar formulario después de alta de usuario  
-***/
-
-/*add_action( 'user_register', 'send_user_data', 10, 1 );
-function send_user_data( $user_id ) {
-
-   // if ( isset( $_POST['first_name'] ) )
-    //    update_user_meta($user_id, 'first_name', $_POST['first_name']);
-   
-   //Obtener variable language 
-   $language_user = esc_attr(get_the_author_meta('language_user',$user_id));
-   
-   $mensaje='Hola '.$_POST['first_name'].',<br/> Recuerda que tu usuario es -'.$_POST['user_login'].'- y para poder activar tu cuenta debes introducir tu password a través del siguiente enlace <a href="http://pedroxmujica.com/Arylex/user-registration/?user='.$_POST['user_login'].'">Pincha aquí</a>.<br/>Idioma del usuario: '.$language_user;
-	
-	//Enviamos el mail al usuario
-	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
-	$mail->IsSMTP(); // telling the class to use SMTP	
-	
-	try {
-			$mail->Host       = "localhost"; // SMTP server
-			$mail->SMTPAuth   = true;                  // enable SMTP authentication
-			$mail->CharSet = 'UTF-8';
-			$mail->Host       = "localhost"; // sets the SMTP server
-			$mail->Username   = "citizen@pedroxmujica.com"; // SMTP account username
-			$mail->Password   = "pedrom8";        // SMTP account password
-			$mail->AddReplyTo('citizen@pedroxmujica.com', 'Usuario nuevo Arylex');//Dirección de replica del mensaje
-			$mail->AddAddress('pmcruzm@gmail.com');//Dirección del mensaje
-			$mail->SetFrom('citizen@pedroxmujica.com', 'Usuario nuevo Arylex');
-			// $mail->AddReplyTo('name@yourdomain.com', 'First Last');
-			$mail->Subject = 'Usuario nuevo Arylex';
-			//$mail->AltBody = $mensaje; // optional - MsgHTML will create an alternate automatically
-			$mail->MsgHTML($mensaje);
-			$mail->Send();
-		} catch (phpmailerException $e) {
-			echo $e;
-		} catch (Exception $e) {
-			echo $e;
-		}
-			
-}*/
 
 
 ?>
