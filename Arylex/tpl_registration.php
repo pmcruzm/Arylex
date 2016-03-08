@@ -8,11 +8,12 @@
 ?>
 <?php get_header(); ?>
 	<?php
-    	//Obtener el id de usuario
+    	//Obtener el rol del usuario
 		$info_user=get_user_by( 'login',$_GET['user']);
-		print_r($info_user);
 	?>
-	<?php // if (!is_user_logged_in()) { ?>
+	<?php if (!is_user_logged_in()) { 
+			if(!empty( $info_user->roles) && $info_user->roles[0]=='new_user_init'){
+	?>
         <div class="box_registration">
         	<p></p>
             <form id="form-registration">
@@ -23,10 +24,11 @@
            </form>
         </div>
     <?php
-	//}else{
+		}
+	}else{
 	?>
    		<h4>El usuario ya está registrado</h4>
     <?php
-	//}
+	}
 	?>
 <?php get_footer(); ?>

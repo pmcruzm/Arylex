@@ -191,7 +191,7 @@ jQuery(document).ready(function(){
                 'rep_password': jQuery('#form-registration #rep_password').val(), 
                 'hash': jQuery('#form-registration #hash').val() },
             success: function(data){
-				console.log(data);
+				alert(data);
             }
         });
     });

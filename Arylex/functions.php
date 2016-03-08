@@ -253,7 +253,18 @@ function ajax_registration(){
 	if($_POST['password']==$_POST['rep_password']){
 		//Obtener el id de usuario
 		$info_user=get_user_by( 'login',$_POST['user']);
-		print_r($info_user);
+		if(!empty( $info_user->roles) && $info_user->roles[0]=='new_user_init'){
+			//Actualizamos password y cambiamos estado de role del usuario 
+			wp_set_password($_POST['password'], $info_user->ID);
+			$user_id = wp_update_user( array( 'ID' => $info_user->ID, 'role' =>'new_user_active' ) );
+			if ( is_wp_error( $user_id ) ) {
+				echo 'Ha ocurrido un error al actualizar usuario';
+			} else {
+				echo 'Usuario registrado';
+			}	
+		}else{
+			echo 'No es posible cambiar el password';
+		}
 		//$user_id=$_POST['hash'];//Pasar a string 
 		//wp_set_password($_POST['password'], $user_id );
 		//echo 'OK';
