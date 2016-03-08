@@ -11,6 +11,27 @@ add_theme_support('automatic-feed-links');
 //Asignar traducciones del theme 
 load_theme_textdomain( 'arylex', get_template_directory().'/languages' ); 
 
+//Roles nuevos  
+$result = add_role(
+    'new_user_init',
+    __( 'New User Init' ),
+    array(
+        'read'         => true,  // true allows this capability
+        'edit_posts'   => false,
+        'delete_posts' => false, // Use false to explicitly deny
+    )
+);
+
+$result = add_role(
+    'new_user_active',
+    __( 'New User Active' ),
+    array(
+        'read'         => true,  // true allows this capability
+        'edit_posts'   => false,
+        'delete_posts' => false, // Use false to explicitly deny
+    )
+);
+
 /*** Top navigation ***/
 
 function register_menu() {
@@ -247,35 +268,6 @@ function ajax_registration(){
 /***
 * Enviar formulario después de alta de usuario  
 ***/
-
-if ( !function_exists('wp_new_user_notification') ) {
-    function wp_new_user_notification( $user_id, $plaintext_pass = '' ) {
-        $user = new WP_User($user_id);
-
-        $user_login = stripslashes($user->user_login);
-        $user_email = stripslashes($user->user_email);
-
-        $message  = sprintf(__('New user registration on your blog %s:'), get_option('blogname')) . "\r\n\r\n";
-        $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
-        $message .= sprintf(__('E-mail: %s'), $user_email) . "\r\n";
-
-        @wp_mail(get_option('admin_email'), sprintf(__('[%s] New User Registration'), get_option('blogname')), $message);
-
-        if ( empty($plaintext_pass) )
-            return;
-
-        $message  = __('Hi there,') . "\r\n\r\n";
-        $message .= sprintf(__("Welcome to %s! Here's how to log in:"), get_option('blogname')) . "\r\n\r\n";
-        $message .= wp_login_url() . "\r\n";
-        $message .= sprintf(__('Username: %s'), $user_login) . "\r\n";
-        $message .= sprintf(__('Password: %s'), $plaintext_pass) . "\r\n\r\n";
-        $message .= sprintf(__('If you have any problems, please contact me at %s.'), get_option('admin_email')) . "\r\n\r\n";
-        $message .= __('Adios!');
-
-        wp_mail($user_email, sprintf(__('[%s] Your username and password'), get_option('blogname')), $message);
-
-    }
-}
 
 /*add_action( 'user_register', 'send_user_data', 10, 1 );
 function send_user_data( $user_id ) {
