@@ -193,13 +193,13 @@ jQuery(document).ready(function(){
             success: function(data){
 				console.log(data);
 				if (data.register == true){
-					jQuery('#form-login #password').val('');	
-					jQuery('#form-login #rep_password').val('')	
+					jQuery('#form-registration #password').val('');	
+					jQuery('#form-registration #rep_password').val('')	
 					alert(data.message);
 				    window.location = data.url;
                 }else{
-					jQuery('#form-login #password').val('');	
-					jQuery('#form-login #rep_password').val('')	
+					jQuery('#form-registration #password').val('');	
+					jQuery('#form-registration #rep_password').val('')	
 					alert(data.message);
 				}
             }
