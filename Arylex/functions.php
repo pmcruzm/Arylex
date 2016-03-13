@@ -106,9 +106,7 @@ add_action('wp_ajax_send_mailchimp', 'send_mailchimp');
 
 function send_mailchimp(){
 	
-	//echo $_POST['email'].'--'.$_POST['lang'];
-	
-		$api = new MCAPI('143754790e3a7210e0b817b06491194b-us8');
+		/*$api = new MCAPI('143754790e3a7210e0b817b06491194b-us8');
 		$merge_vars = array('MC_LANGUAGE'=>$_POST["lang"]);
 		 
 		// Submit subscriber data to MailChimp
@@ -118,6 +116,40 @@ function send_mailchimp(){
 		if ($api->errorCode){
 			echo "Please try again.";
 		} else {
+			echo "Thank you, you have been added to our mailing list.";
+		}*/
+		//Añadimos contacto nuevo Mailrelay
+		unset($arr_group);
+		$arr_group = array();
+		switch($_POST["lang"]){
+			case 'en':
+				$arr_group[]=2;
+			break;
+			case 'fr':
+				$arr_group[]=3;
+			break;
+			case 'de':
+				$arr_group[]=4;
+			break;
+		}
+		$postData = array(
+			'function' => 'addSubscriber',
+			'apiKey' => 'fMSMLq6WNLbQKQzs79McZw5HxF1giiODuhQ6NNTb',
+			'email' => $_POST["email"],
+			'name' => '',
+			'groups' => $arr_group
+		);
+		
+		$post = http_build_query($postData);
+		 
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
+		
+		$json = curl_exec($curl);
+		$result = json_decode($json);
+		 
+		if ($result->status == 0) {
+			throw new Exception('Bad status returned. Something went wrong.');
+		}else{
 			echo "Thank you, you have been added to our mailing list.";
 		}
 	exit;
@@ -262,8 +294,43 @@ function ajax_registration(){
 			if ( is_wp_error( $user_id ) ) {
 				echo json_encode(array('register'=>false, 'message'=>__('Error al actualizar el rol.'),'url'=>''));
 			}else{	
+				//Añadimos contacto nuevo Mailrelay
+				unset($arr_group);
+				$arr_group = array();
+				switch($language_user){
+					case 'en':
+						$arr_group[]=2;
+					break;
+					case 'fr':
+						$arr_group[]=3;
+					break;
+					case 'de':
+						$arr_group[]=4;
+					break;
+				}
+				$postData = array(
+					'function' => 'addSubscriber',
+					'apiKey' => 'fMSMLq6WNLbQKQzs79McZw5HxF1giiODuhQ6NNTb',
+					'email' => $info_user->user_email,
+					'name' => '',
+					'groups' => $arr_group
+				);
+				
+				$post = http_build_query($postData);
+				 
+				curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
+				
+				$json = curl_exec($curl);
+				$result = json_decode($json);
+				 
+				if ($result->status == 0) {
+					echo json_encode(array('register'=>false, 'message'=>__('Error al añadir a mailchimp.'),'url'=>''));
+				}else{
+					echo json_encode(array('register'=>true, 'message'=>__('Registro completado, redirigiendo...'),'url'=>get_home_url()));
+				}
+			
 				//Inscribimos en lista de mailchimp MailChimp
-				$api = new MCAPI('143754790e3a7210e0b817b06491194b-us8');
+				/*$api = new MCAPI('143754790e3a7210e0b817b06491194b-us8');
 				$merge_vars = array('MC_LANGUAGE'=>$language_user);
 				
 				$retval = $api->listSubscribe( '178e1a7379', $info_user->user_email, $merge_vars, 'html', false, true );
@@ -272,7 +339,7 @@ function ajax_registration(){
 					 echo json_encode(array('register'=>false, 'message'=>__('Error al añadir a mailchimp.'),'url'=>''));
 				} else {
 					 echo json_encode(array('register'=>true, 'message'=>__('Registro completado, redirigiendo...'),'url'=>get_home_url()));
-				}
+				}*/
 			}
 				
 		}else{
