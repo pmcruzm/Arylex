@@ -1,6 +1,6 @@
 <?php
 /**
- * @template name: Login
+ * @template name: Login 
  * @package WordPress
  * @subpackage Arylex_theme
  * @since Arylex Theme 1.0
