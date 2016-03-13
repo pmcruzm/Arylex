@@ -119,38 +119,65 @@ function send_mailchimp(){
 			echo "Thank you, you have been added to our mailing list.";
 		}*/
 		//Añadimos contacto nuevo Mailrelay
-		unset($arr_group);
-		$arr_group = array();
-		switch($_POST["lang"]){
-			case 'en':
-				$arr_group[]=2;
-			break;
-			case 'fr':
-				$arr_group[]=3;
-			break;
-			case 'de':
-				$arr_group[]=4;
-			break;
-		}
-		$postData = array(
-			'function' => 'addSubscriber',
-			'apiKey' => 'fMSMLq6WNLbQKQzs79McZw5HxF1giiODuhQ6NNTb',
-			'email' => $_POST["email"],
-			'name' => '',
-			'groups' => $arr_group
+		$username = 'pedroxmujica';
+		$password = 'd166184a';
+		$hostname = 'pedroxmujica.ip-zone.com';
+		
+		// El primer paso será validarnos contra el API
+		$curl = curl_init('http://' . $hostname . '/ccm/admin/api/version/2/&type=json');
+		
+		$params = array(
+		'function' => 'doAuthentication',
+		'username' => $username,
+		'password' => $password
 		);
 		
-		$post = http_build_query($postData);
-		 
-		curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($curl, CURLOPT_POST, 1);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 		
-		$json = curl_exec($curl);
-		$result = json_decode($json);
-		 
-		if ($result->status == 0) {
-			throw new Exception('Bad status returned. Something went wrong.');
-		}else{
-			echo "Thank you, you have been added to our mailing list.";
+		// Ejecutaremos la página, lo que nos devolverá un resultado en formato Json
+		$result = curl_exec($curl);
+		
+		$jsonResult = json_decode($result);
+		
+		if (!$jsonResult->status) {
+			throw new Exception('Fallo en la validación. Verifique su hostname, username o password.');
+		} else {
+			$apiKey = $jsonResult->data;	
+			unset($arr_group);
+			$arr_group = array();
+			switch($_POST["lang"]){
+				case 'en':
+					$arr_group[]=2;
+				break;
+				case 'fr':
+					$arr_group[]=3;
+				break;
+				case 'de':
+					$arr_group[]=4;
+				break;
+			}
+			$postData = array(
+				'function' => 'addSubscriber',
+				'apiKey' => $apiKey,
+				'email' => $_POST["email"],
+				'name' => '',
+				'groups' => $arr_group
+			);
+			
+			$post = http_build_query($postData);
+			 
+			curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
+			
+			$json = curl_exec($curl);
+			$result = json_decode($json);
+			 
+			if ($result->status == 0) {
+				throw new Exception('Bad status returned. Something went wrong.');
+			}else{
+				echo "Thank you, you have been added to our mailing list.";
+			}
 		}
 	exit;
 }
@@ -295,38 +322,65 @@ function ajax_registration(){
 				echo json_encode(array('register'=>false, 'message'=>__('Error al actualizar el rol.'),'url'=>''));
 			}else{	
 				//Añadimos contacto nuevo Mailrelay
-				unset($arr_group);
-				$arr_group = array();
-				switch($language_user){
-					case 'en':
-						$arr_group[]=2;
-					break;
-					case 'fr':
-						$arr_group[]=3;
-					break;
-					case 'de':
-						$arr_group[]=4;
-					break;
-				}
-				$postData = array(
-					'function' => 'addSubscriber',
-					'apiKey' => 'fMSMLq6WNLbQKQzs79McZw5HxF1giiODuhQ6NNTb',
-					'email' => $info_user->user_email,
-					'name' => '',
-					'groups' => $arr_group
+				$username = 'pedroxmujica';
+				$password = 'd166184a';
+				$hostname = 'pedroxmujica.ip-zone.com';
+				
+				// El primer paso será validarnos contra el API
+				$curl = curl_init('http://' . $hostname . '/ccm/admin/api/version/2/&type=json');
+				
+				$params = array(
+				'function' => 'doAuthentication',
+				'username' => $username,
+				'password' => $password
 				);
 				
-				$post = http_build_query($postData);
-				 
-				curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($curl, CURLOPT_POST, 1);
+				curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 				
-				$json = curl_exec($curl);
-				$result = json_decode($json);
-				 
-				if ($result->status == 0) {
-					echo json_encode(array('register'=>false, 'message'=>__('Error al añadir a mailchimp.'),'url'=>''));
-				}else{
-					echo json_encode(array('register'=>true, 'message'=>__('Registro completado, redirigiendo...'),'url'=>get_home_url()));
+				// Ejecutaremos la página, lo que nos devolverá un resultado en formato Json
+				$result = curl_exec($curl);
+				
+				$jsonResult = json_decode($result);
+				
+				if (!$jsonResult->status) {
+					throw new Exception('Fallo en la validación. Verifique su hostname, username o password.');
+				} else {
+					$apiKey = $jsonResult->data;	
+					unset($arr_group);
+					$arr_group = array();
+					switch($language_user){
+						case 'en':
+							$arr_group[]=2;
+						break;
+						case 'fr':
+							$arr_group[]=3;
+						break;
+						case 'de':
+							$arr_group[]=4;
+						break;
+					}
+					$postData = array(
+						'function' => 'addSubscriber',
+						'apiKey' => $apiKey,
+						'email' => $info_user->user_email,
+						'name' => '',
+						'groups' => $arr_group
+					);
+					
+					$post = http_build_query($postData);
+					 
+					curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
+					
+					$json = curl_exec($curl);
+					$result = json_decode($json);
+					 
+					if ($result->status == 0) {
+						throw new Exception('Bad status returned. Something went wrong.');
+					}else{
+						echo "Thank you, you have been added to our mailing list.";
+					}
 				}
 			
 				//Inscribimos en lista de mailchimp MailChimp
