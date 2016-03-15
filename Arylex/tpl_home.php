@@ -7,94 +7,136 @@
  */
 ?>
 <?php get_header(); ?>
-	<?php
-		//Obtenemos datos de productos 
-		 $args = array('post_type' => 'page','pagename' =>'products');
-		 query_posts($args);
-		 if ( have_posts() ) : while ( have_posts() ) : the_post();
-			$exc_prod=get_the_excerpt();
-			$title_prod=get_the_title();
-			$link_prod=get_the_permalink();
-		 endwhile; endif;wp_reset_query();
-	?> 
-	<?php
-      if ( have_posts() ) : while ( have_posts() ) : the_post();
-		$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
-		$cover_top = $thumb['0'];
-	?>
-	<div id="cover_top" style="background-image:url(<?php echo $cover_top;?>)">
-    	<p><?php the_content();?></p>
-        <!--Info del player-->
-        <?php
-        	$title_vid=types_render_field("title-video",array("output"=>"raw"));
-			$url_vid=types_render_field("url-video",array("output"=>"raw"));
-			if($title_vid!="" && $url_vid!="" ){
-				echo '<p>'.$title_vid.'</p>';
-				echo '<a href="'.$url_vid.'" target="_blank">Play Video</a>';
-			}
+<?php
+	//Obtenemos datos de productos 
+	$args = array('post_type' => 'page','pagename' =>'products');
+	query_posts($args);
+	if ( have_posts() ) : while ( have_posts() ) : the_post();
+		$exc_prod=get_the_excerpt();
+		$title_prod=get_the_title();
+		$link_prod=get_the_permalink();
+	endwhile; endif;wp_reset_query();
+?> 
+<?php
+    if ( have_posts() ) : while ( have_posts() ) : the_post();
+	$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
+	$cover_top = $thumb['0'];
+?>
+<header class="header-img header-home" style="background-image:url(<?php echo $cover_top;?>)">
+    <span class="furrows"></span>
+    <div class="highlight">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-9">
+                    <h2><?php the_content();?></h2>
+                </div>
+                <?php
+					$title_vid=types_render_field("title-video",array("output"=>"raw"));
+					$url_vid=types_render_field("url-video",array("output"=>"raw"));
+					if($title_vid!="" && $url_vid!="" ){
+				?>	
+                	<div class="col-md-4 col-sm-3">
+                        <div class="video-arylex">
+                            <a href="<?php echo $url_vid;?>" class="youtube-fullview">
+                                <i class="icon-video"></i>
+                                <?php echo $title_vid;?>
+                            </a>
+                        </div>
+                    </div>	
+				<?php
+                	}
+				?>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<main id="main" role="main">
+
+    <article class="container page-content">
+        <div class="row">
+            <div class="col-md-6 page-content">
+                <h2><?php echo types_render_field("title-top-box",array("output"=>"raw"));?></h2>
+                <?php echo types_render_field("content-top-box",array("output"=>"html"));?>
+            </div>
+            <div class="col-md-6">
+                <img src="<?php echo types_render_field("image-top-box",array("output"=>"raw"));?>" class="img-responsive center-block">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-push-6">
+                <h2><?php echo types_render_field("title-bottom-box", array("output"=>"raw"));?></h2>
+                <?php echo types_render_field("content-bottom-box", array("output"=>"html"));?>
+                <p><img src="<?php bloginfo('template_url'); ?>/img/logo-key-benefits.png" class="img-responsive center-block hidden-xs"></p>
+            </div>
+            <div class="col-md-6 col-md-pull-6">
+                <img src="<?php echo types_render_field("image-bottom-box",array("output"=>"raw"));?>" class="img-responsive center-block">
+            </div>
+        </div>
+    </article>
+
+        <article class="jumbotron-products">
+        <div class="content">
+            <h2><?php echo  $title_prod;?></h2>
+            <p><?php echo  $exc_prod;?></p>
+            <a href="<?php echo  $link_prod;?>"><?php _e('View products','arylex' )?></a>
+        </div>
+    </article>
+
+
+    <article class="key-benefits page-content">
+    	<?php
+        	//Video de Key Benefits
+			$title_vid_key=types_render_field("title-video-key-benefits",array("output"=>"raw"));
+			$url_vid_key=types_render_field("url-video-key-benefits",array("output"=>"raw"));
 		?>
-    </div>
-	<div class="box-main">
-    	<div class="left_box">
-            <h3><?php echo types_render_field("title-top-box",array("output"=>"html"));?></h3>
-            <p><?php echo types_render_field("content-top-box",array("output"=>"html"));?></p>
-        </div>
-        <div class="right_box">
-        	<?php echo types_render_field("image-top-box",array("output"=>"normal","alt"=>__('Texto alternativo','arylex')));?>
-        </div>
-    </div>
-    <div class="box-main">
-    	<div class="left_box">
-         	<?php echo types_render_field("image-bottom-box",array("output"=>"normal","alt"=>__('Texto alternativo','arylex')));?>  
-        </div>
-        <div class="right_box">
-        	<h3><?php echo types_render_field("title-bottom-box", array("output"=>"html"));?></h3>
-            <p><?php echo types_render_field("content-bottom-box", array("output"=>"html"));?></p>	
-        </div>
-    </div>
-    <!--Banner Products-->
-    <div id="poducts_banner" class="clear">
-       <h3><?php echo  $title_prod;?></h3>
-       <p><?php echo  $exc_prod;?></p>
-       <a href="<?php echo  $link_prod;?>"><?php _e('VIEW PRODUCTS','arylex' )?></a>
-    </div>
-    <!--Key Benefits-->
-    <div class="box_KB">
-    	<div class="left_box">
-        	<!--Menús Key Benefits-->
-            <h3><?php _e('KEY BENEFITS','arylex' )?></h3>
-            <ul>
-            	<?php
-					global $post;
-					$cont=1;
-					$args = array('post_type' => 'key-benefit');
-					$new = new WP_Query($args);
-					while ($new->have_posts()) : $new->the_post();
-				?>
-                  <li><a href="#" <?php if($cont==1){echo 'class="active"';}?> rel="<?php echo $post->post_name;?>"><?php echo get_the_title();?></a></li>      
-                <?php	
-					$cont++;
-					endwhile;
-				?>       
-            </ul>
-        </div>
-        <div class="right_box">
-        	<?php
+        <h2><?php _e('Key Benefits','arylex' )?></h2>
+        <div class="row">
+            <div class="col-md-3 nav">
+                <ul>
+                	<?php
+						$cont=1;
+						$args = array('post_type' => 'key-benefit');
+						$new = new WP_Query($args);
+						while ($new->have_posts()) : $new->the_post();
+					?>
+					  <li><a href="#key-<?php echo $cont;?>"><?php echo get_the_title();?></a></li>      
+					<?php	
+						$cont++;
+						endwhile;
+					?>  
+                </ul>
+            </div>
+            <div class="col-md-6 content">
+				<?php
 					$args = array('post_type' => 'key-benefit');
 					$new = new WP_Query($args);
 					$cont=1;
 					while ($new->have_posts()) : $new->the_post();
 				?>
-                  <div id="<?php echo $post->post_name;?>" class="content-KB <?php if($cont==1){echo 'active';}?>">
-                  <?php the_content();?>
+                  <div id="#key-<?php echo $cont;?>">
+                  	<h3><?php the_title();?></h3>
+                  	<?php the_content();?>
                   </div>      
                 <?php	
 					$cont++;
 					endwhile;
-				?>  
+				?>
+            </div>
+            <div class="col-md-3">
+                <div class="video-arylex-attributes">
+                    <a href="<?php echo $url_vid_key;?>" class="youtube-fullview">
+                        <i class="icon-video"></i>
+                        <?php echo $title_vid_key;?>
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
-    <?php
-       endwhile; endif;wp_reset_query();
-	?>
+    </article>
+
+</main>
+<?php
+    endwhile; endif;wp_reset_query();
+?>
 <?php get_footer(); ?>

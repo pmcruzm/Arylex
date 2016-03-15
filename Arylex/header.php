@@ -1,67 +1,99 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="profile" href="http://gmpg.org/xfn/11">
-     
-    <!--Favicon-->
-    <link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/img/favicon.ico" type="image/x-icon"/>
-    <link rel="icon" href="<?php bloginfo('template_url'); ?>/img/favicon.ico" type="image/x-icon"/>
-    
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta content="IE=10" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+    <title><?php wp_title(); ?></title>
+
+    <link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/img/favicon.png">
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+    
 	<?php endif; ?>
+    <!--[if lte IE 8]>
+        <script src="<?php bloginfo('template_url'); ?>/js/respond.min.js"></script>
+    <![endif]-->
+	
 	<?php wp_head(); ?>
 </head>
-  <body data-lang="<?php echo ICL_LANGUAGE_CODE;?>">
-  	<div id="wrapper">
-    	<!--Cabecera-->
-    	<div id="cabecera">
-        	<div class="contenedor">
-            	<div id="logo_top">
-                	<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php _e('Arylex Active','arylex' )?></a>
-                </div>
-            	<div id="menu_top">
-                	<?php wp_nav_menu(array('menu' => 'Main_menu', 'theme_location' => 'Main_menu', 'depth' => 1, 'container' => 'false','menu_class' => 'mobile_menu_list')); ?>   
-                </div>
-                <div class="group_top">
-                	<!--Selector de Idioma-->
-                    <!--Enlace de Login-->
-                    <div class="search_box">
-                    	<?php get_search_form(); ?>	
-                    </div>
-                </div>
-                <!--Enlace de login-->
-                <div class="head_login">
-                <?php if (!is_user_logged_in()) { ?>
-                <?php
-					//Obtenemos datos de productos 
-					$args = array('post_type' => 'page','pagename' =>'login');
-					query_posts($args);
-					if ( have_posts() ) : while ( have_posts() ) : the_post();
-				?>
-					<a href="<?php echo get_the_permalink();?>"><?php _e('Login','arylex' )?></a>
-				<?php	
-                    endwhile; endif;wp_reset_query();
-				?> 
-                <?php
-					}else{
-						global $current_user;
-                        get_currentuserinfo();
-				?>
-                	<p>Wellcome <?php echo $current_user->user_firstname.' '.$current_user->user_lastname.'!';?></p>
-                    <p><a href="<?php echo wp_logout_url(home_url());?>"><?php _e('Close Session','arylex' )?></a></p>		
-                <?php		
-					}	
-				?>
-                </div> 
-                <!--Selector de idioma-->
-                <?php do_action('wpml_add_language_selector'); ?>   
+<body data-lang="<?php echo ICL_LANGUAGE_CODE;?>">
+
+    <header class="header-nav">
+        <div class="container">
+
+            <div class="logo-top">
+                <span class="menu-toggle"><?php _e('Menu','arylex' )?></span>
+                <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php _e('Arylex Active','arylex' )?></a></h1>
             </div>
+
+            <nav class="nav-main" role="navigation">
+            	<?php wp_nav_menu(array('menu' => 'Main_menu', 'theme_location' => 'Main_menu', 'depth' => 1, 'container' => 'false')); ?> 
+            </nav>
+
+            <?php get_search_form(); ?>	
+
+            <nav class="nav-top" role="navigation">
+                <ul>
+                    <li class="global">
+                    <?php
+                        //Obtenemos datos de productos 
+                        $args = array('post_type' => 'page','pagename' =>'dow-agrosciences');
+                        query_posts($args);
+                        if ( have_posts() ) : while ( have_posts() ) : the_post();
+                    ?>
+                        <a href="<?php echo get_the_permalink();?>"><?php _e('Dow AgroSciences Global','arylex' )?></a>
+                    <?php	
+                        endwhile; endif;wp_reset_query();
+                    ?> 
+                    </li>
+                    <li class="login">
+                    <?php if (!is_user_logged_in()) { ?>
+					<?php
+                        //Obtenemos datos de productos 
+                        $args = array('post_type' => 'page','pagename' =>'login');
+                        query_posts($args);
+                        if ( have_posts() ) : while ( have_posts() ) : the_post();
+                    ?>
+                        <a href="<?php echo get_the_permalink();?>"><?php _e('Login','arylex' )?></a>
+                    <?php	
+                        endwhile; endif;wp_reset_query();
+                    ?> 
+                    <?php
+                        }else{
+                            global $current_user;
+                            get_currentuserinfo();
+                    ?>
+                        <?php _e('Wellcome','arylex' )?> <?php echo $current_user->user_firstname.' '.$current_user->user_lastname;?> | <a href="<?php echo wp_logout_url(home_url());?>"><?php _e('Close Session','arylex' )?></a></p>	
+                    <?php		
+                        }	
+                    ?>
+                    </li>
+                    <li class="language"><a href="#">Language</a>
+                        <?php
+                        $languages = icl_get_languages('skip_missing=0&orderby=code');
+                        if(!empty($languages)){
+                            echo '<ul class="hidden">';
+                            foreach($languages as $l){
+                                echo '<li>';
+                                if($l['country_flag_url']){
+                                     echo '<a href="'.$l['url'].'">';
+                                     echo '<img src="'.$l['country_flag_url'].'" height="12" alt="'.$l['language_code'].'" width="18" />';
+									 echo icl_disp_language($l['native_name']);
+                                     echo '</a>';
+                                }
+                                echo '</li>';
+                            }
+                            echo '</ul>';
+                        }
+						?>
+                    </li>
+                </ul>
+            </nav>
+
         </div>
-        <!--Fin Cabecera-->
-        <!--Cuerpo-->
-        <div id="cuerpo">
-        	<div class="contenedor">
+
+    </header>
+
+
+    <div id="wrap">

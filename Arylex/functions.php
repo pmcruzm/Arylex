@@ -61,18 +61,18 @@ remove_filter( 'the_excerpt', 'wpautop' );
 
 add_action( 'wp_enqueue_scripts', 'register_js' );
 function register_js() {
-	wp_register_script( 'arylex-application', get_template_directory_uri() . '/js/application.js', array(), '1.0', 0 );
-	/*wp_register_script( 'crazydiamond-scrollTo', LOLLUM_URI . '/js/jquery.scrollTo.min.js', array(), '1.0', 0 );
-	wp_register_script( 'crazydiamond-fancybox', LOLLUM_URI . '/js/jquery.fancybox.js', array(), '1.0', 0 );
-	wp_register_script( 'crazydiamond-modernizr', LOLLUM_URI . '/js/modernizr.js', array(), '1.0', 0 );
-	wp_register_script( 'crazydiamond-common', LOLLUM_URI . '/js/common.js', array( 'jquery' ), '1.0', 1 );*/
+	//wp_register_script( 'arylex-application', get_template_directory_uri() . '/js/application.js', array(), '1.0', 0 );
+	wp_register_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '1.0', 0 );
+	wp_register_script( 'bootstrap-select', get_template_directory_uri() . '/js/bootstrap-select.min.js', array(), '1.0', 0 );
+	wp_register_script( 'main', get_template_directory_uri() . '/js/main.js', array(), '1.0', 0 );
 
 	wp_enqueue_script('jquery');
-	wp_enqueue_script( 'arylex-application' );
-	/*wp_enqueue_script( 'crazydiamond-scrollTo' );
-	wp_enqueue_script( 'crazydiamond-fancybox' );
-	wp_enqueue_script( 'crazydiamond-modernizr' );*/
+	//wp_enqueue_script( 'arylex-application' );
+	wp_enqueue_script( 'bootstrap' );
+	wp_enqueue_script( 'bootstrap-select' );
+	wp_enqueue_script( 'main' );
 }
+
 
 /**
  * Register general styles
@@ -80,14 +80,13 @@ function register_js() {
 function register_css() {
 	global $wp_styles;
 	
-	wp_register_style( 'style-css', get_template_directory_uri() . '/css/style.css', array(), '1.0' );
-	//wp_register_style( 'grid-css', get_template_directory_uri() . '/css/grid.css', array(), '1.0' );
-	//wp_register_style( 'crazydiamond-fonts', get_template_directory_uri() . '/css/fonts.css', array(), '1.0' );
-	//wp_register_style( 'crazydiamond-default', get_stylesheet_uri(), '1.0' );
-	//wp_register_style( 'crazydiamond-css', get_template_directory_uri() . '/css/base.css', array(), '1.0' );
+	//wp_register_style( 'style-css', get_template_directory_uri() . '/css/style.css', array(), '1.0' );
+	wp_register_style( 'bootstrap-css', get_template_directory_uri() . '/css/bootstrap-select.min.css', array(), '1.0' );
+	wp_register_style( 'main-css', get_template_directory_uri() . '/css/main.css', array(), '1.0' );
 			
-	wp_enqueue_style( 'style-css' );
-	//wp_enqueue_style( 'grid-css' );
+	//wp_enqueue_style( 'style-css' );
+	wp_enqueue_style( 'bootstrap-css' );
+	wp_enqueue_style( 'main-css' );
 
 	//wp_enqueue_style( 'ie8-css' );
 	//$wp_styles->add_data( 'ie8-css', 'conditional', 'lt IE 9' );
