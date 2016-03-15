@@ -1,6 +1,6 @@
 <?php
 /**
- * @template name: FAQ
+ * @template name: FAQ SC
  * @package WordPress
  * @subpackage Arylex_theme
  * @since Arylex Theme 1.0
@@ -49,19 +49,6 @@
 				?>
             </div>
             <div class="col-md-4 col-md-pull-8">
-                <div class="mod-categories">
-                    <h3><?php _e('TOPICS','arylex' )?></h3>
-                    <ul>
-                    <?php
-						// Get all the taxonomies for this post type
-						 $terms = get_terms('categories-faq');
-						 foreach( $terms as $term ){
-							$term_link = get_term_link( $term ); 
-							echo '<li><a href="'.$term_link.'" rel="'.$term->slug.'">'.$term->name.'</a></li>';
-						 }
-					?>
-                    </ul>
-                </div>
                 <div class="mod-register ask-the-experts">
                     <h3><?php _e('ASK THE EXPERTS','arylex' )?></h3>
                     <p><?php _e('If you don’t find answers to your question here ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.','arylex' )?></p>
