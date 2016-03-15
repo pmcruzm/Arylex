@@ -129,7 +129,7 @@ function send_mailrelay(){
 		$jsonResult = json_decode($result);
 		
 		if (!$jsonResult->status) {
-			echo json_encode(array('errors'=>1));
+			echo json_encode(array('error'=>1));
 		} else {
 			$apiKey = $jsonResult->data;	
 			unset($arr_group);
@@ -161,9 +161,9 @@ function send_mailrelay(){
 			$result = json_decode($json);
 			 
 			if ($result->status == 0) {
-				echo json_encode(array('errors'=>1));
+				echo json_encode(array('error'=>1));
 			}else{
-				echo json_encode(array('errors'=>0));
+				echo json_encode(array('error'=>0));
 			}
 		}
 	exit;
