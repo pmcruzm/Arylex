@@ -109,6 +109,7 @@ $(function () {
 				dataType: 'json',
                 data: data,
                 success: function(data){
+					console.log(data.error);
                     if(data.error == 0){
                         elem.val('');
                         errors.html(form.data('msg-success'));

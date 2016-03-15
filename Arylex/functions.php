@@ -106,9 +106,9 @@ add_action('wp_ajax_send_mailrelay', 'send_mailrelay');
 function send_mailrelay(){
 	
 		//Añadimos contacto nuevo Mailrelay
-		$username = 'pedroxmujica';
-		$password = 'd166184a';
-		$hostname = 'pedroxmujica.ip-zone.com';
+		$username = 'homeatc';
+		$password = 'b785c435';
+		$hostname = 'homeatc.ip-zone.com';
 		
 		// El primer paso será validarnos contra el API
 		$curl = curl_init('http://' . $hostname . '/ccm/admin/api/version/2/&type=json');
@@ -130,6 +130,7 @@ function send_mailrelay(){
 		
 		if (!$jsonResult->status) {
 			echo json_encode(array('error'=>1));
+			print_r($jsonResult);
 		} else {
 			$apiKey = $jsonResult->data;	
 			unset($arr_group);
@@ -161,7 +162,7 @@ function send_mailrelay(){
 			$result = json_decode($json);
 			 
 			if ($result->status == 0) {
-				echo json_encode(array('error'=>1));
+				echo json_encode(array('error'=>2));
 			}else{
 				echo json_encode(array('error'=>0));
 			}
