@@ -242,11 +242,11 @@ function ajax_contact(){
 		$mail->Host       = "localhost"; // sets the SMTP server
 		$mail->Username   = "citizen@pedroxmujica.com"; // SMTP account username
 		$mail->Password   = "pedrom8";        // SMTP account password
-		$mail->AddReplyTo('citizen@pedroxmujica.com', 'Mensaje contacto Arylex');//Dirección de replica del mensaje
+		$mail->AddReplyTo('citizen@pedroxmujica.com', __('Mensaje contacto Arylex'));//Dirección de replica del mensaje
 		$mail->AddAddress($mail_dest);//Dirección del mensaje
-		$mail->SetFrom('citizen@pedroxmujica.com', 'Mensaje contacto Arylex');
+		$mail->SetFrom('citizen@pedroxmujica.com', __('Mensaje contacto Arylex'));
 		// $mail->AddReplyTo('name@yourdomain.com', 'First Last');
-		$mail->Subject = 'Mensaje contacto Arylex';
+		$mail->Subject = __('Mensaje contacto Arylex');
 		//$mail->AltBody = $mensaje; // optional - MsgHTML will create an alternate automatically
 		$mail->MsgHTML($mensaje);
 		$mail->Send();
