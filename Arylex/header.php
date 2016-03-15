@@ -64,7 +64,7 @@
                             global $current_user;
                             get_currentuserinfo();
                     ?>
-                        <?php _e('Wellcome','arylex' )?> <?php echo $current_user->user_firstname.' '.$current_user->user_lastname;?> | <a href="<?php echo wp_logout_url(home_url());?>"><?php _e('Close Session','arylex' )?></a></p>	
+                        <a href="<?php echo wp_logout_url(home_url());?>"><?php _e('Log Out','arylex' )?></a>	
                     <?php		
                         }	
                     ?>

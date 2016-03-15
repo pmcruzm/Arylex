@@ -115,7 +115,7 @@
 					$cont=1;
 					while ($new->have_posts()) : $new->the_post();
 				?>
-                  <div id="#key-<?php echo $cont;?>">
+                  <div id="key-<?php echo $cont;?>">
                   	<h3><?php the_title();?></h3>
                   	<?php the_content();?>
                   </div>      
