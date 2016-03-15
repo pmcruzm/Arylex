@@ -82,12 +82,6 @@
                 </form>
 
             </div>
-            <div class="col-sm-5 col-sm-offset-1">
-                <div class="dow-buttons">
-                    <a href="#" class="button"><?php _e('DOW GERMANY','arylex' )?></a>
-                    <a href="#" class="button"><?php _e('DOW FRANCE','arylex' )?></a>
-                </div>
-            </div>
         </div>
     </article>
 

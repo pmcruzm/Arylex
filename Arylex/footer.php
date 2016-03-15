@@ -20,10 +20,10 @@
 
                     <div class="col-sm-5 col-sm-pull-7">
                         <p><?php _e('Bulletin','arylex' )?></p>
-                        <form class="bulletin-form">
-                            <input type="text" name="email" id="email" class="email-field">
+                        <form class="bulletin-form" data-msg-success="<?php _e('Éxito!','arylex' )?>" data-msg-error="<?php _e('Error!','arylex' )?>" data-msg-error-email="<?php _e('Email ya suscrito!','arylex' )?>">
+                            <input type="text" name="email" id="email" class="email-field" data-error="El email no es válido">
                             <input type="hidden" name="language" id="language" value="<?php echo ICL_LANGUAGE_CODE;?>">
-                            <button type="submit" class="bulletin-submit">Subscribe</button>
+                            <button type="submit" class="bulletin-submit"><?php _e('Subscribe','arylex' )?></button>
                         </form>
                         <br>
 

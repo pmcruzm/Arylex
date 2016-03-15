@@ -99,13 +99,14 @@ $(function () {
             errors.html(elem.data('error'));
         }else{
             var data = {
-                action: 'send_mailchimp',
+                action: 'send_mailrelay',
                 email: elem.val(),
                 lang : $('input[name="lang"]', form).val()
             };
             $.ajax({
-                url: form.attr('action'),
-                method: form.attr('method'),
+                url: ajaxurl,
+                type: 'POST',
+				dataType: 'json',
                 data: data,
                 success: function(data){
                     if(data.error == 0){

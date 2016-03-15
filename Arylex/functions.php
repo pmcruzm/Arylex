@@ -99,24 +99,12 @@ add_action( 'wp_enqueue_scripts', 'register_css' );
 ***/
 
 // para peticiones de usuarios que no están logueados
-add_action('wp_ajax_nopriv_send_mailchimp', 'send_mailchimp');
+add_action('wp_ajax_nopriv_send_mailrelay', 'send_mailrelay');
 // probablemente también vas a querer que los usuarios logueados puedan hacer lo mismo
-add_action('wp_ajax_send_mailchimp', 'send_mailchimp');
+add_action('wp_ajax_send_mailrelay', 'send_mailrelay');
 
-function send_mailchimp(){
+function send_mailrelay(){
 	
-		/*$api = new MCAPI('143754790e3a7210e0b817b06491194b-us8');
-		$merge_vars = array('MC_LANGUAGE'=>$_POST["lang"]);
-		 
-		// Submit subscriber data to MailChimp
-		// For parameters doc, refer to: http://apidocs.mailchimp.com/api/1.3/listsubscribe.func.php
-		$retval = $api->listSubscribe( '178e1a7379', $_POST["email"], $merge_vars, 'html', false, true );
-		 
-		if ($api->errorCode){
-			echo "Please try again.";
-		} else {
-			echo "Thank you, you have been added to our mailing list.";
-		}*/
 		//Añadimos contacto nuevo Mailrelay
 		$username = 'pedroxmujica';
 		$password = 'd166184a';
@@ -141,7 +129,7 @@ function send_mailchimp(){
 		$jsonResult = json_decode($result);
 		
 		if (!$jsonResult->status) {
-			throw new Exception('Fallo en la validación. Verifique su hostname, username o password.');
+			echo json_encode(array('errors'=>1));
 		} else {
 			$apiKey = $jsonResult->data;	
 			unset($arr_group);
@@ -173,9 +161,9 @@ function send_mailchimp(){
 			$result = json_decode($json);
 			 
 			if ($result->status == 0) {
-				throw new Exception('Bad status returned. Something went wrong.');
+				echo json_encode(array('errors'=>1));
 			}else{
-				echo "Thank you, you have been added to our mailing list.";
+				echo json_encode(array('errors'=>0));
 			}
 		}
 	exit;
