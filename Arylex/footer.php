@@ -22,7 +22,7 @@
                         <p><?php _e('Bulletin','arylex' )?></p>
                         <form class="bulletin-form" data-msg-success="<?php _e('Éxito!','arylex' )?>" data-msg-error="<?php _e('Error!','arylex' )?>" data-msg-error-email="<?php _e('Email ya suscrito!','arylex' )?>">
                             <input type="text" name="email" id="email" class="email-field" data-error="El email no es válido">
-                            <input type="hidden" name="language" id="language" value="<?php echo ICL_LANGUAGE_CODE;?>">
+                            <input type="hidden" name="lang" value="<?php echo ICL_LANGUAGE_CODE;?>">
                             <button type="submit" class="bulletin-submit"><?php _e('Subscribe','arylex' )?></button>
                         </form>
                         <br>
