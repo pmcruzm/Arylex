@@ -212,7 +212,20 @@ add_action('wp_ajax_ajax_contact', 'ajax_contact');
 
 function ajax_contact(){
     
-	$mensaje='Name: '.$_POST['name'].'<br/>Email: '.$_POST['email'].'<br/>Telephone: '.$_POST['telephone'].'<br/>Subject: '.$_POST['subject'].'<br/>Question: '.$_POST['question'].'<br/>Destinatario: '.$_POST['destinatario'];
+	$mensaje='Name: '.$_POST['name'].'<br/>Email: '.$_POST['email'].'<br/>Telephone: '.$_POST['telephone'].'<br/>Subject: '.$_POST['subject'].'<br/>Question: '.$_POST['question'];
+	//Destinatario mail según idioma
+	$mail_dest="pmcruzm@gmail.com";
+	switch($_POST["lang"]){
+		case 'en':
+			//$mail_dest='DowAgroSciencesUK@dow.com';
+		break;
+		case 'fr':
+			//$mail_dest='DowAgroSciencesUK@dow.com'; //Pendiente
+		break;
+		case 'de':
+			//$mail_dest='dowagrosciencesd@dow.com';
+		break;
+	}
 				
 	/*$message = file_get_contents('http://citizenzchallenge.cambridge.es/inicio/mailing/mailing_contacto.php'); 
 	$message = str_replace('%nombre%', $_POST['nombre'], $message); 
@@ -230,7 +243,7 @@ function ajax_contact(){
 		$mail->Username   = "citizen@pedroxmujica.com"; // SMTP account username
 		$mail->Password   = "pedrom8";        // SMTP account password
 		$mail->AddReplyTo('citizen@pedroxmujica.com', 'Mensaje contacto Arylex');//Dirección de replica del mensaje
-		$mail->AddAddress($_POST['destinatario']);//Dirección del mensaje
+		$mail->AddAddress($mail_dest);//Dirección del mensaje
 		$mail->SetFrom('citizen@pedroxmujica.com', 'Mensaje contacto Arylex');
 		// $mail->AddReplyTo('name@yourdomain.com', 'First Last');
 		$mail->Subject = 'Mensaje contacto Arylex';
@@ -238,14 +251,15 @@ function ajax_contact(){
 		$mail->MsgHTML($mensaje);
 		$mail->Send();
 		} catch (phpmailerException $e) {
-			echo "KO";
+			echo json_encode(array('error'=>1));
 		} catch (Exception $e) {
-			echo "KO";
+			echo json_encode(array('error'=>1));
 		}
-			echo 'OK';
+			echo json_encode(array('error'=>0));
 	
     die();
 }
+
 /***
 * Extra input user registration   
 ***/
@@ -310,9 +324,9 @@ function ajax_registration(){
 				echo json_encode(array('register'=>false, 'message'=>__('Error al actualizar el rol.'),'url'=>''));
 			}else{	
 				//Añadimos contacto nuevo Mailrelay
-				$username = 'pedroxmujica';
-				$password = 'd166184a';
-				$hostname = 'pedroxmujica.ip-zone.com';
+				$username = 'homeatc';
+				$password = 'b785c435';
+				$hostname = 'homeatc.ip-zone.com';
 				
 				// El primer paso será validarnos contra el API
 				$curl = curl_init('http://' . $hostname . '/ccm/admin/api/version/2/&type=json');
@@ -370,18 +384,6 @@ function ajax_registration(){
 						echo "Thank you, you have been added to our mailing list.";
 					}
 				}
-			
-				//Inscribimos en lista de mailchimp MailChimp
-				/*$api = new MCAPI('143754790e3a7210e0b817b06491194b-us8');
-				$merge_vars = array('MC_LANGUAGE'=>$language_user);
-				
-				$retval = $api->listSubscribe( '178e1a7379', $info_user->user_email, $merge_vars, 'html', false, true );
-				 
-				if ($api->errorCode){
-					 echo json_encode(array('register'=>false, 'message'=>__('Error al añadir a mailchimp.'),'url'=>''));
-				} else {
-					 echo json_encode(array('register'=>true, 'message'=>__('Registro completado, redirigiendo...'),'url'=>get_home_url()));
-				}*/
 			}
 				
 		}else{
