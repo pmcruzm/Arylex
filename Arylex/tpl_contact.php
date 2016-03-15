@@ -7,42 +7,89 @@
  */
 ?>
 <?php get_header(); ?>
-	<?php
-      if ( have_posts() ) : while ( have_posts() ) : the_post();
+<?php
+    if ( have_posts() ) : while ( have_posts() ) : the_post();
 		$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
 		$cover_top = $thumb['0'];
-	?>
-	<div id="cover_top" style="background-image:url(<?php echo $cover_top;?>)">
-    	<p><?php the_title();?></p>
+?>
+<header class="header-img" style="background-image:url(<?php echo $cover_top;?>)">
+    <span class="furrows"></span>
+    <div class="highlight">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2><?php the_title();?></h2>
+                    <p><?php the_content();?></p>
+                </div>
+            </div>
+        </div>
     </div>
-    <?php
-       endwhile; endif;wp_reset_query();
-	?>
-    <div class="form-contact">
-   		 <form id="form-contact" data-error-msg="<?php _e('Ha habido un error, por favor revisa los campos resaltados','arylex' )?>">
-            <div><label for="name"><?php _e('Name *','arylex' )?></label> <input name="name" id="name" class="validation-rule-empty" type="text" /></div>
-            <div><label for="email"><?php _e('Email Address *','arylex' )?></label> <input name="email" id="email" autocorrect="off" autocapitalize="off" class="validation-rule-email-rep"  type="email" data-error-msg="<?php _e('Error en email','arylex' )?>" /></div>
-            <div><label for="rep_email"><?php _e('Confirm email *','arylex' )?></label> <input name="rep_email" autocorrect="off" autocapitalize="off" id="rep_email" class="validation-rule-email-rep"  type="email" data-error-msg="<?php _e('Error en email','arylex' )?>" /></div>
-            <div><label for="telephone"><?php _e('Telephone *','arylex' )?></label> <input name="telephone" id="telephone" class="validation-rule-phone"  type="text" data-error-msg="<?php _e('Telephone no es válido','arylex' )?>" /></div>
-            <div><label for="subjet"><?php _e('Subject *','arylex' )?></label>
-            <select id="subjet" class="validation-rule-select" name="subjet" data-error-msg="<?php _e('Debe seleccionar un asunto.','arylex' )?>">
-            	<option value="-1">Choose one of this options</option>
-                <?php
-					$args = array('post_type' => 'contact-subject');
-					$new = new WP_Query($args);
-					while ($new->have_posts()) : $new->the_post();
-				?>
-                 	<option value="<?php the_title();?>" data-mail="<?php echo types_render_field("destination-email",array("output"=>"raw"));?>"><?php the_title();?></option>     
-                <?php	
-					endwhile;
-				?> 
-            </select></div>
-            <div><label for="question"><?php _e('Question *','arylex' )?></label>
-            <textarea id="question" name="question" class="validation-rule-empty"></textarea></div>
-            <input type="checkbox" name="bbll" id="bbll" class="validation-rule-checkbox" data-error-msg="<?php _e('Debe aceptar política de privacidad.','arylex' )?>"><label for="bbll"><?php _e('Accept legal terms','arylex' )?></label>
-            <input type="hidden" name="language" id="language" value="<?php echo ICL_LANGUAGE_CODE;?>">
-            <div class="errores"></div>
-            <input class="right inputnew" type="submit" value="<?php _e('SEND QUESTION','arylex' )?>" />
-         </form> 
-    </div>
+</header>
+<?php
+    endwhile; endif;wp_reset_query();
+?>
+<main id="main" role="main">
+
+    <article class="container">
+        <div class="row">
+            <div class="col-sm-6">
+
+                <form method="POST" action="" class="form-type" data-validate="true">
+                    <legend><?php _e('Contact us','arylex' )?></legend>
+                    <div>
+                        <label for="contact-name" class="required"><?php _e('Name','arylex' )?></label>
+                        <input type="text" name="name" id="contact-name" data-validation="not-empty" data-error-msg="<?php _e('Enter name','arylex' )?>">
+                    </div>
+                    <div>
+                        <label for="contact-email" class="required"><?php _e('Email Address','arylex' )?></label>
+                        <input type="email" name="email" id="contact-email" data-validation="email" data-error-msg="<?php _e('Email is not valid','arylex' )?>">
+                    </div>
+                    <div>
+                        <label for="contact-email-repeat" class="required"><?php _e('Confirm email','arylex' )?></label>
+                        <input type="email" name="email-check" id="contact-email-repeat" data-validation="repeat" data-repeat-field="#contact-email" data-error-msg="<?php _e('Email does not match','arylex' )?>">
+                    </div>
+                    <div>
+                        <label for="contact-telephone"><?php _e('Telephone','arylex' )?></label>
+                        <input type="text" name="telephone" id="contact-telephone">
+                    </div>
+                    <p class="hint-required"><?php _e('* Required','arylex' )?></p>
+                    <legend><?php _e('Please choose a subject and write your question','arylex' )?></legend>
+                    <div>
+                        <select id="subjet" class="selectpicker" name="subjet" data-validation="select" data-error-msg="<?php _e('Choose a subject','arylex' )?>">
+                            <option value=""><?php _e('Choose one of this options','arylex' )?></option>
+                            <?php
+								$args = array('post_type' => 'contact-subject');
+								$new = new WP_Query($args);
+								while ($new->have_posts()) : $new->the_post();
+							?>
+								<option value="<?php the_title();?>"><?php the_title();?></option>     
+							<?php	
+								endwhile;
+							?> 
+                        </select>
+                    </div>
+                    <div>
+                        <label for="contact-question"><?php _e('Question','arylex' )?></label>
+                        <textarea id="contact-question" name="question"></textarea>
+                    </div>
+                    <div class="legal">
+                        <input type="checkbox" name="bbll" id="contact-legal-check" data-validation="checkbox" data-error-msg="<?php _e('Must accept legal terms','arylex' )?>">
+                        <label for="contact-legal-check"><?php _e('Accept legal terms','arylex' )?></label>
+                    </div>
+                    <input type="hidden" name="language" value="<?php echo ICL_LANGUAGE_CODE;?>">
+                    <input type="submit" value="<?php _e('SEND QUESTION','arylex' )?>">
+                    <div class="errors"></div>
+                </form>
+
+            </div>
+            <div class="col-sm-5 col-sm-offset-1">
+                <div class="dow-buttons">
+                    <a href="#" class="button"><?php _e('DOW GERMANY','arylex' )?></a>
+                    <a href="#" class="button"><?php _e('DOW FRANCE','arylex' )?></a>
+                </div>
+            </div>
+        </div>
+    </article>
+
+</main>
 <?php get_footer(); ?>

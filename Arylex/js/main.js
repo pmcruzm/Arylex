@@ -85,6 +85,43 @@ $(function () {
     }
 
 
+    //Formularios subscripción
+    $('form.bulletin-form').on('submit', function(e){
+        e.preventDefault();
+        var form = $(this);
+        var errors = $('.errors', form);
+        errors.html('');
+
+        var elem = $('input[name="email"]', form);
+        var is_form_ok = (/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,6})+$/.test(elem.val()));
+
+        if(!is_form_ok){
+            errors.html(elem.data('error'));
+        }else{
+            var data = {
+                action: 'send_mailchimp',
+                email: elem.val(),
+                lang : $('input[name="lang"]', form).val()
+            };
+            $.ajax({
+                url: form.attr('action'),
+                method: form.attr('method'),
+                data: data,
+                success: function(data){
+                    if(data.error == 0){
+                        elem.val('');
+                        errors.html(form.data('msg-success'));
+                    }else if(data.error == 1){
+                        errors.html(form.data('msg-error'));
+                    }else if(data.error == 2){
+                        errors.html(form.data('msg-error-email'));
+                    }
+                }
+            });
+        }
+    });
+
+
     //HOME - Youtube full viewport
     $('a.youtube-fullview').on('click', function(e){
         e.preventDefault();
