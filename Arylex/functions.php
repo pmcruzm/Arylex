@@ -233,7 +233,10 @@ function ajax_contact(){
 	$message = str_replace('%provincia%', $_POST['provincia'], $message); 
 	$message = str_replace('%centro%', $_POST['centro'], $message); 
 	$message = str_replace('%asunto%', $_POST['asunto'], $message); */
-				
+	
+	//Enviamos el mail al usuario
+	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
+	$mail->IsSMTP(); // telling the class to use SMTP				
 							
 	try {
 		$mail->Host       = "localhost"; // SMTP server
