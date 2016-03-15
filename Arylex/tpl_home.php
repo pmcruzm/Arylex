@@ -80,7 +80,7 @@
         <div class="content">
             <h2><?php echo  $title_prod;?></h2>
             <p><?php echo  $exc_prod;?></p>
-            <a href="<?php echo  $link_prod;?>"><?php _e('View products','arylex' )?></a>
+            <a href="<?php echo  $link_prod;?>"><?php _e('View products','arylex' );?></a>
         </div>
     </article>
 
@@ -91,7 +91,7 @@
 			$title_vid_key=types_render_field("title-video-key-benefits",array("output"=>"raw"));
 			$url_vid_key=types_render_field("url-video-key-benefits",array("output"=>"raw"));
 		?>
-        <h2><?php _e('Key Benefits','arylex' )?></h2>
+        <h2><?php _e('Key Benefits','arylex' );?></h2>
         <div class="row">
             <div class="col-md-3 nav">
                 <ul>

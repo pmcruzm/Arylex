@@ -7,89 +7,182 @@
  */
 ?>
 <?php get_header(); ?>
-	
-	<?php
-      if ( have_posts() ) : while ( have_posts() ) : the_post();
+<?php
+   if ( have_posts() ) : while ( have_posts() ) : the_post();
 		$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
 		$cover_top = $thumb['0'];
-	?>
-	<div id="cover_top" style="background-image:url(<?php echo $cover_top;?>)">
-    	<p><?php the_title();?></p>
-        <!--Info del player-->
-        <?php
-        	$title_vid=types_render_field("title-video",array("output"=>"raw"));
-			$url_vid=types_render_field("url-video",array("output"=>"raw"));
-			if($title_vid!="" && $url_vid!="" ){
-				echo '<p>'.$title_vid.'</p>';
-				echo '<a href="'.$url_vid.'" target="_blank">Play Video</a>';
-			}
-		?>
+?>
+<header class="header-img" style="background-image:url(<?php echo $cover_top;?>)">
+    <span class="furrows"></span>
+    <div class="title-top">
+        <h2><?php the_title();?></h2>
     </div>
-    <div class="destacado_post">
-    	<h3>Post Destacados</h3>
-        <?php
-			$args = array('post_type' => 'post','order'=>'DESC','posts_per_page' => -1);
-			$new = new WP_Query($args);
-			$cont=1;
-			$array_dest= array();
-			while ($new->have_posts()) : $new->the_post();
-				$destacado=types_render_field("highlight-post",array("output"=>"raw"));
-				if($destacado==1){
-					if($cont<4){
-		?>
-           <div class="box-destacado">
-           	  <!--Categorías-->	
-              <div>
-              	<?php
-					//print_r(get_the_category());
-                	$post_cat=get_the_category();
-					foreach($post_cat as $single_cat){
-						// Get the ID of a given category
-    					$category_id = get_cat_ID($single_cat->name);
+</header>
+<?php
+    endwhile; endif;wp_reset_query();
+?>
 
-    					// Get the URL of this category
-    					$category_link = get_category_link( $category_id );
-						
-						echo '<a href="'.$category_link.'">'.$single_cat->name.'</a><br/>';
-					}
-					$array_dest[]=$post->ID;
-				?>
-              </div>
-              <!--Título-->
-              <h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
-              <!--Excerpt-->
-			  <p><?php the_excerpt();?></p>
-           </div>      
-        <?php
-					$cont++;
-					}
-				}
-			endwhile;
-			//print_r($array_dest);
-		?>  
-    </div>
-    <?php
-       endwhile; endif;wp_reset_query();
-	?>
-    <div class="body-news">
-    	<div class="right-news">
-        	<div class="news-suscripcion">
-            	<p><?php _e('Bulletin','arylex' )?></p>	
-                <form id="form-bulletin">
-                   <label for="email">Email Address *</label> <input name="email" id="email" type="text" />
-                   <input type="hidden" name="language" id="language" value="<?php echo ICL_LANGUAGE_CODE;?>">
-                   <input class="right inputnew" type="submit" title="Send" value="Send" />
-               </form>
-            </div>
-			<div class="news-categories">
-        		<?php wp_list_categories();?>
-            </div>
-        </div>
-        <div class="left-news">
-        	<!--Resto de post menos los destacados arriba-->
-            <?php 
-				echo do_shortcode('[ajax_load_more post_type="post" repeater="news" posts_per_page="6" exclude="'.implode(",",$array_dest).'" transition="fade" button_label="LOAD MORE"]');
+<main id="main" role="main" class="news">
+
+    <article class="news-featured">
+        <div class="row">
+        	<?php
+				$args = array('post_type' => 'post','order'=>'DESC','posts_per_page' => -1);
+				$new = new WP_Query($args);
+				$cont=1;
+				$array_dest= array();
+				while ($new->have_posts()) : $new->the_post();
+					$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
+					$cover_top = $thumb['0'];
+					$destacado=types_render_field("highlight-post",array("output"=>"raw"));
+					if($destacado==1){
+						if($cont<4){
+		     				if($cont==1){
+			 ?>
+             					<div class="col-md-8">
+                                    <div class="news-item-featured-big" style="background-image:url(<?php echo $cover_top;?>)">
+                                        <a href="<?php the_permalink(); ?>" class="gradient">
+                                            <div class="content">
+                                            	<?php
+													$post_cat=get_the_category();
+													$list_cat="";
+													foreach($post_cat as $single_cat){
+														$category_id = get_cat_ID($single_cat->name);
+														$category_link = get_category_link( $category_id );
+														$list_cat.=$single_cat->name.' - ';
+													}
+													echo '<p class="meta-category">'.substr($list_cat, 0, -1).'</p>';
+												?>
+                                                
+                                                <h3><?php the_title();?></h3>
+                                                <p><?php the_excerpt();?></p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+             <?php
+							}else{
+								if($cont==2){	
+			 ?>
+             						<div class="col-md-4">
+                                        <div class="news-item-featured-small" style="background-image:url(<?php echo $cover_top;?>)">
+                                            <a href="<?php the_permalink(); ?>" class="gradient">
+                                                <div class="content">
+                                                    <?php
+													$post_cat=get_the_category();
+													$list_cat="";
+													foreach($post_cat as $single_cat){
+														$category_id = get_cat_ID($single_cat->name);
+														$category_link = get_category_link( $category_id );
+														$list_cat.=$single_cat->name.' - ';
+													}
+													echo '<p class="meta-category">'.substr($list_cat, 0, -3).'</p>';
+												?>
+                                                    <h3><?php the_title();?></h3>
+                                                </div>
+                                            </a>
+                                        </div>
+             <?php
+								}else{
 			?>
+            						<div class="news-item-featured-small" style="background-image:url(<?php echo $cover_top;?>)">
+                                        <a href="<?php the_permalink(); ?>" class="gradient">
+                                            <div class="content">
+                                                <?php
+													$post_cat=get_the_category();
+													$list_cat="";
+													foreach($post_cat as $single_cat){
+														$category_id = get_cat_ID($single_cat->name);
+														$category_link = get_category_link( $category_id );
+														$list_cat.=$single_cat->name.' - ';
+													}
+													echo '<p class="meta-category">'.substr($list_cat, 0, -3).'</p>';
+												?>
+                                                <h3><?php the_title();?></h3>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+            <?php					
+								}
+							}
+						 $cont++; 
+						}
+					}
+			endwhile;
+		?>  
         </div>
-    </div>
+    </article>
+
+    <article class="news-list" data-max-items="2" data-more-items="2">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                	<?php
+						$args = array('post_type' => 'post','order'=>'DESC','posts_per_page' => -1);
+						$new = new WP_Query($args);
+						$cont=0;
+						$array_dest= array();
+						while ($new->have_posts()) : $new->the_post();
+							$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
+							$cover_top = $thumb['0'];
+							//the_post_thumbnail();
+					 ?>
+                     	<div class="col-sm-6">
+                            <div class="news-item">
+                                <a href="<?php the_permalink(); ?>"><img src="<?php echo $cover_top;?>" class="img-responsive center-block"></a>
+                                <p class="meta-category">
+                                	<?php
+										$post_cat=get_the_category();
+										$list_cat="";
+										foreach($post_cat as $single_cat){
+											$category_id = get_cat_ID($single_cat->name);
+											$category_link = get_category_link( $category_id );
+											$list_cat.='<a href="'.$category_link.'">'.$single_cat->name.'</a> - ';
+										}
+										echo substr($list_cat, 0, -3);
+									?>
+                                </p>
+                                <h3><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h3>
+                                <p><?php the_excerpt();?></p>
+                            </div>
+                        </div>
+					 <?php
+					 	$cont++;
+						if($cont%2==0 && $cont>0){echo '<div class="clearfix"></div>';}
+					 	endwhile;
+					 ?>  
+                </div>
+                <div class="load-more hidden">
+                    <span><?php _e('LOAD MORE','arylex');?></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+               <div class="mod-categories">
+                    <h3><?php _e('CATEGORIES','arylex');?></h3>
+                    <ul>
+                    	<?php wp_list_categories('title_li=');?>
+                    </ul>
+                </div>
+
+               <div class="mod-register">
+                    <form class="bulletin-form" data-msg-success="<?php _e('Error!','arylex');?>" data-msg-error="<?php _e('Error!','arylex');?>" data-msg-error-email="<?php _e('Email ya suscrito!','arylex' );?>">
+                        <h3><?php _e('BULLETIN','arylex' );?></h3>
+                        <p><?php _e('Register here to get the latest news and opinions straight to your inbox','arylex');?></p>
+                        <input type="text" name="email" data-error="<?php _e('El email no es válido','arylex' )?>">
+                        <p class="errors"></p>
+                        <div class="submit">
+                            <input type="hidden" name="lang" value="<?php echo ICL_LANGUAGE_CODE;?>">
+                            <input type="submit" class="submit" value="<?php _e('SUBSCRIBE','arylex' )?>">
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </article>
+
+</main>
 <?php get_footer(); ?>
