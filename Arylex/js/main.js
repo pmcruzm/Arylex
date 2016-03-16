@@ -122,6 +122,45 @@ $(function () {
             });
         }
     });
+	
+	//Formularios new user
+	$('form#form-registration').on('submit', function(e){
+		e.preventDefault();
+        
+		var form = $(this);
+        var errors = $('.errors', form);
+        errors.html('');
+		var elem = $('input[name="password"]', form);
+		var elem_r = $('input[name="password-repeat"]', form);
+
+        if(!is_form_ok){
+            errors.html(elem.data('error'));
+        }else{
+			jQuery.ajax({
+				type: 'POST',
+				dataType: 'json',
+				url: ajaxurl,
+				data: { 
+					'action': 'ajax_registration', //calls wp_ajax_nopriv_ajaxlogin
+					'password': $('input[name="password"]', form).val(), 
+					'rep_password': $('input[name="password-repeat"]', form).val(), 
+					'user': $('input[name="user"]', form).val()},
+				success: function(data){
+					console.log(data);
+					if (data.register == true){
+						$('input[name="password"]', form).val('');
+						$('input[name="password-repeat"]', form).val('');	
+						errors.html(data.message);	
+						window.location = data.url;
+					}else{
+						$('input[name="password"]', form).val('');
+						$('input[name="password-repeat"]', form).val('');
+						errors.html(data.message);	
+					}
+				}
+			});
+		}
+    });
 
 
     //HOME - Youtube full viewport

@@ -318,87 +318,94 @@ add_action('wp_ajax_nopriv_ajax_registration', 'ajax_registration');
 add_action('wp_ajax_ajax_registration', 'ajax_registration');
 
 function ajax_registration(){
-	
-	if($_POST['password']==$_POST['rep_password']){
-		//Obtener el id de usuario
-		$info_user=get_user_by( 'login',$_POST['user']);
-		$language_user = esc_attr(get_the_author_meta('language_user',$info_user->ID));
-		if(!empty( $info_user->roles) && $info_user->roles[0]=='new_user_init'){
-			//Actualizamos password 
-			wp_set_password($_POST['password'], $info_user->ID);
-			//Actualizamos el rol del usuario
-			$user_id=wp_update_user( array( 'ID' => $info_user->ID, 'role' =>'new_user_active' ) );
-			if ( is_wp_error( $user_id ) ) {
-				echo json_encode(array('register'=>false, 'message'=>__('Error al actualizar el rol.'),'url'=>''));
-			}else{	
-				//Añadimos contacto nuevo Mailrelay
-				$username = 'homeatc';
-				$password = 'b785c435';
-				$hostname = 'homeatc.ip-zone.com';
-				
-				// El primer paso será validarnos contra el API
-				$curl = curl_init('http://' . $hostname . '/ccm/admin/api/version/2/&type=json');
-				
-				$params = array(
-				'function' => 'doAuthentication',
-				'username' => $username,
-				'password' => $password
-				);
-				
-				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($curl, CURLOPT_POST, 1);
-				curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
-				
-				// Ejecutaremos la página, lo que nos devolverá un resultado en formato Json
-				$result = curl_exec($curl);
-				
-				$jsonResult = json_decode($result);
-				
-				if (!$jsonResult->status) {
-					throw new Exception('Fallo en la validación. Verifique su hostname, username o password.');
-				} else {
-					$apiKey = $jsonResult->data;	
-					unset($arr_group);
-					$arr_group = array();
-					switch($language_user){
-						case 'en':
-							$arr_group[]=2;
-						break;
-						case 'fr':
-							$arr_group[]=3;
-						break;
-						case 'de':
-							$arr_group[]=4;
-						break;
+	if($_POST['password']!="" && $_POST['rep_password']!=""){
+		if($_POST['password']==$_POST['rep_password']){
+			if(strlen($_POST['password'])<13 && strlen($_POST['rep_password'])<13){	
+				//Obtener el id de usuario
+				$info_user=get_user_by( 'login',$_POST['user']);
+				$language_user = esc_attr(get_the_author_meta('language_user',$info_user->ID));
+				if(!empty( $info_user->roles) && $info_user->roles[0]=='new_user_init'){
+					//Actualizamos password 
+					wp_set_password($_POST['password'], $info_user->ID);
+					//Actualizamos el rol del usuario
+					$user_id=wp_update_user( array( 'ID' => $info_user->ID, 'role' =>'new_user_active' ) );
+					if ( is_wp_error( $user_id ) ) {
+						echo json_encode(array('register'=>false, 'message'=>__('Error al actualizar el rol.'),'url'=>''));
+					}else{	
+						//Añadimos contacto nuevo Mailrelay
+						$username = 'homeatc';
+						$password = 'b785c435';
+						$hostname = 'homeatc.ip-zone.com';
+						
+						// El primer paso será validarnos contra el API
+						$curl = curl_init('http://' . $hostname . '/ccm/admin/api/version/2/&type=json');
+						
+						$params = array(
+						'function' => 'doAuthentication',
+						'username' => $username,
+						'password' => $password
+						);
+						
+						curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+						curl_setopt($curl, CURLOPT_POST, 1);
+						curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+						
+						// Ejecutaremos la página, lo que nos devolverá un resultado en formato Json
+						$result = curl_exec($curl);
+						
+						$jsonResult = json_decode($result);
+						
+						if (!$jsonResult->status) {
+							echo json_encode(array('register'=>false, 'message'=>__('Fallo al conectar con Mailrelay, pongase en contacto con el administrador'),'url'=>''));
+						} else {
+							$apiKey = $jsonResult->data;	
+							unset($arr_group);
+							$arr_group = array();
+							switch($language_user){
+								case 'en':
+									$arr_group[]=2;
+								break;
+								case 'fr':
+									$arr_group[]=3;
+								break;
+								case 'de':
+									$arr_group[]=4;
+								break;
+							}
+							$postData = array(
+								'function' => 'addSubscriber',
+								'apiKey' => $apiKey,
+								'email' => $info_user->user_email,
+								'name' => '',
+								'groups' => $arr_group
+							);
+							
+							$post = http_build_query($postData);
+							 
+							curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
+							
+							$json = curl_exec($curl);
+							$result = json_decode($json);
+							 
+							if ($result->status == 0) {
+								echo json_encode(array('register'=>false, 'message'=>__('No se ha añadido a Mailrelay'),'url'=>''));
+							}else{
+								echo json_encode(array('register'=>true, 'message'=>__('Éxito!'),'url'=>get_home_url()));
+							}
+						}
 					}
-					$postData = array(
-						'function' => 'addSubscriber',
-						'apiKey' => $apiKey,
-						'email' => $info_user->user_email,
-						'name' => '',
-						'groups' => $arr_group
-					);
-					
-					$post = http_build_query($postData);
-					 
-					curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
-					
-					$json = curl_exec($curl);
-					$result = json_decode($json);
-					 
-					if ($result->status == 0) {
-						throw new Exception('Bad status returned. Something went wrong.');
-					}else{
-						echo "Thank you, you have been added to our mailing list.";
-					}
+						
+				}else{
+					echo json_encode(array('register'=>false, 'message'=>__('No es posible actualizar password, pongase en contacto con el administrador'),'url'=>''));
 				}
+			}else{
+				echo json_encode(array('register'=>false, 'message'=>__('Longitud de password errónea.'),'url'=>''));
 			}
-				
 		}else{
-			echo json_encode(array('register'=>false, 'message'=>__('No es posible actualizar password, pongase en contacto con el administrador'),'url'=>''));
+			echo json_encode(array('register'=>false, 'message'=>__('Password y repetición no coinciden.'),'url'=>''));
 		}
 	}else{
-		echo json_encode(array('register'=>false, 'message'=>__('Password y repetición no coinciden.'),'url'=>''));
+		echo json_encode(array('register'=>false, 'message'=>__('No pueden haber passwords vacías.'),'url'=>''));
 	}
 	
     die();
