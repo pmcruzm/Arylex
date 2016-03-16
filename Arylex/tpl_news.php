@@ -106,6 +106,7 @@
             <?php					
 								}
 							}
+						 $array_dest[]=$post->ID;
 						 $cont++; 
 						}
 					}
@@ -119,7 +120,7 @@
             <div class="col-md-8">
                 <div class="row">
                 	<?php
-						$args = array('post_type' => 'post','order'=>'DESC','posts_per_page' => -1);
+						$args = array('post_type' => 'post','order'=>'DESC','posts_per_page' => -1,'post__not_in' =>$array_dest);
 						$new = new WP_Query($args);
 						$cont=0;
 						$array_dest= array();
