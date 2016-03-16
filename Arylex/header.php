@@ -51,7 +51,7 @@
                     <?php if (!is_user_logged_in()) { ?>
 					<?php
                         //Obtenemos datos de productos 
-                        $args = array('post_type' => 'page','pagename' =>'login');
+                        $args = array('post_type' => 'page','pagename' =>'user-login');
                         query_posts($args);
                         if ( have_posts() ) : while ( have_posts() ) : the_post();
                     ?>
