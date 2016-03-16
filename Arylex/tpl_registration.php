@@ -39,7 +39,7 @@
                 <form id="form-registration" class="form-type">
                     <legend><?php the_title();?></legend>
                     <div>
-                        <label for="reset-password"><?php _e('New password','arylex' )?>New password</label>
+                        <label for="reset-password"><?php _e('New password','arylex' )?></label>
                         <input type="password" name="password" id="reset-password">
                     </div>
                     <div>
