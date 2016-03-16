@@ -51,7 +51,7 @@
 														$category_link = get_category_link( $category_id );
 														$list_cat.=$single_cat->name.' - ';
 													}
-													echo '<p class="meta-category">'.substr($list_cat, 0, -1).'</p>';
+													echo '<p class="meta-category">'.substr($list_cat, 0, -3).'</p>';
 												?>
                                                 
                                                 <h3><?php the_title();?></h3>
