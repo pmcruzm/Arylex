@@ -130,12 +130,6 @@ $(function () {
 		var form = $(this);
         var errors = $('.errors', form);
         errors.html('');
-		var elem = $('input[name="password"]', form);
-		var elem_r = $('input[name="password-repeat"]', form);
-
-        if(!is_form_ok){
-            errors.html(elem.data('error'));
-        }else{
 			jQuery.ajax({
 				type: 'POST',
 				dataType: 'json',
@@ -159,7 +153,6 @@ $(function () {
 					}
 				}
 			});
-		}
     });
 
 
