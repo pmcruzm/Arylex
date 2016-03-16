@@ -30,9 +30,10 @@
 			//Comprobamos si es un webinar
 			$webinar=types_render_field("include-webinar",array("output"=>"raw"));
 			if($webinar==1){
-				echo types_render_field("url-webinar",array("output"=>"raw"));	
+				echo '<div class="embed-responsive embed-responsive-16by9">'.types_render_field("url-webinar",array("output"=>"raw")).'</div>';	
 			}else{
-				echo '<img src="'.$cover_top.'" class="img-responsive center-block">';
+				//echo '<img src="'.$cover_top.'" class="img-responsive center-block">';
+				the_post_thumbnail('cover-news', array('class' => 'img-responsive center-block')); 
 			}
 		?>
 

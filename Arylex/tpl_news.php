@@ -131,7 +131,7 @@
 					 ?>
                      	<div class="col-sm-6">
                             <div class="news-item">
-                                <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large', array('class' => 'img-responsive center-block')); ?></a>
+                                <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('list-news', array('class' => 'img-responsive center-block')); ?></a>
                                 <p class="meta-category">
                                 	<?php
 										$post_cat=get_the_category();

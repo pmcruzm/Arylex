@@ -8,6 +8,10 @@ require 'include/PHPMailerAutoload.php';
 // Add default posts and comments RSS feed links to head
 add_theme_support('automatic-feed-links');
 
+//Custom image sizes
+add_image_size( 'list-news', 334, 188, array( 'center', 'center' ) );
+add_image_size( 'cover-news', 1024, 367, array( 'center', 'center' ) );
+
 
 //Asignar traducciones del theme 
 load_theme_textdomain( 'arylex', get_template_directory().'/languages' ); 
