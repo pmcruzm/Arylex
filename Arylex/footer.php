@@ -31,7 +31,7 @@
                         <ul class="rrss">
                             <li><a href="https://twitter.com/dowagroeu" target="_blank" class="twitter">Twitter</a></li>
                             <li><a href="https://www.facebook.com/DowAgroSciencesEU" target="_blank" class="facebook">Facebook</a></li>
-                            <li><a href="#" target="_blank" class="youtube">Youtube</a></li>
+                            <li><a href="https://www.youtube.com/user/DowAgroSciences" target="_blank" class="youtube">Youtube</a></li>
                             <li><a href="https://www.linkedin.com/company/arylex%E2%84%A2-active" target="_blank" class="linkedin">LinkedIn</a></li>
                         </ul>
                     </div>

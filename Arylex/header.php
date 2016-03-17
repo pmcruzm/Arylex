@@ -24,7 +24,7 @@
 
             <div class="logo-top">
                 <span class="menu-toggle"><?php _e('Menu','arylex' )?></span>
-                <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php _e('Arylex Active','arylex' )?></a></h1>
+                <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="background-image:url('<?php bloginfo('template_url'); ?>/img/logo.png');"><?php _e('Arylex Active','arylex' )?></a></h1>
             </div>
 
             <nav class="nav-main" role="navigation">
@@ -36,16 +36,7 @@
             <nav class="nav-top" role="navigation">
                 <ul>
                     <li class="global">
-                    <?php
-                        //Obtenemos datos de productos 
-                        $args = array('post_type' => 'page','pagename' =>'dow-agrosciences');
-                        query_posts($args);
-                        if ( have_posts() ) : while ( have_posts() ) : the_post();
-                    ?>
-                        <a href="<?php echo get_the_permalink();?>"><?php _e('Dow AgroSciences Global','arylex' )?></a>
-                    <?php	
-                        endwhile; endif;wp_reset_query();
-                    ?> 
+                        <a href="http://www.dowagro.com" target="_blank"><?php _e('Dow AgroSciences Global','arylex' )?></a>
                     </li>
                     <li class="login">
                     <?php if (!is_user_logged_in()) { ?>
