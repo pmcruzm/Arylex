@@ -41,7 +41,7 @@
 					while ($new->have_posts()) : $new->the_post();
 				?>
                   	<h4><?php the_title();?></h4>
-                	<div>
+                	<div class="page-content">
                   		<?php the_content();?>  
                     </div>    
                 <?php	
