@@ -247,12 +247,12 @@ function ajax_contact(){
 		$mail->Host       = "localhost"; // SMTP server
 		$mail->SMTPAuth   = true;                  // enable SMTP authentication
 		$mail->CharSet = 'UTF-8';
-		$mail->Host       = "localhost"; // sets the SMTP server
-		$mail->Username   = "citizen@pedroxmujica.com"; // SMTP account username
-		$mail->Password   = "pedrom8";        // SMTP account password
-		$mail->AddReplyTo('citizen@pedroxmujica.com', __('Mensaje contacto Arylex'));//Dirección de replica del mensaje
+		$mail->Host       = "smtp.livemail.co.uk"; // sets the SMTP server
+		$mail->Username   = "info@arylex.eu"; // SMTP account username
+		$mail->Password   = "Arylex2016";        // SMTP account password
+		$mail->AddReplyTo('info@arylex.eu', __('Mensaje contacto Arylex'));//Dirección de replica del mensaje
 		$mail->AddAddress($mail_dest);//Dirección del mensaje
-		$mail->SetFrom('citizen@pedroxmujica.com', __('Mensaje contacto Arylex'));
+		$mail->SetFrom('info@arylex.eu', __('Mensaje contacto Arylex'));
 		// $mail->AddReplyTo('name@yourdomain.com', 'First Last');
 		$mail->Subject = __('Mensaje contacto Arylex');
 		//$mail->AltBody = $mensaje; // optional - MsgHTML will create an alternate automatically
@@ -402,10 +402,10 @@ function ajax_registration(){
 				echo json_encode(array('register'=>false, 'message'=>__('Longitud de password errónea.'),'url'=>''));
 			}
 		}else{
-			echo json_encode(array('register'=>false, 'message'=>__('Password y repetición no coinciden.'),'url'=>''));
+			echo json_encode(array('register'=>false, 'message'=>__("The two passwords you entered don't match."),'url'=>''));
 		}
 	}else{
-		echo json_encode(array('register'=>false, 'message'=>__('No pueden haber passwords vacías.'),'url'=>''));
+		echo json_encode(array('register'=>false, 'message'=>__("Sorry, we don't accept empty passwords."),'url'=>''));
 	}
 	
     die();
