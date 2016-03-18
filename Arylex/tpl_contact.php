@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-sm-6">
 
-                <form method="POST" action="" class="form-type" data-validate="true" data-msg-success="Éxito!" data-msg-error="Error!">
+                <form method="POST" action="" class="form-type" data-validate="true" data-msg-success="<?php _e('Success!','arylex' )?>" data-msg-error="<?php _e('Fail!','arylex' )?>Error!">
                     <legend><?php _e('Contact us','arylex' )?></legend>
                     <div>
                         <label for="contact-name" class="required"><?php _e('Name','arylex' )?></label>

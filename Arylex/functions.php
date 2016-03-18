@@ -44,8 +44,8 @@ function register_menu() {
 }
 add_action( 'init', 'register_menu' );
 
-if ( !is_nav_menu('Header')) {
-    $menu_id = wp_create_nav_menu('Header');
+if ( !is_nav_menu('Main_Menu')) {
+    $menu_id = wp_create_nav_menu('Main_Menu');
     wp_update_nav_menu_item($menu_id, 1);
 }
 
@@ -92,9 +92,6 @@ function register_css() {
 	//wp_enqueue_style( 'style-css' );
 	wp_enqueue_style( 'bootstrap-css' );
 	wp_enqueue_style( 'main-css' );
-
-	//wp_enqueue_style( 'ie8-css' );
-	//$wp_styles->add_data( 'ie8-css', 'conditional', 'lt IE 9' );
 }
 
 add_action( 'wp_enqueue_scripts', 'register_css' );
@@ -231,6 +228,29 @@ function ajax_contact(){
 			//$mail_dest='dowagrosciencesd@dow.com';
 		break;
 	}
+	
+	//Mail origen 
+	$email_from='info@arylex.eu';
+	// título
+	$titulo = 'Mensaje contacto Arylex';
+	
+	// Para enviar un correo HTML, debe establecerse la cabecera Content-type
+	$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+	$cabeceras .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+	
+	// Cabeceras adicionales
+	$cabeceras .= 'To: Pedro <pmcruzm@gmail.com>' . "\r\n";
+	$cabeceras .= 'From: Info Arylex <info@arylex.eu>' . "\r\n";
+	
+	// Enviarlo
+	ini_set("sendmail_from", $email_from);
+	$sent = mail($mail_dest, $titulo, $mensaje, $cabeceras, "-f" .$email_from);
+	if ($sent)
+	{
+		echo json_encode(array('error'=>0));
+	} else {
+		echo json_encode(array('error'=>1));
+	}
 				
 	/*$message = file_get_contents('http://citizenzchallenge.cambridge.es/inicio/mailing/mailing_contacto.php'); 
 	$message = str_replace('%nombre%', $_POST['nombre'], $message); 
@@ -240,14 +260,15 @@ function ajax_contact(){
 	$message = str_replace('%asunto%', $_POST['asunto'], $message); */
 	
 	//Enviamos el mail al usuario
-	$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
+	/*$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
 	$mail->IsSMTP(); // telling the class to use SMTP				
 							
 	try {
-		$mail->Host       = "localhost"; // SMTP server
+		$mail->Host       = "smtp.livemail.co.uk"; // SMTP server
 		$mail->SMTPAuth   = true;                  // enable SMTP authentication
 		$mail->CharSet = 'UTF-8';
 		$mail->Host       = "smtp.livemail.co.uk"; // sets the SMTP server
+		$mail->Port       = 465;
 		$mail->Username   = "info@arylex.eu"; // SMTP account username
 		$mail->Password   = "Arylex2016";        // SMTP account password
 		$mail->AddReplyTo('info@arylex.eu', __('Mensaje contacto Arylex'));//Dirección de replica del mensaje
@@ -262,8 +283,7 @@ function ajax_contact(){
 			echo json_encode(array('error'=>1));
 		} catch (Exception $e) {
 			echo json_encode(array('error'=>1));
-		}
-			echo json_encode(array('error'=>0));
+		}*/
 	
     die();
 }
@@ -356,7 +376,7 @@ function ajax_registration(){
 						$jsonResult = json_decode($result);
 						
 						if (!$jsonResult->status) {
-							echo json_encode(array('register'=>false, 'message'=>__('Fallo al conectar con Mailrelay, pongase en contacto con el administrador'),'url'=>''));
+							echo json_encode(array('register'=>false, 'message'=>__('Failed to connect to Mailrelay'),'url'=>''));
 						} else {
 							$apiKey = $jsonResult->data;	
 							unset($arr_group);
@@ -388,18 +408,18 @@ function ajax_registration(){
 							$result = json_decode($json);
 							 
 							if ($result->status == 0) {
-								echo json_encode(array('register'=>false, 'message'=>__('No se ha añadido a Mailrelay'),'url'=>''));
+								echo json_encode(array('register'=>false, 'message'=>__('Problem subscribe email in Mailrelay'),'url'=>''));
 							}else{
-								echo json_encode(array('register'=>true, 'message'=>__('Éxito!'),'url'=>get_home_url()));
+								echo json_encode(array('register'=>true, 'message'=>__('Success!'),'url'=>get_home_url()));
 							}
 						}
 					}
 						
 				}else{
-					echo json_encode(array('register'=>false, 'message'=>__('No es posible actualizar password, pongase en contacto con el administrador'),'url'=>''));
+					echo json_encode(array('register'=>false, 'message'=>__('Unable to update password, please contact the administrator.'),'url'=>''));
 				}
 			}else{
-				echo json_encode(array('register'=>false, 'message'=>__('Longitud de password errónea.'),'url'=>''));
+				echo json_encode(array('register'=>false, 'message'=>__('Wrong password length.'),'url'=>''));
 			}
 		}else{
 			echo json_encode(array('register'=>false, 'message'=>__("The two passwords you entered don't match."),'url'=>''));
