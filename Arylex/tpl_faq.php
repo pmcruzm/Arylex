@@ -64,7 +64,7 @@
                 </div>
                 <div class="mod-register ask-the-experts">
                     <h3><?php _e('ASK THE EXPERTS','arylex' )?></h3>
-                    <p><?php _e('If you don’t find answers to your question here ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.','arylex' )?></p>
+                    <p><?php _e('If you don’t find answers to your question here, please send us your question and we will get back to you as soon as possible.','arylex' )?></p>
                     <div class="submit">
                     	<?php $page = get_page_by_title( 'Contact' );
 							  $link_page=get_page_link($page->ID); 

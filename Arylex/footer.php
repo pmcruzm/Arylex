@@ -4,14 +4,7 @@
 
                     <div class="col-sm-7 col-sm-push-5">
                         <nav class="nav-footer">
-                            <ul>
-                                <li><a href="home.html">Arylex Active</a></li>
-                                <li><a href="dow.html">Dow AgroSciences</a></li>
-                                <li><a href="news.html">News &amp; Views</a></li>
-                                <li><a href="products.html">Products</a></li>
-                                <li><a href="faqs.html">FAQ</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                            </ul>
+                            <?php wp_nav_menu(array('menu' => 'Main_menu', 'theme_location' => 'Main_menu', 'depth' => 1, 'container' => 'false')); ?> 
                         </nav>
 
                         <?php get_search_form(); ?>	
