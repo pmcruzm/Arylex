@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="162" height="15" viewBox="0 0 162 15">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #d7d2cb;
+        stroke-width: 1px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="SEPARADOR" class="cls-1" d="M0.254,14.415L23.612,1.007,47.019,14.415,70.377,1.007,93.736,14.415l23.4-13.408L140.5,14.415,161.72,0.425"/>
+</svg>
