@@ -28,7 +28,7 @@
 					$img_post = $thumb['0'];
 				?>
                 <div class="row">
-                    <a href="news_detail.html">
+                    <a href="<?php the_permalink(); ?>">
                         <div class="col-sm-3">
                            <!-- <img src="img/news-2.jpg" class="img-responsive">-->
                            <?php the_post_thumbnail('list-news', array('class' => 'img-responsive')); ?>
