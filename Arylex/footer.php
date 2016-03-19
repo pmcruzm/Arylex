@@ -33,8 +33,8 @@
                 </div>
 
                 <div class="copyright">
-                    <img src="<?php bloginfo('template_url'); ?>/img/logo-dow.png" alt="<?php _e('DOW','arylex' )?>">
-                    <img src="<?php bloginfo('template_url'); ?>/img/logo-solutions.png" alt="<?php _e('Solutions for the Growing World','arylex' )?>">
+                    <span class="logo-footer logo-dow"><?php _e('DOW','arylex' )?></span>
+                    <span class="logo-footer logo-solutions"><?php _e('Solutions for the Growing World','arylex' )?></span>
                     <span><?php _e('Copyright © The Dow Chemical Company (1995-2016). All Rights Reserved. ®™ Trademark of The Dow Chemical Company ("Dow") or an affiliated company of Dow','arylex' )?></span>
                 </div>
 
