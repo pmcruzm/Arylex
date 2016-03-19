@@ -162,6 +162,7 @@ function send_mailrelay(){
 			
 			$json = curl_exec($curl);
 			$result = json_decode($json);
+			//print_r($result);
 			 
 			if ($result->status == 0) {
 				echo json_encode(array('error'=>2));

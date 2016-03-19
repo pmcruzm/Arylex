@@ -1,9 +1,23 @@
 <?php get_header(); ?>
-    <div class="error404 clear">
-        <div class="error404_meta">ERROR 404</div>
-        <div class="error404_text">
-            <p>La página <span><?php echo $_SERVER['REQUEST_URI']; ?></span> no se ha localizado.<br/>Recomendamos utilizar la barra de menús para navegar por el site.<br/>¡Gracias!</p>
-            <a href="<?php bloginfo('home'); ?>" class="error404_back">Volver a la página principal</a>
+<header class="header-img" style="background-image:url('<?php bloginfo('template_url'); ?>/img/header-7.jpg');">
+    <span class="furrows"></span>
+    <div class="highlight">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2><?php _e('Can’t find that page','arylex' )?></h2>
+                </div>
+            </div>
         </div>
     </div>
+</header>
+
+
+<main id="main" role="main">
+
+    <article class="container">
+    	<p><?php _e( 'Sorry, there’s no content on this address, visit the <a href="'.esc_url( home_url( '/' ) ).'">homepage</a> or try a search on the top', 'arylex' ); ?></p>
+    </article>
+
+</main>
 <?php get_footer(); ?>

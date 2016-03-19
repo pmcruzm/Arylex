@@ -17,6 +17,7 @@
                             <input type="text" name="email" id="email" class="email-field" data-error="<?php _e('El email no es válido','arylex' )?>">
                             <input type="hidden" name="lang" value="<?php echo ICL_LANGUAGE_CODE;?>">
                             <button type="submit" class="bulletin-submit"><?php _e('Subscribe','arylex' )?></button>
+                            <div class="errors"></div>
                         </form>
                         <br>
 
