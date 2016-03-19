@@ -79,39 +79,130 @@
 			</main>			
 			<?php			
 				}else{
-					//En caso de que no sea una taxonomía
+					//En caso de que no sea una taxonomía y sea una categoría
 			?>	
-            			<div class="">
-							<?php
-                                the_archive_title( '<h1 class="page-title">', '</h1>' );
-                                the_archive_description( '<div class="taxonomy-description">', '</div>' );
-                            ?>
-                        </div><!-- .page-header -->	
+            		<?php
+						 $this_category = get_category($cat);	
+						 $args = array('post_type' => 'page','pagename' =>'faq');
+						 query_posts($args);	
+						 if ( have_posts() ) : while ( have_posts() ) : the_post();
+							$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
+							$cover_top = $thumb['0'];
+					?>
+            		<header class="header-img" style="background-image:url(<?php echo $cover_top;?>)">
+                        <span class="furrows"></span>
+                        <div class="title-top">
+                            <h2><?php the_title();?></h2>
+                        </div>
+                    </header>
+                    <?php
+					   endwhile; endif;wp_reset_query();
+					?>
+                    
+                    <main id="main" role="main" class="news">
+                    
+                        <article class="news-list" data-max-items="6" data-more-items="2">
+                    
+                            <div class="news-category">
+                              <p><?php _e('Category','arylex' )?></p>
+                              <h2><?php echo mb_strtoupper($this_category->slug, 'UTF-8');?></h2>
+                            </div>
+                    
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <?php
+											$args = array('post_type' => 'post','order'=>'DESC','posts_per_page' => -1,'category_name' => $this_category->slug);
+											$new = new WP_Query($args);
+											$cont=0;
+											$array_dest= array();
+											while ($new->have_posts()) : $new->the_post();
+												$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
+												$cover_top = $thumb['0'];
+												//the_post_thumbnail();
+										 ?>
+											<div class="col-sm-6">
+												<div class="news-item">
+													<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('list-news', array('class' => 'img-responsive center-block')); ?></a>
+													<p class="meta-category">
+														<?php
+															$post_cat=get_the_category();
+															$list_cat="";
+															foreach($post_cat as $single_cat){
+																$category_id = get_cat_ID($single_cat->name);
+																$category_link = get_category_link( $category_id );
+																$list_cat.='<a href="'.$category_link.'">'.$single_cat->name.'</a> - ';
+															}
+															echo substr($list_cat, 0, -3);
+														?>
+													</p>
+													<h3><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h3>
+													<p><?php the_excerpt();?></p>
+												</div>
+											</div>
+										 <?php
+											$cont++;
+											if($cont%2==0 && $cont>0){echo '<div class="clearfix"></div>';}
+											endwhile;
+										 ?> 
+                                    </div>
+                                    <div class="load-more hidden">
+                                        <span><?php _e('LOAD MORE','arylex');?></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                    
+                                    <div class="mod-categories">
+                                        <h3><?php _e('CATEGORIES','arylex');?></h3>
+                                        <ul>
+                                            <?php wp_list_categories('title_li=');?>
+                                        </ul>
+                                    </div>
+                    
+                                    <div class="mod-register">
+                                        <form class="bulletin-form" data-msg-success="<?php _e('Error!','arylex');?>" data-msg-error="<?php _e('Error!','arylex');?>" data-msg-error-email="<?php _e('Email ya suscrito!','arylex' );?>">
+                                            <h3><?php _e('BULLETIN','arylex' );?></h3>
+                                            <p><?php _e('Register here to get the latest news and opinions straight to your inbox','arylex');?></p>
+                                            <input type="text" name="email" data-error="<?php _e('El email no es válido','arylex' )?>">
+                                            <p class="errors"></p>
+                                            <div class="submit">
+                                                <input type="hidden" name="lang" value="<?php echo ICL_LANGUAGE_CODE;?>">
+                                                <input type="submit" class="submit" value="<?php _e('SUBSCRIBE','arylex' )?>">
+                                            </div>
+                                        </form>
+                                    </div>
+                    
+                    
+                                </div>
+                            </div>
+                        </article>
+                    
+                    </main>
+            			
             <?php            	
-						$this_category = get_category($cat);
-						echo do_shortcode('[ajax_load_more post_type="post" repeater="news" posts_per_page="6" category="'.$this_category->slug.'" transition="fade" button_label="SHOW MORE"]');
 				}
 			
 		// If no content, include the "No posts found" template.
 		else :
 		?>
-			<section class="no-results not-found">
-				<header class="page-header">
-					<h1 class="page-title"><?php _e( 'Nothing Found', 'arylex' ); ?></h1>
-				</header><!-- .page-header -->
-			
-				<div class="page-content">
-			
-					<?php if ( is_search() ) : ?>
-						<p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'arylex' ); ?></p>
-						<?php get_search_form(); ?>
-					<?php else : ?>
-						<p><?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'arylex' ); ?></p>
-						<?php get_search_form(); ?>
-					<?php endif; ?>
-			
-				</div><!-- .page-content -->
-			</section><!-- .no-results -->
+        <article class="container search-results">
+            <div class="row">
+                <div class="col-md-4 search-term">
+                    <p><?php _e( '<i class="icon-search-results"></i> Nothing Found', 'arylex' );?></p>
+                </div>
+                <div class="col-md-8 page-content">
+                    <?php if ( is_search() ) : ?>
+                            <p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'arylex' ); ?></p>
+                            <?php get_search_form(); ?>
+                     <?php else : ?>
+                
+                            <p><?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'arylex' ); ?></p>
+                            <?php get_search_form(); ?>
+                
+                      <?php endif; ?>
+                </div>
+            </div>
+        </article>
         <?php    
 		endif;
 		?>

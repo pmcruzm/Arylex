@@ -432,5 +432,24 @@ function ajax_registration(){
     die();
 }
 
+/***
+* Excluir faq de búsqueda  
+***/
+/*function be_modify_search_query( $query ) {
+	global $wp_the_query;
+	if( $query === $wp_the_query && $query->is_search() ) {
+		$tax_query = array(
+			array(
+				'taxonomy' => 'faqs',
+				'field' => 'slug',
+				'terms' => 'hidden',
+				'operator' => 'NOT IN',
+			)
+		);
+		$query->set( 'tax_query', $tax_query );
+	}
+}
+add_action( 'pre_get_posts', 'be_modify_search_query' );*/
+
 
 ?>
