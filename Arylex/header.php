@@ -60,20 +60,19 @@
                         }	
                     ?>
                     </li>
-                    <li class="language"><a href="#">Language</a>
+                    <li class="language"><a href="#"><?php echo ICL_LANGUAGE_NAME;?></a>
                         <?php
                         $languages = icl_get_languages('skip_missing=0&orderby=code');
                         if(!empty($languages)){
                             echo '<ul class="hidden">';
                             foreach($languages as $l){
-                                echo '<li>';
-                                if($l['country_flag_url']){
+                                 if(ICL_LANGUAGE_NAME!=$l['native_name']){
+									 echo '<li>';
                                      echo '<a href="'.$l['url'].'">';
-                                     echo '<img src="'.$l['country_flag_url'].'" height="12" alt="'.$l['language_code'].'" width="18" />';
 									 echo icl_disp_language($l['native_name']);
                                      echo '</a>';
+									 echo '</li>';
                                 }
-                                echo '</li>';
                             }
                             echo '</ul>';
                         }
