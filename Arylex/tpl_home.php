@@ -52,7 +52,7 @@
 </header>
 
 
-<main id="main" role="main">
+<main id="main" role="main" class="home">
 
     <article class="container page-content">
         <div class="row">
