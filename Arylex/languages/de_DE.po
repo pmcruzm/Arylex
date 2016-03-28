@@ -1,16 +1,13 @@
-# Loco Gettext template
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Arylex Theme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 22 2016 18:47:56 GMT+0000 (WET)\n"
-"POT-Revision-Date: Tue Mar 22 2016 18:48:45 GMT+0000 (WET)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: \n"
+"POT-Creation-Date: Mon Mar 21 2016 11:48:35 GMT+0000 (WET)\n"
+"PO-Revision-Date: Tue Mar 22 2016 16:22:49 GMT+0000 (WET)\n"
+"Last-Translator: pmcruzm <pmcruzm@gmail.com>\n"
 "Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION\n"
+"Language: German\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,101 +19,79 @@ msgstr ""
 "_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
 "esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
 "esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
-"X-Generator: Loco - https://localise.biz/"
+"X-Generator: Loco - https://localise.biz/\n"
+"X-Loco-Target-Locale: de_DE"
 
 #: ../404.php:8
 msgid "Can’t find that page"
 msgstr ""
 
-#: ../archive.php:51 ../tpl_faq.php:53
+#: ../archive.php:53 ../tpl_faq.php:53
 msgid "TOPICS"
 msgstr ""
 
-#: ../archive.php:64 ../tpl_faq.php:66 ../tpl_faq_sc.php:53
+#: ../archive.php:66 ../tpl_faq.php:66 ../tpl_faq_sc.php:53
 msgid "ASK THE EXPERTS"
 msgstr ""
 
-#: ../archive.php:65
+#: ../archive.php:67
 msgid ""
 "If you don’t find answers to your question here ipsum dolor sit amet, "
 "consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore."
 msgstr ""
 
-#: ../archive.php:70 ../tpl_contact.php:80 ../tpl_faq.php:72 ../tpl_faq_sc.php:59
+#: ../archive.php:72 ../tpl_contact.php:80 ../tpl_faq.php:72 ../tpl_faq_sc.php:59
 msgid "SEND QUESTION"
 msgstr ""
 
-#: ../archive.php:105
+#: ../archive.php:107
 msgid "Category"
 msgstr ""
 
-#: ../archive.php:148 ../tpl_news.php:159
+#: ../archive.php:150 ../tpl_news.php:159
 msgid "LOAD MORE"
 msgstr ""
 
-#: ../archive.php:154 ../single.php:169 ../tpl_news.php:165
+#: ../archive.php:156 ../single.php:170 ../tpl_news.php:165
 msgid "CATEGORIES"
 msgstr ""
 
-#: ../archive.php:161 ../footer.php:16 ../single.php:176 ../tpl_news.php:172
-msgid "Thanks for subscribing!"
+#: ../archive.php:163 ../footer.php:16 ../functions.php:410 ../single.php:177 ..
+#: tpl_contact.php:37 ../tpl_news.php:172
+msgid "Success!"
 msgstr ""
 
-#: ../archive.php:161 ../footer.php:16 ../single.php:176 ../tpl_contact.php:37 ..
-#: /tpl_news.php:172
+#: ../archive.php:163 ../footer.php:16 ../single.php:177 ../tpl_contact.php:37 ..
+#: tpl_news.php:172
 msgid "Error!"
 msgstr ""
 
-#: ../archive.php:161 ../single.php:176 ../tpl_news.php:172
+#: ../archive.php:163 ../footer.php:16 ../single.php:177 ../tpl_news.php:172
 msgid "This email is already registered."
 msgstr ""
 
-#: ../archive.php:162 ../single.php:177 ../tpl_news.php:173
-msgid "BULLETIN"
-msgstr ""
-
-#: ../archive.php:163 ../single.php:178 ../tpl_news.php:174
+#: ../archive.php:165 ../single.php:179 ../tpl_news.php:174
 msgid "Register here to get the latest news and opinions straight to your inbox"
 msgstr ""
 
-#: ../archive.php:164 ../footer.php:17 ../single.php:179 ../tpl_news.php:175
+#: ../archive.php:166 ../footer.php:17 ../single.php:180 ../tpl_news.php:175
 msgid "Email is invalid"
 msgstr ""
 
-#: ../archive.php:168 ../single.php:183 ../tpl_news.php:179
-msgid "SUBSCRIBE"
-msgstr ""
-
-#: ../archive.php:189
+#: ../archive.php:191
 msgid "<i class=\"icon-search-results\"></i> Nothing Found"
 msgstr ""
 
-#: ../archive.php:193 ../search.php:77
+#: ../archive.php:195 ../search.php:77
 msgid ""
 "Sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."
 msgstr ""
 
-#: ../archive.php:197 ../search.php:81
+#: ../archive.php:199 ../search.php:81
 msgid ""
 "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
 "searching can help."
-msgstr ""
-
-#: ../footer.php:15
-msgid "Bulletin"
-msgstr ""
-
-#: ../footer.php:16
-msgid "That email is already subscribed."
-msgstr ""
-
-#: ../footer.php:19
-msgid "Subscribe"
-msgstr ""
-
-#: ../footer.php:24
-msgid "Follow us"
 msgstr ""
 
 #: ../footer.php:36
@@ -153,59 +128,32 @@ msgstr ""
 msgid "Login successful, redirecting..."
 msgstr ""
 
-#: ../functions.php:240
-msgid "Mensaje contacto Arylex"
-msgstr ""
-
-#: ../functions.php:358
+#: ../functions.php:350
 msgid "Error updating role."
 msgstr ""
 
-#: ../functions.php:384
+#: ../functions.php:376
 msgid "Failed to connect to Mailrelay"
 msgstr ""
 
-#: ../functions.php:416
+#: ../functions.php:408
 msgid "Problem subscribe email in Mailrelay"
 msgstr ""
 
-#: ../functions.php:418 ../tpl_contact.php:37
-msgid "Success!"
-msgstr ""
-
-#: ../functions.php:424
+#: ../functions.php:416
 msgid "Unable to update password, please contact the administrator."
 msgstr ""
 
-#: ../functions.php:427
+#: ../functions.php:419
 msgid "Wrong password length."
 msgstr ""
 
-#: ../functions.php:430
+#: ../functions.php:422
 msgid "The two passwords you entered don't match."
 msgstr ""
 
-#: ../functions.php:433
+#: ../functions.php:425
 msgid "Sorry, we don't accept empty passwords."
-msgstr ""
-
-#: ../functions.php:475
-msgid "Password Recovery"
-msgstr ""
-
-#: ../functions.php:492
-msgid "Hi, "
-msgstr ""
-
-#: ../functions.php:493
-msgid ""
-"It looks like you need to reset your password on the site. If this is "
-"correct, simply click the link below. If you were not the one responsible "
-"for this request, ignore this email and nothing will happen."
-msgstr ""
-
-#: ../functions.php:494
-msgid "Reset Your Password"
 msgstr ""
 
 #: ../header.php:26
@@ -220,16 +168,8 @@ msgstr ""
 msgid "Dow AgroSciences Global"
 msgstr ""
 
-#: ../header.php:49
-msgid "Login"
-msgstr ""
-
-#: ../header.php:56
+#: ../header.php:58
 msgid "Log Out"
-msgstr ""
-
-#: ../search.php:8
-msgid "Search"
 msgstr ""
 
 #: ../search.php:21
@@ -243,11 +183,6 @@ msgid "<i class=\"icon-search-results\"></i> Nothing Found for <b>\" %s \"</b>"
 msgstr ""
 
 #: ../searchform.php:2
-msgctxt "placeholder"
-msgid "Search"
-msgstr ""
-
-#: ../searchform.php:2
 msgctxt "label"
 msgid "Search for:"
 msgstr ""
@@ -257,36 +192,32 @@ msgctxt "submit button"
 msgid "Search"
 msgstr ""
 
-#: ../single.php:56
+#: ../single.php:58
 msgid "Hosted by"
 msgstr ""
 
-#: ../single.php:74
+#: ../single.php:76
 msgid "Author"
 msgstr ""
 
-#: ../single.php:107
+#: ../single.php:108
 msgid "SHARE"
 msgstr ""
 
-#: ../single.php:109
+#: ../single.php:110
 msgid "Share Twitter"
 msgstr ""
 
-#: ../single.php:110
+#: ../single.php:111
 msgid "Share Facebook"
 msgstr ""
 
-#: ../single.php:111
+#: ../single.php:112
 msgid "Share email"
 msgstr ""
 
-#: ../single.php:117
+#: ../single.php:118
 msgid "RELATED ARTICLES"
-msgstr ""
-
-#: ../tpl_contact.php:38
-msgid "Contact us"
 msgstr ""
 
 #: ../tpl_contact.php:40
@@ -305,10 +236,6 @@ msgstr ""
 msgid "Email is not valid"
 msgstr ""
 
-#: ../tpl_contact.php:48
-msgid "Confirm email"
-msgstr ""
-
 #: ../tpl_contact.php:49
 msgid "Email does not match"
 msgstr ""
@@ -317,20 +244,8 @@ msgstr ""
 msgid "Telephone"
 msgstr ""
 
-#: ../tpl_contact.php:55
-msgid "* Required"
-msgstr ""
-
-#: ../tpl_contact.php:56
-msgid "Please choose a subject and write your question"
-msgstr ""
-
 #: ../tpl_contact.php:58
 msgid "Choose a subject"
-msgstr ""
-
-#: ../tpl_contact.php:59
-msgid "Choose one of this options"
 msgstr ""
 
 #: ../tpl_contact.php:72
@@ -345,21 +260,17 @@ msgstr ""
 msgid "Accept legal terms"
 msgstr ""
 
-#: ../tpl_dow.php:57 ../tpl_home.php:81
-msgid "View products"
-msgstr ""
-
 #: ../tpl_faq.php:67 ../tpl_faq_sc.php:54
 msgid ""
 "If you don’t find answers to your question here, please send us your "
 "question and we will get back to you as soon as possible."
 msgstr ""
 
-#: ../tpl_home.php:69
+#: ../tpl_home.php:71
 msgid "Arylex Active: The next generation of weed control"
 msgstr ""
 
-#: ../tpl_home.php:92
+#: ../tpl_home.php:94
 msgid "Key Benefits"
 msgstr ""
 
@@ -367,16 +278,8 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: ../tpl_login.php:14
-msgid "Password"
-msgstr ""
-
 #: ../tpl_login.php:16 ../tpl_registration.php:51
 msgid "SEND"
-msgstr ""
-
-#: ../tpl_login.php:18 ../tpl_reset.php:17 ../tpl_whitepapers.php:30
-msgid "Reset Password"
 msgstr ""
 
 #: ../tpl_login.php:35 ../tpl_registration.php:57
@@ -417,3 +320,68 @@ msgstr ""
 #. Author of the theme
 msgid "Pedro de la Cruz"
 msgstr ""
+
+#: ../searchform.php:2
+msgctxt "placeholder"
+msgid "Search &hellip;"
+msgstr "Suche"
+
+#: ../archive.php:164 ../single.php:178 ../tpl_news.php:173
+msgid "BULLETIN"
+msgstr "BULLETIN"
+
+#: ../archive.php:170 ../single.php:184 ../tpl_news.php:179
+msgid "SUBSCRIBE"
+msgstr "MELDEN SIE SICH AN"
+
+#: ../footer.php:15
+msgid "Bulletin"
+msgstr "Bulletin"
+
+#: ../footer.php:19
+msgid "Subscribe"
+msgstr "Melden sie sich an"
+
+#: ../header.php:49
+msgid "Login"
+msgstr "Anmeldung"
+
+#: ../search.php:8
+msgid "Search"
+msgstr "Suche"
+
+#: ../tpl_contact.php:38
+msgid "Contact us"
+msgstr "Kontaktieren Sie uns"
+
+#: ../tpl_contact.php:48
+msgid "Confirm email"
+msgstr "E-Mail bestätigen"
+
+#: ../tpl_contact.php:55
+msgid "* Required"
+msgstr "* Erforderlich"
+
+#: ../tpl_contact.php:56
+msgid "Please choose a subject and write your question"
+msgstr "Wählen Sie ein Thema und schreiben Sie Ihre Frage"
+
+#: ../tpl_contact.php:59
+msgid "Choose one of this options"
+msgstr "Wählen Sie eine dieser Optionen"
+
+#: ../tpl_dow.php:59 ../tpl_home.php:83
+msgid "View products"
+msgstr "Produkte ansehen"
+
+#: ../tpl_login.php:14
+msgid "Password"
+msgstr "Passwort"
+
+#: ../tpl_login.php:18 ../tpl_reset.php:17 ../tpl_whitepapers.php:30
+msgid "Reset Password"
+msgstr "Passwort zurücksetzen"
+
+#: ../footer.php:24
+msgid "Follow us"
+msgstr "Folgen Sie uns"

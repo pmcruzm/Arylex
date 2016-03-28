@@ -169,14 +169,14 @@
                 </div>
 
                <div class="mod-register">
-                    <form class="bulletin-form" data-msg-success="<?php _e('Error!','arylex');?>" data-msg-error="<?php _e('Error!','arylex');?>" data-msg-error-email="<?php _e('Email ya suscrito!','arylex' );?>">
-                        <h3><?php _e('BULLETIN','arylex' );?></h3>
+                    <form class="bulletin-form" data-msg-success="<?php _e('Thanks for subscribing!','arylex');?>" data-msg-error="<?php _e('Error!','arylex');?>" data-msg-error-email="<?php _e('This email is already registered.','arylex');?>">
+                        <h3><?php _e('BULLETIN','arylex');?></h3>
                         <p><?php _e('Register here to get the latest news and opinions straight to your inbox','arylex');?></p>
-                        <input type="text" name="email" data-error="<?php _e('El email no es válido','arylex' )?>">
+                        <input type="text" name="email" data-error="<?php _e('Email is invalid','arylex');?>">
                         <p class="errors"></p>
                         <div class="submit">
                             <input type="hidden" name="lang" value="<?php echo ICL_LANGUAGE_CODE;?>">
-                            <input type="submit" class="submit" value="<?php _e('SUBSCRIBE','arylex' )?>">
+                            <input type="submit" class="submit" value="<?php _e('SUBSCRIBE','arylex');?>">
                         </div>
                     </form>
                 </div>

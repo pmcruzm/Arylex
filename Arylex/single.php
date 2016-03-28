@@ -1,13 +1,12 @@
 <?php get_header(); ?>
 <?php
 	//Obtenemos datos de views&news 
-	$args = array('post_type' => 'page','pagename' =>'news-views');
-	query_posts($args);
-	if ( have_posts() ) : while ( have_posts() ) : the_post();
-		$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
-		$cover_view = $thumb['0'];
-		$title_view=get_the_title();
-	endwhile; endif;wp_reset_query();
+	$page = get_posts( array('name'=> 'news-views','post_type' => 'page'));
+	$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+	$post = get_post($id_page); 
+	$title_page=$post->post_title;
+	$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
+	$cover_view = $thumb['0'];
 ?> 
 
 <?php
@@ -18,7 +17,7 @@
 <header class="header-img" style="background-image:url('<?php echo $cover_view;?>');">
     <span class="furrows"></span>
     <div class="title-top">
-        <h2><?php echo $title_view;?></h2>
+        <h2><?php echo $title_page;?></h2>
     </div>
 </header>
 
@@ -98,8 +97,9 @@
 						foreach($post_cat as $single_cat){
 							$category_id = get_cat_ID($single_cat->name);
 							$category_link = get_category_link( $category_id );
-							$list_cat.='<a href="'.$category_link.'">'.$single_cat->name.'</a> - ';
+							$list_cat.='<a href="'.$category_link.'">'.$single_cat->name.'</a>&#8226;';
 						}
+						$list_cat=html_entity_decode($list_cat);
 						echo substr($list_cat, 0, -3);
 					?>
                 </div>
@@ -108,7 +108,7 @@
                     <?php _e('SHARE','arylex');?>
                     <ul>
                         <li><a href="http://twitter.com/home?status=<?php the_title(); ?> <?php echo get_permalink($post->ID); ?>" target="_blank" class="share-twitter"><?php _e('Share Twitter','arylex');?></a></li>
-                        <li><a href="http://facebook.com/share.php?u=<?php the_permalink() ?>&amp;t=<?php echo urlencode(the_title('','', false)) ?>" target="_blank" class="share-facebook"><?php _e('Share Facebook','arylex' );?></a></li>
+                        <li><a href="http://facebook.com/share.php?u=<?php the_permalink() ?>&amp;t=<?php echo urlencode(the_title('','', false)) ?>" target="_blank" class="share-facebook"><?php _e('Share Facebook','arylex');?></a></li>
                         <li><a href="mailto:?subject=<?php the_title(); ?>&amp;body=<?php echo get_permalink($post->ID); ?>" target="_blank" class="share-email"><?php _e('Share email','arylex');?></a></li>
                     </ul>
                 </div>
@@ -174,14 +174,14 @@
                 </div>
 
                 <div class="mod-register">
-                    <form class="bulletin-form" data-msg-success="<?php _e('Success!','arylex');?>" data-msg-error="<?php _e('Fail!','arylex');?>" data-msg-error-email="<?php _e('This email is already registered.','arylex' );?>">
-                        <h3><?php _e('BULLETIN','arylex' );?></h3>
+                    <form class="bulletin-form" data-msg-success="<?php _e('Thanks for subscribing!','arylex');?>" data-msg-error="<?php _e('Error!','arylex');?>" data-msg-error-email="<?php _e('This email is already registered.','arylex');?>">
+                        <h3><?php _e('BULLETIN','arylex');?></h3>
                         <p><?php _e('Register here to get the latest news and opinions straight to your inbox','arylex');?></p>
-                        <input type="text" name="email" data-error="<?php _e('El email no es válido','arylex' )?>">
+                        <input type="text" name="email" data-error="<?php _e('Email is invalid','arylex');?>">
                         <p class="errors"></p>
                         <div class="submit">
                             <input type="hidden" name="lang" value="<?php echo ICL_LANGUAGE_CODE;?>">
-                            <input type="submit" class="submit" value="<?php _e('SUBSCRIBE','arylex' )?>">
+                            <input type="submit" class="submit" value="<?php _e('SUBSCRIBE','arylex');?>">
                         </div>
                     </form>
                 </div>

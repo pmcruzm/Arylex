@@ -12,10 +12,6 @@ add_theme_support('automatic-feed-links');
 add_image_size( 'list-news', 334, 188, array( 'center', 'center' ) );
 add_image_size( 'cover-news', 1024, 367, array( 'center', 'center' ) );
 
-
-//Asignar traducciones del theme 
-load_theme_textdomain( 'arylex', get_template_directory().'/languages' ); 
-
 //Roles nuevos  
 $result = add_role(
     'new_user_init',
@@ -108,9 +104,9 @@ add_action('wp_ajax_send_mailrelay', 'send_mailrelay');
 function send_mailrelay(){
 	
 		//Añadimos contacto nuevo Mailrelay
-		$username = 'homeatc';
-		$password = 'b785c435';
-		$hostname = 'homeatc.ip-zone.com';
+		$username = 'arylex';
+		$password = '85eae51b';
+		$hostname = 'arylex.ip-zone.com';
 		
 		// El primer paso será validarnos contra el API
 		$curl = curl_init('http://' . $hostname . '/ccm/admin/api/version/2/&type=json');
@@ -214,16 +210,25 @@ add_action('wp_ajax_nopriv_ajax_contact', 'ajax_contact');
 add_action('wp_ajax_ajax_contact', 'ajax_contact');
 
 function ajax_contact(){
+	
+	$mensaje = file_get_contents('http://arylex.eu/mailing/contact_'.$_POST["lang"].'.php'); 
+	$mensaje = str_replace('%nombre%', $_POST['name'], $mensaje); 
+	$mensaje = str_replace('%email%', $_POST['email'], $mensaje); 
+	$mensaje = str_replace('%telefono%', $_POST['telephone'], $mensaje);
+	$mensaje = str_replace('%asunto%', $_POST['question'], $mensaje);
     
-	$mensaje='Name: '.$_POST['name'].'<br/>Email: '.$_POST['email'].'<br/>Telephone: '.$_POST['telephone'].'<br/>Subject: '.$_POST['subject'].'<br/>Question: '.$_POST['question'];
+	//$mensaje='Name: '.$_POST['name'].'<br/>Email: '.$_POST['email'].'<br/>Telephone: '.$_POST['telephone'].'<br/>Subject: '.$_POST['subject'].'<br/>Question: '.$_POST['question'];
+	//$mensaje='Name: '.$_POST['name'].'<br/>Email: '.$_POST['email'].'<br/>Telephone: '.$_POST['telephone'].'<br/>Question: '.$_POST['question'];
+	
 	//Destinatario mail según idioma
+	//$mail_dest="pmcruzm@gmail.com,ia@homeatc.com,bmp@homeatc.com";
 	$mail_dest="pmcruzm@gmail.com";
 	switch($_POST["lang"]){
 		case 'en':
 			//$mail_dest='DowAgroSciencesUK@dow.com';
 		break;
 		case 'fr':
-			//$mail_dest='DowAgroSciencesUK@dow.com'; //Pendiente
+			//$mail_dest='bdattin@dow.com';
 		break;
 		case 'de':
 			//$mail_dest='dowagrosciencesd@dow.com';
@@ -231,17 +236,17 @@ function ajax_contact(){
 	}
 	
 	//Mail origen 
-	$email_from='info@arylex.eu';
+	$email_from='contact@arylex.eu';
 	// título
-	$titulo = 'Mensaje contacto Arylex';
+	$titulo = __('Contact Arylex', 'arylex');
 	
 	// Para enviar un correo HTML, debe establecerse la cabecera Content-type
 	$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
 	$cabeceras .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
 	
 	// Cabeceras adicionales
-	$cabeceras .= 'To: Pedro <pmcruzm@gmail.com>' . "\r\n";
-	$cabeceras .= 'From: Info Arylex <info@arylex.eu>' . "\r\n";
+	//$cabeceras .= 'To: Pedro <pmcruzm@gmail.com>' . "\r\n";
+	$cabeceras .= 'From: Contact Arylex <contact@arylex.eu>' . "\r\n";
 	
 	// Enviarlo
 	ini_set("sendmail_from", $email_from);
@@ -351,12 +356,12 @@ function ajax_registration(){
 					//Actualizamos el rol del usuario
 					$user_id=wp_update_user( array( 'ID' => $info_user->ID, 'role' =>'new_user_active' ) );
 					if ( is_wp_error( $user_id ) ) {
-						echo json_encode(array('register'=>false, 'message'=>__('Error al actualizar el rol.'),'url'=>''));
+						echo json_encode(array('register'=>false, 'message'=>__('Error updating role.'),'url'=>''));
 					}else{	
 						//Añadimos contacto nuevo Mailrelay
-						$username = 'homeatc';
-						$password = 'b785c435';
-						$hostname = 'homeatc.ip-zone.com';
+						$username = 'arylex';
+						$password = '85eae51b';
+						$hostname = 'arylex.ip-zone.com';
 						
 						// El primer paso será validarnos contra el API
 						$curl = curl_init('http://' . $hostname . '/ccm/admin/api/version/2/&type=json');
@@ -433,23 +438,64 @@ function ajax_registration(){
 }
 
 /***
-* Excluir faq de búsqueda  
+* Archivos de traduccion  
 ***/
-/*function be_modify_search_query( $query ) {
-	global $wp_the_query;
-	if( $query === $wp_the_query && $query->is_search() ) {
-		$tax_query = array(
-			array(
-				'taxonomy' => 'faqs',
-				'field' => 'slug',
-				'terms' => 'hidden',
-				'operator' => 'NOT IN',
-			)
-		);
-		$query->set( 'tax_query', $tax_query );
-	}
-}
-add_action( 'pre_get_posts', 'be_modify_search_query' );*/
 
+add_action('after_setup_theme', 'my_theme_setup');
+function my_theme_setup(){
+	//Asignar traducciones del theme 
+	load_theme_textdomain( 'arylex', get_template_directory().'/languages' ); 
+}
+
+/***
+* Excluir páginas de login de la búsqueda búsqueda  
+***/
+function fb_search_filter($query) {
+if ( !$query->is_admin && $query->is_search) {
+	$query->set('post__not_in', array('249','250','247','236','31','650','652','654','656','510','655','651','653','657','511'));
+}
+return $query;
+}
+add_filter( 'pre_get_posts', 'fb_search_filter' );
+
+/***
+* Custom Forget password  
+***/
+/*
+// Change "From" email address
+add_filter( 'wp_mail_from', function( $email ) {
+	return 'hello@mydomain.com';
+});
+// Change "From" email name
+add_filter( 'wp_mail_from_name', function( $name ) {
+	return __( 'My Website' );
+});*/
+
+// Change Subject
+add_filter( 'retrieve_password_title', function( $title, $user_login, $user_data ) {
+	return __( 'Password Recovery' );
+}, 10, 3 );
+// Change email type to HTML
+add_filter( 'wp_mail_content_type', function( $content_type ) {
+	return 'text/html';
+});
+// Change the message/body of the email
+add_filter( 'retrieve_password_message', 'rv_new_retrieve_password_message', 10, 4 );
+function rv_new_retrieve_password_message( $message, $key, $user_login, $user_data ){
+	
+	$reset_url = add_query_arg( array(
+		'action' => 'rp',
+		'key' => $key,
+		'login' => rawurlencode( $user_login )
+	), wp_login_url() );
+	ob_start();
+	
+	printf( '<p>%s</p>', __( 'Hi, ' ) . get_user_meta( $user_data->ID, 'first_name', true ) );
+	printf( '<p>%s</p>', __( 'It looks like you need to reset your password on the site. If this is correct, simply click the link below. If you were not the one responsible for this request, ignore this email and nothing will happen.' ) );
+	printf( '<p><a href="%s">%s</a></p>', $reset_url, __( 'Reset Your Password' ) );
+	
+	$message = ob_get_clean();
+	return $message;
+}
 
 ?>

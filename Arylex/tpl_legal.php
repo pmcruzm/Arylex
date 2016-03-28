@@ -1,6 +1,6 @@
 <?php
 /**
- * @template name: Products
+ * @template name: Legal
  * @package WordPress
  * @subpackage Arylex_theme
  * @since Arylex Theme 1.0
@@ -19,7 +19,6 @@
             <div class="row">
                 <div class="col-md-8">
                     <h2><?php the_title();?></h2>
-                    <p><?php the_content();?></p>
                 </div>
             </div>
         </div>
@@ -31,13 +30,7 @@
 
     <article class="container">
         <div class="row">
-            <div class="col-md-4">
-                <?php echo types_render_field("text-products",array("output"=>"html"));?>
-                <p><img src="<?php bloginfo('template_url'); ?>/img/logo-grey.png" class="img-responsive"></p>
-            </div>
-            <div class="col-md-6 col-md-offset-1">
-                <img src="<?php echo types_render_field("image-products",array("output"=>"raw"));?>" class="img-responsive center-block">
-            </div>
+            <?php the_content();?>
         </div>
     </article>
 

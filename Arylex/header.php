@@ -23,8 +23,8 @@
         <div class="container">
 
             <div class="logo-top">
-                <span class="menu-toggle"><?php _e('Menu','arylex' )?></span>
-                <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="background-image:url('<?php bloginfo('template_url'); ?>/img/logo.png');"><?php _e('Arylex Active','arylex' )?></a></h1>
+                <span class="menu-toggle"><?php _e('Menu','arylex');?></span>
+                <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="background-image:url('<?php bloginfo('template_url'); ?>/svg/logo.svg');"><?php _e('Arylex Active','arylex' )?></a></h1>
             </div>
 
             <nav class="nav-main" role="navigation">
@@ -36,7 +36,7 @@
             <nav class="nav-top" role="navigation">
                 <ul>
                     <li class="global">
-                        <a href="http://www.dowagro.com" target="_blank"><?php _e('Dow AgroSciences Global','arylex' )?></a>
+                        <a href="http://www.dowagro.com" target="_blank"><?php _e('Dow AgroSciences Global','arylex');?></a>
                     </li>
                     <li class="login">
                     <?php if (!is_user_logged_in()) { ?>
@@ -46,16 +46,14 @@
                         query_posts($args);
                         if ( have_posts() ) : while ( have_posts() ) : the_post();
                     ?>
-                        <a href="<?php echo get_the_permalink();?>"><?php _e('Login','arylex' )?></a>
+                        <a href="<?php echo get_the_permalink();?>"><?php _e('Login','arylex');?></a>
                     <?php	
                         endwhile; endif;wp_reset_query();
                     ?> 
                     <?php
                         }else{
-                            global $current_user;
-                            get_currentuserinfo();
                     ?>
-                        <a href="<?php echo wp_logout_url(home_url());?>"><?php _e('Log Out','arylex' )?></a>	
+                        <a href="<?php echo wp_logout_url(home_url());?>"><?php _e('Log Out','arylex');?></a>	
                     <?php		
                         }	
                     ?>

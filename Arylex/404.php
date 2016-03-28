@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <h2><?php _e('Can’t find that page','arylex' )?></h2>
+                    <h2><?php _e('Can’t find that page','arylex');?></h2>
                 </div>
             </div>
         </div>

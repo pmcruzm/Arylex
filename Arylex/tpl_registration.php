@@ -39,22 +39,22 @@
                 <form id="form-registration" class="form-type">
                     <legend><?php the_title();?></legend>
                     <div>
-                        <label for="reset-password"><?php _e('New password','arylex' )?></label>
+                        <label for="reset-password"><?php _e('New password','arylex');?></label>
                         <input type="password" name="password" id="reset-password">
                     </div>
                     <div>
-                        <label for="reset-password-confirm" class="required"><?php _e('Repeat new password','arylex' )?></label>
+                        <label for="reset-password-confirm" class="required"><?php _e('Repeat new password','arylex');?></label>
                         <input type="password" name="password-repeat" id="reset-password-confirm">
                     </div>
-                    <p><?php _e('HINT: The password should be al least twelve characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & ).','arylex' )?></p>
+                    <p><?php _e('HINT: The password should be al least twelve characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & ).','arylex');?></p>
                     <input type="hidden" name="user" id="user" value="<?php echo $_GET['user'];?>">
-                    <input type="submit" value="<?php _e('SEND','arylex' )?>">
+                    <input type="submit" value="<?php _e('SEND','arylex');?>">
                     <div class="errors"></div>
                 </form>
                 <?php
                 		}
 					}else{
-						_e('You are already signed in.','arylex' );
+						_e('You are already signed in.','arylex');
 					}
 				?>
 

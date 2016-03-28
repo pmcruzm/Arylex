@@ -13,8 +13,8 @@
 
                     <div class="col-sm-5 col-sm-pull-7">
                         <p><?php _e('Bulletin','arylex' )?></p>
-                        <form class="bulletin-form" data-msg-success="<?php _e('Éxito!','arylex' )?>" data-msg-error="<?php _e('Error!','arylex' )?>" data-msg-error-email="<?php _e('Email ya suscrito!','arylex' )?>">
-                            <input type="text" name="email" id="email" class="email-field" data-error="<?php _e('El email no es válido','arylex' )?>">
+                        <form class="bulletin-form" data-msg-success="<?php _e('Thanks for subscribing!','arylex');?>" data-msg-error="<?php _e('Error!','arylex');?>" data-msg-error-email="<?php _e('That email is already subscribed.','arylex' );?>">
+                            <input type="text" name="email" id="email" class="email-field" data-error="<?php _e('Email is invalid','arylex');?>">
                             <input type="hidden" name="lang" value="<?php echo ICL_LANGUAGE_CODE;?>">
                             <button type="submit" class="bulletin-submit"><?php _e('Subscribe','arylex' )?></button>
                             <div class="errors"></div>
@@ -33,9 +33,17 @@
                 </div>
 
                 <div class="copyright">
-                    <span class="logo-footer logo-dow"><?php _e('DOW','arylex' )?></span>
-                    <span class="logo-footer logo-solutions"><?php _e('Solutions for the Growing World','arylex' )?></span>
-                    <span><?php _e('Copyright © The Dow Chemical Company (1995-2016). All Rights Reserved. ®™ Trademark of The Dow Chemical Company ("Dow") or an affiliated company of Dow','arylex' )?></span>
+                    <span class="logo-footer logo-dow"><?php _e('DOW','arylex' );?></span>
+                    <span class="logo-footer logo-solutions"><?php _e('Solutions for the Growing World','arylex' );?></span>
+                    	<?php
+							//Obtenemos datos de productos 
+							$page = get_posts( array('name'=> 'legal-terms','post_type' => 'page'));
+							$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+							$post = get_post($id_page);
+							$title_term=$post->post_title;
+							$link_term=get_permalink($post->ID);
+						?> 	
+                    	<span><?php _e('Copyright © The Dow Chemical Company (1995-2016). All Rights Reserved. ®™ Trademark of The Dow Chemical Company ("Dow") or an affiliated company of Dow','arylex' );?> <a href="<?php echo $link_term;?>"><?php echo $title_term;?></a></span>
                 </div>
 
             </div>

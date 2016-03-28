@@ -6,11 +6,14 @@
 					$tax = $wp_query->get_queried_object();
 			?>
             <?php
-				 $args = array('post_type' => 'page','pagename' =>'faq');
-				 query_posts($args);	
-				 if ( have_posts() ) : while ( have_posts() ) : the_post();
-					$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
-					$cover_top = $thumb['0'];
+				//Obtenemos datos de faq 
+				$page = get_posts( array('name'=> 'faq','post_type' => 'page'));
+				$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+				$post = get_post($id_page); 
+				$title_page=$post->post_title;
+				$content_page=$post->post_content;
+				$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
+				$cover_top = $thumb['0'];
 			?>
                     <header class="header-img" style="background-image:url(<?php echo $cover_top;?>)">
                         <span class="furrows"></span>
@@ -18,17 +21,13 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <h2><?php the_title();?></h2>
-                                        <p><?php the_content();?></p>
+                                        <h2><?php echo $title_page;?></h2>
+                                        <p><?php echo $content_page;?></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </header>
-			<?php
-			   endwhile; endif;wp_reset_query();
-			?>
-			
 			
 			<main id="main" role="main">
 			
@@ -50,7 +49,7 @@
 						</div>
 						<div class="col-md-4 col-md-pull-8">
 							<div class="mod-categories">
-								<h3><?php _e('TOPICS','arylex' )?></h3>
+								<h3><?php _e('TOPICS','arylex' );?></h3>
 								<ul>
 								<?php
 									// Get all the taxonomies for this post type
@@ -63,13 +62,13 @@
 								</ul>
 							</div>
 							<div class="mod-register ask-the-experts">
-								<h3><?php _e('ASK THE EXPERTS','arylex' )?></h3>
-								<p><?php _e('If you don’t find answers to your question here ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.','arylex' )?></p>
+								<h3><?php _e('ASK THE EXPERTS','arylex');?></h3>
+								<p><?php _e('If you don’t find answers to your question here ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.','arylex');?></p>
 								<div class="submit">
-									<?php $page = get_page_by_title( 'Contact' );
+									<?php $page = get_page_by_title('Contact');
 										  $link_page=get_page_link($page->ID); 
 									?>
-									<a href="<?php echo $link_page;?>" class="submit"><?php _e('SEND QUESTION','arylex' )?></a>
+									<a href="<?php echo $link_page;?>" class="submit"><?php _e('SEND QUESTION','arylex' );?></a>
 								</div>
 							</div>
 						</div>
@@ -82,29 +81,30 @@
 					//En caso de que no sea una taxonomía y sea una categoría
 			?>	
             		<?php
+						
+						
 						 $this_category = get_category($cat);	
-						 $args = array('post_type' => 'page','pagename' =>'faq');
-						 query_posts($args);	
-						 if ( have_posts() ) : while ( have_posts() ) : the_post();
+						 //Obtenemos datos de views&news 
+						 	$page = get_posts( array('name'=> 'news-views','post_type' => 'page'));
+							$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+							$post = get_post($id_page); 
+							$title_page=$post->post_title;
 							$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
 							$cover_top = $thumb['0'];
 					?>
             		<header class="header-img" style="background-image:url(<?php echo $cover_top;?>)">
                         <span class="furrows"></span>
                         <div class="title-top">
-                            <h2><?php the_title();?></h2>
+                            <h2><?php echo $title_page;?></h2>
                         </div>
                     </header>
-                    <?php
-					   endwhile; endif;wp_reset_query();
-					?>
                     
                     <main id="main" role="main" class="news">
                     
                         <article class="news-list" data-max-items="6" data-more-items="2">
                     
                             <div class="news-category">
-                              <p><?php _e('Category','arylex' )?></p>
+                              <p><?php _e('Category','arylex');?></p>
                               <h2><?php echo mb_strtoupper($this_category->slug, 'UTF-8');?></h2>
                             </div>
                     
@@ -160,10 +160,10 @@
                                     </div>
                     
                                     <div class="mod-register">
-                                        <form class="bulletin-form" data-msg-success="<?php _e('Error!','arylex');?>" data-msg-error="<?php _e('Error!','arylex');?>" data-msg-error-email="<?php _e('Email ya suscrito!','arylex' );?>">
+                                        <form class="bulletin-form" data-msg-success="<?php _e('Thanks for subscribing!','arylex');?>" data-msg-error="<?php _e('Error!','arylex');?>" data-msg-error-email="<?php _e('This email is already registered.','arylex' );?>">
                                             <h3><?php _e('BULLETIN','arylex' );?></h3>
                                             <p><?php _e('Register here to get the latest news and opinions straight to your inbox','arylex');?></p>
-                                            <input type="text" name="email" data-error="<?php _e('El email no es válido','arylex' )?>">
+                                            <input type="text" name="email" data-error="<?php _e('Email is invalid','arylex' )?>">
                                             <p class="errors"></p>
                                             <div class="submit">
                                                 <input type="hidden" name="lang" value="<?php echo ICL_LANGUAGE_CODE;?>">

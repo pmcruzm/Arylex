@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <h2><?php _e('Search','arylex' )?></h2>
+                    <h2><?php _e('Search','arylex');?></h2>
                 </div>
             </div>
         </div>
@@ -70,15 +70,15 @@
    	<article class="container search-results">
         <div class="row">
             <div class="col-md-4 search-term">
-            	<p><?php printf( __( '<i class="icon-search-results"></i> Nothing Found for <b>" %s "</b>', 'arylex' ), get_search_query() ); ?></p>
+            	<p><?php printf( __( '<i class="icon-search-results"></i> Nothing Found for <b>" %s "</b>', 'arylex'), get_search_query() ); ?></p>
             </div>
             <div class="col-md-8 page-content">
                 <?php if ( is_search() ) : ?>
-                        <p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'arylex' ); ?></p>
+                        <p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'arylex'); ?></p>
                         <?php get_search_form(); ?>
                  <?php else : ?>
             
-                        <p><?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'arylex' ); ?></p>
+                        <p><?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'arylex'); ?></p>
                         <?php get_search_form(); ?>
             
                   <?php endif; ?>

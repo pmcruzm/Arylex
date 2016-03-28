@@ -9,13 +9,12 @@
 <?php get_header(); ?>
 <?php
 	//Obtenemos datos de productos 
-	$args = array('post_type' => 'page','pagename' =>'products');
-	query_posts($args);
-	if ( have_posts() ) : while ( have_posts() ) : the_post();
-		$exc_prod=get_the_excerpt();
-		$title_prod=get_the_title();
-		$link_prod=get_the_permalink();
-	 endwhile; endif;wp_reset_query();
+	$page = get_posts( array('name'=> 'products','post_type' => 'page'));
+	$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+	$post = get_post($id_page);
+	$exc_prod=$post->post_excerpt;
+	$title_prod=$post->post_title;
+	$link_prod=get_permalink($post->ID);
 ?> 
 <?php
       if ( have_posts() ) : while ( have_posts() ) : the_post();
@@ -56,7 +55,7 @@
         <div class="content">
             <h2><?php echo  $title_prod;?></h2>
             <p><?php echo  $exc_prod;?></p>
-            <a href="<?php echo  $link_prod;?>"><?php _e('View products','arylex' )?></a>
+            <a href="<?php echo  $link_prod;?>"><?php _e('View products','arylex');?></a>
         </div>
     </article>
 

@@ -9,13 +9,12 @@
 <?php get_header(); ?>
 <?php
 	//Obtenemos datos de productos 
-	$args = array('post_type' => 'page','pagename' =>'products');
-	query_posts($args);
-	if ( have_posts() ) : while ( have_posts() ) : the_post();
-		$exc_prod=get_the_excerpt();
-		$title_prod=get_the_title();
-		$link_prod=get_the_permalink();
-	endwhile; endif;wp_reset_query();
+	$page = get_posts( array('name'=> 'products','post_type' => 'page'));
+	$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+	$post = get_post($id_page);
+	$exc_prod=$post->post_excerpt;
+	$title_prod=$post->post_title;
+	$link_prod=get_permalink($post->ID);
 ?> 
 <?php
     if ( have_posts() ) : while ( have_posts() ) : the_post();
@@ -28,7 +27,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-sm-9">
-                    <h2><?php the_content();?></h2>
+                	<h2><?php the_title();?></h2>
+                    <p><?php the_content();?></p>
                 </div>
                 <?php
 					$title_vid=types_render_field("title-video",array("output"=>"raw"));
@@ -68,7 +68,7 @@
             <div class="col-md-6 col-md-push-6">
                 <h2><?php echo types_render_field("title-bottom-box", array("output"=>"raw"));?></h2>
                 <?php echo types_render_field("content-bottom-box", array("output"=>"html"));?>
-                <p><img src="<?php bloginfo('template_url'); ?>/img/logo-key-benefits.png" class="img-responsive center-block hidden-xs"></p>
+                <p><img src="<?php bloginfo('template_url'); ?>/svg/logo_howitworks.svg" class="img-responsive hidden-xs" alt="<?php _e('Arylex Active: The next generation of weed control','arylex' );?>"></p>
             </div>
             <div class="col-md-6 col-md-pull-6">
                 <img src="<?php echo types_render_field("image-bottom-box",array("output"=>"raw"));?>" class="img-responsive center-block">

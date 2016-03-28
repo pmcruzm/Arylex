@@ -63,13 +63,13 @@
                     </ul>
                 </div>
                 <div class="mod-register ask-the-experts">
-                    <h3><?php _e('ASK THE EXPERTS','arylex' )?></h3>
-                    <p><?php _e('If you don’t find answers to your question here, please send us your question and we will get back to you as soon as possible.','arylex' )?></p>
+                    <h3><?php _e('ASK THE EXPERTS','arylex');?></h3>
+                    <p><?php _e('If you don’t find answers to your question here, please send us your question and we will get back to you as soon as possible.','arylex');?></p>
                     <div class="submit">
                     	<?php $page = get_page_by_title( 'Contact' );
 							  $link_page=get_page_link($page->ID); 
 						?>
-                        <a href="<?php echo $link_page;?>" class="submit"><?php _e('SEND QUESTION','arylex' )?></a>
+                        <a href="<?php echo $link_page;?>" class="submit"><?php _e('SEND QUESTION','arylex');?></a>
                     </div>
                 </div>
             </div>
