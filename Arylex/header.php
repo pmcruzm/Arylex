@@ -41,14 +41,18 @@
                     <li class="login">
                     <?php if (!is_user_logged_in()) { ?>
 					<?php
-                        //Obtenemos datos de productos 
-                        $args = array('post_type' => 'page','pagename' =>'user-login');
-                        query_posts($args);
-                        if ( have_posts() ) : while ( have_posts() ) : the_post();
+                        //Obtenemos datos de login
+						$page = get_posts( array('name'=> 'user-login','post_type' => 'page'));
+						$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+						$post = get_post($id_page);
+						$link_login=get_permalink($post->ID);
+                        //$args = array('post_type' => 'page','pagename' =>'user-login');
+                       // query_posts($args);
+                        //if ( have_posts() ) : while ( have_posts() ) : the_post();
                     ?>
-                        <a href="<?php echo get_the_permalink();?>"><?php _e('Login','arylex');?></a>
+                        <a href="<?php echo $link_login;?>"><?php _e('Login','arylex');?></a>
                     <?php	
-                        endwhile; endif;wp_reset_query();
+                        //endwhile; endif;wp_reset_query();
                     ?> 
                     <?php
                         }else{

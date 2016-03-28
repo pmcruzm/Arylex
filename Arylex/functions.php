@@ -211,7 +211,13 @@ add_action('wp_ajax_ajax_contact', 'ajax_contact');
 
 function ajax_contact(){
 	
-	$mensaje = file_get_contents('http://arylex.eu/mailing/contact_'.$_POST["lang"].'.php'); 
+	ob_start();
+	require( 'mailing/contact_mailing.php');
+	$mensaje = ob_get_contents();
+	ob_end_clean();
+	//$mensaje = file_get_contents('http://arylex.eu/mailing/contact_'.$_POST["lang"].'.php'); 
+	//$mensaje = file_get_contents(get_template_directory_uri().'/mailing/contact_mailing.php'); 
+	//$mensaje =get_template_directory_uri().'/mailing/contact_mailing.php';
 	$mensaje = str_replace('%nombre%', $_POST['name'], $mensaje); 
 	$mensaje = str_replace('%email%', $_POST['email'], $mensaje); 
 	$mensaje = str_replace('%telefono%', $_POST['telephone'], $mensaje);
@@ -497,5 +503,24 @@ function rv_new_retrieve_password_message( $message, $key, $user_login, $user_da
 	$message = ob_get_clean();
 	return $message;
 }
+
+
+/***
+* Limit Dashboard access 
+***/
+function custom_restrict_users()
+{
+  if (!current_user_can('manage_options'))
+  {
+    /* Remove admin bar */
+    show_admin_bar(false);
+    if(is_admin())
+    {
+     wp_redirect( home_url() );
+     exit;
+    }
+  }
+}
+add_action( 'init', 'custom_restrict_users' );
 
 ?>
