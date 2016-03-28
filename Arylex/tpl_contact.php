@@ -25,7 +25,7 @@
     <div class="highlight">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-8 col-lg-7">
                     <h2><?php the_title();?></h2>
                     <?php the_content();?>
                 </div>
