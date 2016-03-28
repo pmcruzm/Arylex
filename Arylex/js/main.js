@@ -1,6 +1,9 @@
 
 $(function () {
 
+    $('html').toggleClass('is-ios', /(iphone|ipod|ipad)/.test(navigator.userAgent.toLowerCase()));
+
+
     //Header fixed (escritorio)
     var pixelsFromTheTop = 45;
     $(window).bind('scroll',function () {
@@ -99,17 +102,16 @@ $(function () {
             errors.html(elem.data('error'));
         }else{
             var data = {
-                action: 'send_mailrelay',
+                action: 'send_mailchimp',
                 email: elem.val(),
                 lang : $('input[name="lang"]', form).val()
             };
             $.ajax({
-                url: ajaxurl,
-                type: 'POST',
-				dataType: 'json',
+                url: form.attr('action'),
+                method: form.attr('method'),
+                dataType: 'json',
                 data: data,
                 success: function(data){
-					console.log(data.error);
                     if(data.error == 0){
                         elem.val('');
                         errors.html(form.data('msg-success'));
@@ -121,38 +123,6 @@ $(function () {
                 }
             });
         }
-    });
-	
-	//Formularios new user
-	$('form#form-registration').on('submit', function(e){
-		e.preventDefault();
-        
-		var form = $(this);
-        var errors = $('.errors', form);
-        errors.html('');
-			jQuery.ajax({
-				type: 'POST',
-				dataType: 'json',
-				url: ajaxurl,
-				data: { 
-					'action': 'ajax_registration', //calls wp_ajax_nopriv_ajaxlogin
-					'password': $('input[name="password"]', form).val(), 
-					'rep_password': $('input[name="password-repeat"]', form).val(), 
-					'user': $('input[name="user"]', form).val()},
-				success: function(data){
-					console.log(data);
-					if (data.register == true){
-						$('input[name="password"]', form).val('');
-						$('input[name="password-repeat"]', form).val('');	
-						errors.html(data.message);	
-						window.location = data.url;
-					}else{
-						$('input[name="password"]', form).val('');
-						$('input[name="password-repeat"]', form).val('');
-						errors.html(data.message);	
-					}
-				}
-			});
     });
 
 
@@ -188,36 +158,22 @@ $(function () {
     }
 
     function onSubmit(e){
-        e.preventDefault();
         is_form_ok = true;
         errors.html('');
 
         $('*[data-validation]', form).removeClass('error').each(validateField);
 
-        if(is_form_ok){
-			var data = {
-                action: 'ajax_contact',
-				name: $('input[name="name"]', form).val(), 
-				email: $('input[name="email"]', form).val(), 
-				telephone: $('input[name="telephone"]', form).val(), 
-				subject: $('select[name="subjet"]', form).val(), 
-				question: $('textarea[name="question"]', form).val(), 
-                lang : $('input[name="language"]', form).val()
-            };
-            $.ajax({
-                url: ajaxurl,
-                type: 'POST',
-				dataType: 'json',
-                data: data,
-                success: function(data){
-                    if(data.error == 0){
-                        form.get(0).reset();
-                        errors.html(form.data('msg-success'));
-                    }else{
-                        errors.html(form.data('msg-error'));
-                    }
-                }
-            });
+        var isContactForm = form.hasClass('form-type-contact');
+
+        if(isContactForm){
+            e.preventDefault();
+            if(is_form_ok) {
+                sendContactAjax();
+            }
+        }
+
+        if(!is_form_ok){
+            e.preventDefault();
         }
     }
 
@@ -246,8 +202,27 @@ $(function () {
             return elem.val() != '';
         }else if('checkbox' == rule){
             return elem.is(':checked');
+        }else if('password' == rule){
+            return elem.val().length >= 12;
         }
         return true;
+    }
+
+    function sendContactAjax(){
+        $.ajax({
+            url: form.attr('action'),
+            method: form.attr('method'),
+            dataType: 'json',
+            data: form.serialize(),
+            success: function(data){
+                if(data.error == 0){
+                    form.get(0).reset();
+                    errors.html(form.data('msg-success'));
+                }else{
+                    errors.html(form.data('msg-error'));
+                }
+            }
+        });
     }
 
 }( jQuery ));

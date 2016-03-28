@@ -4056,9 +4056,9 @@ a:hover, a:focus {
       padding-left: 20px;
       padding-right: 20px; } }
 
-#main.home article.container > .row:nth-child(2), #main.home article.key-benefits > .row:nth-child(2), #main.home .news article.news-featured > .row:nth-child(2), .news #main.home article.news-featured > .row:nth-child(2), #main.home .news article.news-list > .row:nth-child(2), .news #main.home article.news-list > .row:nth-child(2), #main.home .news article.news-detail > .row:nth-child(2), .news #main.home article.news-detail > .row:nth-child(2) {
+#main.home > article.container:nth-child(1) > .row:nth-child(2), #main.home > article.key-benefits:nth-child(1) > .row:nth-child(2), .news #main.home > article.news-featured:nth-child(1) > .row:nth-child(2), .news #main.home > article.news-list:nth-child(1) > .row:nth-child(2), .news #main.home > article.news-detail:nth-child(1) > .row:nth-child(2) {
   margin-top: 50px; }
-  #main.home article.container > .row:nth-child(2) > div:nth-child(2) img, #main.home article.key-benefits > .row:nth-child(2) > div:nth-child(2) img, #main.home .news article.news-featured > .row:nth-child(2) > div:nth-child(2) img, .news #main.home article.news-featured > .row:nth-child(2) > div:nth-child(2) img, #main.home .news article.news-list > .row:nth-child(2) > div:nth-child(2) img, .news #main.home article.news-list > .row:nth-child(2) > div:nth-child(2) img, #main.home .news article.news-detail > .row:nth-child(2) > div:nth-child(2) img, .news #main.home article.news-detail > .row:nth-child(2) > div:nth-child(2) img {
+  #main.home > article.container:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img, #main.home > article.key-benefits:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img, .news #main.home > article.news-featured:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img, .news #main.home > article.news-list:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img, .news #main.home > article.news-detail:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img {
     margin-top: 90px; }
 
 .search-form {
@@ -4068,27 +4068,27 @@ a:hover, a:focus {
   position: relative; }
   .search-form .search-field {
     color: #968c83;
-    font-size: 12px;
+    font-size: 13px;
     border: 1px solid #d7d2cb;
     border-radius: 50px;
     padding: 0 44px 0 20px;
-    width: 100%; }
+    width: 100%;
+    line-height: 40px; }
   .search-form .search-submit {
     background: url("../svg/icon-search.svg") no-repeat center center;
     text-indent: -9999px;
     border: none;
     width: 20px;
     position: absolute;
-    top: -1px;
-    right: 15px; }
+    top: 0;
+    right: 15px;
+    line-height: 40px; }
   @media (max-width: 767px) {
     .search-form {
       line-height: 38px; }
       .search-form .search-field {
         font-size: 15px;
-        border: none; }
-      .search-form .search-submit {
-        top: -1px; } }
+        border: none; } }
 
 .header-img {
   position: relative;
@@ -4203,16 +4203,13 @@ a:hover, a:focus {
         padding-left: 20px;
         padding-right: 20px; }
       .header-img .highlight {
-        bottom: 30px; }
-        .header-img .highlight h2 {
-          margin: 0; }
-        .header-img .highlight p {
-          display: none; } }
+        bottom: 30px; } }
 
 .video-arylex-attributes {
   text-align: center;
   font-size: 14px;
-  font-weight: 300; }
+  font-weight: 300;
+  margin-top: 15px; }
   .video-arylex-attributes a {
     display: inline-block;
     color: #968c83; }
@@ -4589,7 +4586,7 @@ a:hover, a:focus {
     .footer .bulletin-form .email-field {
       border: none;
       color: #968c83;
-      font-size: 11px;
+      font-size: 13px;
       width: 100%;
       background-color: #f5f4f2;
       padding-left: 15px;
@@ -4673,7 +4670,9 @@ a:hover, a:focus {
         width: 100%;
         max-width: 338px; }
       .footer .bulletin-form {
-        margin-bottom: 20px; } }
+        margin-bottom: 20px; }
+        .footer .bulletin-form .email-field {
+          font-size: 15px; } }
   @media (max-width: 480px) {
     .footer > .container, .footer > .key-benefits, .news .footer > .news-featured, .news .footer > .news-list, .news .footer > .news-detail {
       padding-left: 20px;
@@ -5060,13 +5059,14 @@ a:hover, a:focus {
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .search-form .search-field {
-    padding-top: 8px;
-    padding-bottom: 8px; }
+    height: 40px;
+    line-height: normal; }
   .footer .bulletin-form .email-field {
-    padding-top: 14px;
-    padding-bottom: 14px; }
+    height: 40px; }
   .form-type input[type="text"], .form-type input[type="email"], .form-type input[type="password"] {
-    padding-top: 10px;
-    padding-bottom: 10px; } }
+    height: 40px; } }
+
+html.is-ios .bulletin-form .bulletin-submit {
+  height: 30px; }
 
 /*# sourceMappingURL=main.css.map */
