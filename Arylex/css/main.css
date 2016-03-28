@@ -4649,9 +4649,6 @@ a:hover, a:focus {
     .footer .copyright > span:last-child {
       margin-top: 15px;
       display: block; }
-  @media (max-width: 1199px) {
-    .footer .copyright .logo-footer {
-      margin-bottom: 15px; } }
   @media (max-width: 767px) {
     .footer {
       padding-top: 32px; }
