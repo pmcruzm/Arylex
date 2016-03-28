@@ -93,7 +93,7 @@
 		?>
         <h2><?php _e('Key Benefits','arylex' );?></h2>
         <div class="row">
-            <div class="col-md-3 nav">
+            <div class="col-md-4 col-lg-3 nav">
                 <ul>
                 	<?php
 						$cont=1;
@@ -124,7 +124,7 @@
 					endwhile;
 				?>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2 col-lg-3">
                 <div class="video-arylex-attributes">
                     <a href="<?php echo $url_vid_key;?>" class="youtube-fullview">
                         <i class="icon-video"></i>
