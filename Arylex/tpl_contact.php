@@ -12,7 +12,7 @@
 	//$page = get_page_by_title( 'Legal Terms' );
 	$page = get_posts( array('name'=> 'legal-terms','post_type' => 'page'));
 	$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
-	$post = get_post($id_page); 
+	$post = get_post($id_page);
 	$url_page=get_permalink($post->ID);
 ?>
 <?php
@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <h2><?php the_title();?></h2>
-                    <p><?php the_content();?></p>
+                    <?php the_content();?>
                 </div>
             </div>
         </div>
@@ -70,10 +70,10 @@
 								$new = new WP_Query($args);
 								while ($new->have_posts()) : $new->the_post();
 							?>
-								<option value="<?php the_title();?>"><?php the_title();?></option>     
-							<?php	
+								<option value="<?php the_title();?>"><?php the_title();?></option>
+							<?php
 								endwhile;
-							?> 
+							?>
                         </select>
                     </div>
                     <div>

@@ -41,14 +41,14 @@
               <div class="box-whitepaper">
               <?php echo types_render_field("icon-file",array("output"=>"normal","alt"=>__('Texto alternativo','arylex')));?>
               <p><?php the_title();?></p>
-              <p><?php the_content();?></p>
+              <?php the_content();?>
               <a href="<?php echo types_render_field("file", array("output"=>"raw"));?>"><?php _e('Download','arylex' )?></a>
-              </div>      
-     <?php	
+              </div>
+     <?php
 		endwhile;
 	 ?>
      	</div>
     <?php
 	}
-	?>      
+	?>
 <?php get_footer(); ?>

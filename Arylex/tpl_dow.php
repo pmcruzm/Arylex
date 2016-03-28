@@ -8,14 +8,14 @@
 ?>
 <?php get_header(); ?>
 <?php
-	//Obtenemos datos de productos 
+	//Obtenemos datos de productos
 	$page = get_posts( array('name'=> 'products','post_type' => 'page'));
 	$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
 	$post = get_post($id_page);
 	$exc_prod=$post->post_excerpt;
 	$title_prod=$post->post_title;
 	$link_prod=get_permalink($post->ID);
-?> 
+?>
 <?php
       if ( have_posts() ) : while ( have_posts() ) : the_post();
 		$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <h2><?php the_title();?></h2>
-                    <p><?php the_content();?></p>
+                    <?php the_content();?>
                 </div>
             </div>
         </div>
