@@ -27,6 +27,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-sm-9">
+                	<br>
                 	<h2><?php the_title();?></h2>
                     <p><?php the_content();?></p>
                 </div>
