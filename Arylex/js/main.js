@@ -1,7 +1,7 @@
 
 $(function () {
-	
-	$('html').toggleClass('is-ios', /(iphone|ipod|ipad)/.test(navigator.userAgent.toLowerCase()));
+
+    $('html').toggleClass('is-ios', /(iphone|ipod|ipad)/.test(navigator.userAgent.toLowerCase()));
 
     //Header fixed (escritorio)
     var pixelsFromTheTop = 45;
@@ -108,10 +108,10 @@ $(function () {
             $.ajax({
                 url: ajaxurl,
                 type: 'POST',
-				dataType: 'json',
+                dataType: 'json',
                 data: data,
                 success: function(data){
-					console.log(data.error);
+                    console.log(data.error);
                     if(data.error == 0){
                         elem.val('');
                         errors.html(form.data('msg-success'));
@@ -124,37 +124,37 @@ $(function () {
             });
         }
     });
-	
-	//Formularios new user
-	$('form#form-registration').on('submit', function(e){
-		e.preventDefault();
-        
-		var form = $(this);
+
+    //Formularios new user
+    $('form#form-registration').on('submit', function(e){
+        e.preventDefault();
+
+        var form = $(this);
         var errors = $('.errors', form);
         errors.html('');
-			jQuery.ajax({
-				type: 'POST',
-				dataType: 'json',
-				url: ajaxurl,
-				data: { 
-					'action': 'ajax_registration', //calls wp_ajax_nopriv_ajaxlogin
-					'password': $('input[name="password"]', form).val(), 
-					'rep_password': $('input[name="password-repeat"]', form).val(), 
-					'user': $('input[name="user"]', form).val()},
-				success: function(data){
-					console.log(data);
-					if (data.register == true){
-						$('input[name="password"]', form).val('');
-						$('input[name="password-repeat"]', form).val('');	
-						errors.html(data.message);	
-						window.location = data.url;
-					}else{
-						$('input[name="password"]', form).val('');
-						$('input[name="password-repeat"]', form).val('');
-						errors.html(data.message);	
-					}
-				}
-			});
+            jQuery.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: ajaxurl,
+                data: {
+                    'action': 'ajax_registration', //calls wp_ajax_nopriv_ajaxlogin
+                    'password': $('input[name="password"]', form).val(),
+                    'rep_password': $('input[name="password-repeat"]', form).val(),
+                    'user': $('input[name="user"]', form).val()},
+                success: function(data){
+                    console.log(data);
+                    if (data.register == true){
+                        $('input[name="password"]', form).val('');
+                        $('input[name="password-repeat"]', form).val('');
+                        errors.html(data.message);
+                        window.location = data.url;
+                    }else{
+                        $('input[name="password"]', form).val('');
+                        $('input[name="password-repeat"]', form).val('');
+                        errors.html(data.message);
+                    }
+                }
+            });
     });
 
 
@@ -197,19 +197,19 @@ $(function () {
         $('*[data-validation]', form).removeClass('error').each(validateField);
 
         if(is_form_ok){
-			var data = {
+            var data = {
                 action: 'ajax_contact',
-				name: $('input[name="name"]', form).val(), 
-				email: $('input[name="email"]', form).val(), 
-				telephone: $('input[name="telephone"]', form).val(), 
-				subject: $('select[name="subjet"]', form).val(), 
-				question: $('textarea[name="question"]', form).val(), 
+                name: $('input[name="name"]', form).val(),
+                email: $('input[name="email"]', form).val(),
+                telephone: $('input[name="telephone"]', form).val(),
+                subject: $('select[name="subjet"]', form).val(),
+                question: $('textarea[name="question"]', form).val(),
                 lang : $('input[name="language"]', form).val()
             };
             $.ajax({
                 url: ajaxurl,
                 type: 'POST',
-				dataType: 'json',
+                dataType: 'json',
                 data: data,
                 success: function(data){
                     if(data.error == 0){

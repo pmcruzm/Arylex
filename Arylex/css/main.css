@@ -3936,6 +3936,9 @@ a:hover, a:focus {
   padding-left: 50px;
   line-height: 1.8; }
 
+.page-content ul li, .page-content ol li {
+  margin: 0 0 20px 0; }
+
 .page-content img {
   margin-bottom: 30px; }
 
@@ -4190,7 +4193,7 @@ a:hover, a:focus {
           background-size: 60%; } }
   @media (max-width: 480px) {
     .header-img {
-      height: 270px; }
+      height: 290px; }
       .header-img.header-home {
         height: 340px; }
       .header-img .title-top h2 {
@@ -5053,6 +5056,57 @@ a:hover, a:focus {
         color: white; }
       .news .related-articles .news-item-related .gradient .content a {
         color: white; }
+
+.product-info {
+  margin-top: -138px;
+  font-size: 20px;
+  color: #a69c95;
+  position: relative;
+  left: -10px; }
+  .product-info .product-image {
+    padding: 10px;
+    max-width: 270px;
+    background-color: white;
+    min-height: 210px;
+    margin-bottom: 30px; }
+  @media (max-width: 991px) {
+    .product-info {
+      left: 0; } }
+  @media (max-width: 480px) {
+    .product-info .product-image {
+      min-height: initial; } }
+
+.product-body {
+  margin-top: 105px; }
+  .product-body h3 {
+    font-size: 20px;
+    font-weight: 400; }
+  @media (max-width: 480px) {
+    .product-body {
+      margin-top: 50px; } }
+
+.header-img.header-product .highlight {
+  bottom: 110px; }
+
+@media (max-width: 767px) {
+  .header-img.header-product .highlight {
+    bottom: 140px; } }
+
+article.product-list {
+  margin-top: 60px; }
+  article.product-list h3 {
+    font-size: 40px;
+    margin-bottom: 5px; }
+  article.product-list h3 + p {
+    font-size: 18px; }
+  article.product-list img {
+    max-width: 163px;
+    transition: all 0.35s ease-out;
+    -webkit-backface-visibility: hidden; }
+  article.product-list a p {
+    color: #6f625a; }
+  article.product-list a:hover img {
+    opacity: 0.8; }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .search-form .search-field {
