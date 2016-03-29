@@ -4190,7 +4190,7 @@ a:hover, a:focus {
           background-size: 60%; } }
   @media (max-width: 480px) {
     .header-img {
-      height: 200px; }
+      height: 270px; }
       .header-img.header-home {
         height: 340px; }
       .header-img .title-top h2 {
@@ -5064,6 +5064,13 @@ a:hover, a:focus {
     height: 40px; } }
 
 html.is-ios .bulletin-form .bulletin-submit {
-  height: 30px; }
+  height: 35px; }
+
+html.is-ios .search-form .search-field {
+  height: 44px;
+  line-height: normal; }
+
+html.is-ios .search-form .search-submit {
+  top: 2px; }
 
 /*# sourceMappingURL=main.css.map */
