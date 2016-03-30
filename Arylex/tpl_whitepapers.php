@@ -43,12 +43,12 @@
               <p><?php the_title();?></p>
               <?php the_content();?>
               <a href="<?php echo types_render_field("file", array("output"=>"raw"));?>"><?php _e('Download','arylex' )?></a>
-              </div>
-     <?php
+              </div>      
+     <?php	
 		endwhile;
 	 ?>
      	</div>
     <?php
 	}
-	?>
+	?>      
 <?php get_footer(); ?>

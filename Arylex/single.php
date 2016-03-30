@@ -1,5 +1,10 @@
 <?php get_header(); ?>
 <?php
+	
+	$post_type=get_post_type();
+	
+	if($post_type=='post'){
+	
 	//Obtenemos datos de views&news 
 	$page = get_posts( array('name'=> 'news-views','post_type' => 'page'));
 	$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
@@ -194,5 +199,56 @@
 </main>
 <?php
        endwhile; endif;wp_reset_query();
+	}else{
+		if($post_type=='single-product'){
+
+			//Obtenemos datos de views&news 
+			$page = get_posts( array('name'=> 'products','post_type' => 'page'));
+			$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+			$post = get_post($id_page); 
+			$title_page=$post->post_title;
+			$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
+			$cover_view = $thumb['0'];
+?>	
+		
+			<header class="header-img header-product" style="background-image:url('<?php echo $cover_view;?>');">
+                <span class="furrows"></span>
+                <div class="highlight">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h2><?php echo $title_page;?></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            
+            <main id="main" role="main">
+            	<?php
+                	if ( have_posts() ) : while ( have_posts() ) : the_post();
+					$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
+					$cover_top = $thumb['0'];
+				?>
+                <article class="container">
+                    <div class="row">
+                        <div class="col-md-4 product-info">
+                            <p class="product-image"><img src="<?php echo $cover_top;?>" class="img-responsive" alt="<?php the_title();?>"></p>
+                            <?php echo types_render_field("left-colum-product",array("output"=>"html"));?>
+                        </div>
+                        <div class="col-md-6 col-md-offset-1 product-body page-content">
+                            <?php echo types_render_field("right-colum-product",array("output"=>"html"));?>
+                        </div>
+                    </div>
+                </article>
+                <?php
+                	 endwhile; endif;wp_reset_query();
+				?>
+            
+            </main>
+<?php	
+		}
+	}
 ?>
 <?php get_footer(); ?>

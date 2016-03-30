@@ -40,6 +40,28 @@
             </div>
         </div>
     </article>
+    
+    <article class="container product-list">
+        <div class="row">
+        	<?php
+					$args = array('post_type' => 'single-product');
+					$new = new WP_Query($args);
+					while ($new->have_posts()) : $new->the_post();
+					$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
+					$cover_top = $thumb['0'];
+				?>
+                	 <div class="col-sm-4">
+                        <a href="<?php echo get_permalink($post->ID); ?>">
+                            <h3><?php the_title();?></h3>
+                            <?php the_content();?>
+                            <p><img src="<?php echo $cover_top;?>" class="img-responsive" alt="<?php the_title();?>"></p>
+                        </a>
+                    </div>  
+                <?php	
+					endwhile;
+				?>
+        </div>
+    </article>
 
 </main>
 <?php

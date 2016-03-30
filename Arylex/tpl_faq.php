@@ -42,9 +42,9 @@
 				?>
                   	<h4><?php the_title();?></h4>
                 	<div class="page-content">
-                  		<?php the_content();?>
-                    </div>
-                <?php
+                  		<?php the_content();?>  
+                    </div>    
+                <?php	
 					endwhile;
 				?>
             </div>
@@ -56,7 +56,7 @@
 						// Get all the taxonomies for this post type
 						 $terms = get_terms('categories-faq');
 						 foreach( $terms as $term ){
-							$term_link = get_term_link( $term );
+							$term_link = get_term_link( $term ); 
 							echo '<li><a href="'.$term_link.'" rel="'.$term->slug.'">'.$term->name.'</a></li>';
 						 }
 					?>
@@ -67,7 +67,7 @@
                     <p><?php _e('If you don’t find answers to your question here, please send us your question and we will get back to you as soon as possible.','arylex');?></p>
                     <div class="submit">
                     	<?php $page = get_page_by_title( 'Contact' );
-							  $link_page=get_page_link($page->ID);
+							  $link_page=get_page_link($page->ID); 
 						?>
                         <a href="<?php echo $link_page;?>" class="submit"><?php _e('SEND QUESTION','arylex');?></a>
                     </div>
