@@ -4829,7 +4829,7 @@ a:hover, a:focus {
       width: inherit;
       height: inherit;
       position: relative;
-      background: linear-gradient(to bottom, transparent, #bb650e);
+      background: linear-gradient(to bottom, transparent, #707271);
       transition: opacity 0.15s; }
       .news .news-featured div[class*="news-item-featured-"] .gradient:hover {
         opacity: .85; }
