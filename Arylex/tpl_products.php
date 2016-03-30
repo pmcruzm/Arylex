@@ -33,7 +33,6 @@
         <div class="row">
             <div class="col-md-4">
                 <?php echo types_render_field("text-products",array("output"=>"html"));?>
-                <p><img src="<?php bloginfo('template_url'); ?>/img/logo-grey.png" class="img-responsive"></p>
             </div>
             <div class="col-md-6 col-md-offset-1">
                 <img src="<?php echo types_render_field("image-products",array("output"=>"raw"));?>" class="img-responsive center-block">
