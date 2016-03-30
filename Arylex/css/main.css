@@ -5117,6 +5117,10 @@ article.product-list {
   .form-type input[type="text"], .form-type input[type="email"], .form-type input[type="password"] {
     height: 40px; } }
 
+@media all and (-ms-high-contrast: none) and (max-width: 767px), (-ms-high-contrast: active) and (max-width: 767px) {
+  .logo-top h1 a {
+    height: 23px; } }
+
 html.is-ios .bulletin-form .bulletin-submit {
   height: 35px; }
 
