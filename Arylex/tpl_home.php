@@ -8,14 +8,14 @@
 ?>
 <?php get_header(); ?>
 <?php
-	//Obtenemos datos de productos
+	//Obtenemos datos de productos 
 	$page = get_posts( array('name'=> 'products','post_type' => 'page'));
 	$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
 	$post = get_post($id_page);
 	$exc_prod=$post->post_excerpt;
 	$title_prod=$post->post_title;
 	$link_prod=get_permalink($post->ID);
-?>
+?> 
 <?php
     if ( have_posts() ) : while ( have_posts() ) : the_post();
 	$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );
@@ -27,7 +27,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-sm-9">
-                	<br>
                 	<h2><?php the_title();?></h2>
                     <?php the_content();?>
                 </div>
@@ -35,7 +34,7 @@
 					$title_vid=types_render_field("title-video",array("output"=>"raw"));
 					$url_vid=types_render_field("url-video",array("output"=>"raw"));
 					if($title_vid!="" && $url_vid!="" ){
-				?>
+				?>	
                 	<div class="col-md-4 col-sm-3">
                         <div class="video-arylex">
                             <a href="<?php echo $url_vid;?>" class="youtube-fullview">
@@ -43,7 +42,7 @@
                                 <?php echo $title_vid;?>
                             </a>
                         </div>
-                    </div>
+                    </div>	
 				<?php
                 	}
 				?>
@@ -94,7 +93,7 @@
 		?>
         <h2><?php _e('Key Benefits','arylex' );?></h2>
         <div class="row">
-            <div class="col-md-4 col-lg-3 nav">
+            <div class="col-md-3 nav">
                 <ul>
                 	<?php
 						$cont=1;
@@ -102,11 +101,11 @@
 						$new = new WP_Query($args);
 						while ($new->have_posts()) : $new->the_post();
 					?>
-					  <li><a href="#key-<?php echo $cont;?>"><?php echo get_the_title();?></a></li>
-					<?php
+					  <li><a href="#key-<?php echo $cont;?>"><?php echo get_the_title();?></a></li>      
+					<?php	
 						$cont++;
 						endwhile;
-					?>
+					?>  
                 </ul>
             </div>
             <div class="col-md-6 content">
@@ -119,13 +118,13 @@
                   <div id="key-<?php echo $cont;?>">
                   	<h3><?php the_title();?></h3>
                   	<?php the_content();?>
-                  </div>
-                <?php
+                  </div>      
+                <?php	
 					$cont++;
 					endwhile;
 				?>
             </div>
-            <div class="col-md-2 col-lg-3">
+            <div class="col-md-3">
                 <div class="video-arylex-attributes">
                     <a href="<?php echo $url_vid_key;?>" class="youtube-fullview">
                         <i class="icon-video"></i>

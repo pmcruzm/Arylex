@@ -215,29 +215,20 @@ function ajax_contact(){
 	require( 'mailing/contact_mailing.php');
 	$mensaje = ob_get_contents();
 	ob_end_clean();
-	//$mensaje = file_get_contents('http://arylex.eu/mailing/contact_'.$_POST["lang"].'.php'); 
-	//$mensaje = file_get_contents(get_template_directory_uri().'/mailing/contact_mailing.php'); 
-	//$mensaje =get_template_directory_uri().'/mailing/contact_mailing.php';
 	$mensaje = str_replace('%nombre%', $_POST['name'], $mensaje); 
 	$mensaje = str_replace('%email%', $_POST['email'], $mensaje); 
 	$mensaje = str_replace('%telefono%', $_POST['telephone'], $mensaje);
 	$mensaje = str_replace('%asunto%', $_POST['question'], $mensaje);
     
-	//$mensaje='Name: '.$_POST['name'].'<br/>Email: '.$_POST['email'].'<br/>Telephone: '.$_POST['telephone'].'<br/>Subject: '.$_POST['subject'].'<br/>Question: '.$_POST['question'];
-	//$mensaje='Name: '.$_POST['name'].'<br/>Email: '.$_POST['email'].'<br/>Telephone: '.$_POST['telephone'].'<br/>Question: '.$_POST['question'];
-	
-	//Destinatario mail según idioma
-	//$mail_dest="pmcruzm@gmail.com,ia@homeatc.com,bmp@homeatc.com";
-	$mail_dest="pmcruzm@gmail.com";
 	switch($_POST["lang"]){
 		case 'en':
-			//$mail_dest='DowAgroSciencesUK@dow.com';
+			$mail_dest='DowAgroSciencesUK@dow.com';
 		break;
 		case 'fr':
-			//$mail_dest='bdattin@dow.com';
+			$mail_dest='bdattin@dow.com';
 		break;
 		case 'de':
-			//$mail_dest='dowagrosciencesd@dow.com';
+			$mail_dest='dowagrosciencesd@dow.com';
 		break;
 	}
 	
@@ -467,15 +458,6 @@ add_filter( 'pre_get_posts', 'fb_search_filter' );
 /***
 * Custom Forget password  
 ***/
-/*
-// Change "From" email address
-add_filter( 'wp_mail_from', function( $email ) {
-	return 'hello@mydomain.com';
-});
-// Change "From" email name
-add_filter( 'wp_mail_from_name', function( $name ) {
-	return __( 'My Website' );
-});*/
 
 // Change Subject
 add_filter( 'retrieve_password_title', function( $title, $user_login, $user_data ) {
@@ -506,21 +488,7 @@ function rv_new_retrieve_password_message( $message, $key, $user_login, $user_da
 
 
 /***
-* Limit Dashboard access 
+* Shortcode Custom login 
 ***/
-function custom_restrict_users()
-{
-  if (!current_user_can('manage_options'))
-  {
-    /* Remove admin bar */
-    show_admin_bar(false);
-    if(is_admin())
-    {
-     wp_redirect( home_url() );
-     exit;
-    }
-  }
-}
-add_action( 'init', 'custom_restrict_users' );
 
 ?>

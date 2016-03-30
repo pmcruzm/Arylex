@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 		<?php if ( have_posts() ) : ?>
 			<?php
-				//Comprobamos si es taxonomía(FAQ)
+				//Comprobamos si es taxonomía (FAQ) o 
 				if(is_tax($cat)){
 					$tax = $wp_query->get_queried_object();
 			?>
