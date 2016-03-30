@@ -4059,11 +4059,6 @@ a:hover, a:focus {
       padding-left: 20px;
       padding-right: 20px; } }
 
-#main.home > article.container:nth-child(1) > .row:nth-child(2), #main.home > article.key-benefits:nth-child(1) > .row:nth-child(2), .news #main.home > article.news-featured:nth-child(1) > .row:nth-child(2), .news #main.home > article.news-list:nth-child(1) > .row:nth-child(2), .news #main.home > article.news-detail:nth-child(1) > .row:nth-child(2) {
-  margin-top: 50px; }
-  #main.home > article.container:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img, #main.home > article.key-benefits:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img, .news #main.home > article.news-featured:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img, .news #main.home > article.news-list:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img, .news #main.home > article.news-detail:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img {
-    margin-top: 90px; }
-
 .search-form {
   line-height: 32px;
   max-width: 255px;
@@ -4759,6 +4754,15 @@ a:hover, a:focus {
   color: red; }
   .form-type div.errors p {
     margin: 0; }
+
+#main.home > article.container:nth-child(1) > .row:nth-child(1) > div:nth-child(2) img, #main.home > article.key-benefits:nth-child(1) > .row:nth-child(1) > div:nth-child(2) img, .news #main.home > article.news-featured:nth-child(1) > .row:nth-child(1) > div:nth-child(2) img, .news #main.home > article.news-list:nth-child(1) > .row:nth-child(1) > div:nth-child(2) img, .news #main.home > article.news-detail:nth-child(1) > .row:nth-child(1) > div:nth-child(2) img {
+  margin-top: 30px;
+  max-width: 380px; }
+
+#main.home > article.container:nth-child(1) > .row:nth-child(2), #main.home > article.key-benefits:nth-child(1) > .row:nth-child(2), .news #main.home > article.news-featured:nth-child(1) > .row:nth-child(2), .news #main.home > article.news-list:nth-child(1) > .row:nth-child(2), .news #main.home > article.news-detail:nth-child(1) > .row:nth-child(2) {
+  margin-top: 50px; }
+  #main.home > article.container:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img, #main.home > article.key-benefits:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img, .news #main.home > article.news-featured:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img, .news #main.home > article.news-list:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img, .news #main.home > article.news-detail:nth-child(1) > .row:nth-child(2) > div:nth-child(2) img {
+    margin-top: 90px; }
 
 .key-benefits .nav ul li {
   font-size: 18px;
