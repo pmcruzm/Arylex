@@ -43,7 +43,7 @@
 					<?php
                         //Obtenemos datos de login
 						$page = get_posts( array('name'=> 'user-login','post_type' => 'page'));
-						$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+						$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'page', FALSE, ICL_LANGUAGE_CODE);
 						$post = get_post($id_page);
 						$link_login=get_permalink($post->ID);
                         //$args = array('post_type' => 'page','pagename' =>'user-login');

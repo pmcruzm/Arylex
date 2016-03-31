@@ -43,7 +43,7 @@
     <article class="container product-list">
         <div class="row">
         	<?php
-					$args = array('post_type' => 'single-product');
+					$args = array('post_type' => 'product');
 					$new = new WP_Query($args);
 					while ($new->have_posts()) : $new->the_post();
 					$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );

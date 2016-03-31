@@ -8,7 +8,7 @@
             <?php
 				//Obtenemos datos de faq 
 				$page = get_posts( array('name'=> 'faq','post_type' => 'page'));
-				$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+				$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'page', FALSE, ICL_LANGUAGE_CODE);
 				$post = get_post($id_page); 
 				$title_page=$post->post_title;
 				$content_page=$post->post_content;
@@ -86,7 +86,7 @@
 						 $this_category = get_category($cat);	
 						 //Obtenemos datos de views&news 
 						 	$page = get_posts( array('name'=> 'news-views','post_type' => 'page'));
-							$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+							$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'page', FALSE, ICL_LANGUAGE_CODE);
 							$post = get_post($id_page); 
 							$title_page=$post->post_title;
 							$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail_size' );

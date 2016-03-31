@@ -471,10 +471,13 @@ add_filter( 'wp_mail_content_type', function( $content_type ) {
 add_filter( 'retrieve_password_message', 'rv_new_retrieve_password_message', 10, 4 );
 function rv_new_retrieve_password_message( $message, $key, $user_login, $user_data ){
 	
+	$language_user = esc_attr(get_the_author_meta('language_user',$user_data->ID));
+	
 	$reset_url = add_query_arg( array(
 		'action' => 'rp',
 		'key' => $key,
-		'login' => rawurlencode( $user_login )
+		'login' => rawurlencode( $user_login ),
+		'lang' => $language_user
 	), wp_login_url() );
 	ob_start();
 	

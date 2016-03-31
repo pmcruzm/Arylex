@@ -10,7 +10,7 @@
 <?php
 	//Obtenemos datos de productos 
 	$page = get_posts( array('name'=> 'products','post_type' => 'page'));
-	$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+	$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'page', FALSE, ICL_LANGUAGE_CODE);
 	$post = get_post($id_page);
 	$exc_prod=$post->post_excerpt;
 	$title_prod=$post->post_title;

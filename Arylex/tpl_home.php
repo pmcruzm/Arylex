@@ -10,7 +10,7 @@
 <?php
 	//Obtenemos datos de productos 
 	$page = get_posts( array('name'=> 'products','post_type' => 'page'));
-	$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'attachment', FALSE, ICL_LANGUAGE_CODE);
+	$id_page=apply_filters( 'wpml_object_id', $page[0]->ID, 'page', FALSE, ICL_LANGUAGE_CODE);
 	$post = get_post($id_page);
 	$exc_prod=$post->post_excerpt;
 	$title_prod=$post->post_title;
@@ -61,7 +61,7 @@
                 <?php echo types_render_field("content-top-box",array("output"=>"html"));?>
             </div>
             <div class="col-md-6">
-                <img src="<?php echo types_render_field("image-top-box",array("output"=>"raw"));?>" class="img-responsive center-block">
+                <img src="<?php bloginfo('template_url'); ?>/svg/graphic-home-01.svg" class="img-responsive center-block">
             </div>
         </div>
         <div class="row">
